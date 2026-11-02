@@ -4180,3 +4180,19 @@ textarea:focus-visible {
     border-top: 1px solid rgba(255, 255, 255, 0.15);
   }
 }
+
+/* force dark theme + white headings in every browser */
+html {
+  color-scheme: dark;
+}
+
+.service-page,
+.prototype-app {
+  color: #ffffff;
+}
+
+.service-page h1,
+.service-page h2,
+.service-page h3 {
+  color: #ffffff;
+}
