@@ -351,6 +351,7 @@ const NAV_ITEMS = [
   ['Home', '#home'],
   ['Services', '#services'],
   ['Work', '#work'],
+  ['Pricing', '/pricing'],
   ['Contact', '#contact'],
 ]
 
@@ -437,16 +438,27 @@ function Navbar({ onLogoClick }) {
         id="primary-menu"
         className={`nav-links ${open ? 'is-open' : ''}`}
       >
-        {NAV_ITEMS.map(([label, href], i) => (
-          <a
-            key={href}
-            href={href}
-            style={{ '--i': i }}
-            onClick={closeMenu}
-          >
-            {label}
-          </a>
-        ))}
+        {NAV_ITEMS.map(([label, href], i) =>
+  href.startsWith('/') ? (
+    <Link
+      key={href}
+      to={href}
+      style={{ '--i': i }}
+      onClick={closeMenu}
+    >
+      {label}
+    </Link>
+  ) : (
+    <a
+      key={href}
+      href={href}
+      style={{ '--i': i }}
+      onClick={closeMenu}
+    >
+      {label}
+    </a>
+  )
+)}
 
         <div className="menu-footer">
           <p>HAVE A PROJECT IN MIND?</p>
@@ -1541,6 +1553,458 @@ function ProjectPage() {
   )
 }
 
+/* =================================
+   PRICING PAGE
+================================= */
+
+const TIERS = [
+  {
+    key: 'liftoff',
+    tier: 'Tier 1',
+    name: 'LIFTOFF',
+    title: 'Essential Starter',
+    price: '₹5,000 – ₹6,500',
+    delivery: '3–5 business days',
+    bestFor:
+      'New businesses that need a quick, professional first website.',
+    features: [
+      'One-page site, 4–5 sections: hero, about, offers, gallery, contact',
+      'Loads fast on 4G / 5G phones',
+      'WhatsApp chat, tap-to-call and email buttons',
+      'Basic Google SEO set-up and a Google Maps embed',
+    ],
+    built: 'HTML5, CSS3, light JavaScript',
+  },
+  {
+    key: 'orbit',
+    tier: 'Tier 2',
+    name: 'ORBIT',
+    title: 'Dynamic Interactive',
+    price: '₹7,000 – ₹8,500',
+    delivery: '5–8 business days',
+    bestFor:
+      'Established local businesses: hotels, restaurants, studios showing client work.',
+    features: [
+      'Sliding galleries and category filters (e.g. Deluxe vs Executive)',
+      'Tap a photo to view it full-screen',
+      'Customer review slider',
+      'Contact form that checks fields as you type',
+      'Smooth animations, custom colours, mobile menu',
+    ],
+    built: 'React.js, Vite, modern CSS / Tailwind',
+    featured: true,
+  },
+  {
+    key: 'deepspace',
+    tier: 'Tier 3',
+    name: 'DEEP SPACE',
+    title: 'Growth & Smart AI',
+    price: '₹9,000 – ₹10,000',
+    delivery: '8–12 business days',
+    bestFor:
+      'Businesses with many enquiries that want them handled automatically.',
+    features: [
+      'Booking requests with dates, guests and preferences',
+      'Enquiries saved and emailed to you instantly',
+      'AI assistant answers customer questions 24/7',
+      'Filterable galleries and pop-up views',
+      'Multi-section site with dynamic views',
+    ],
+    built: 'React.js, Flask / Node API, AI assistant',
+  },
+]
+
+const COMPARE_ROWS = [
+  ['Price', '₹5,000 – ₹6,500', '₹7,000 – ₹8,500', '₹9,000 – ₹10,000'],
+  ['Ready in', '3 to 5 business days', '5 to 8 business days', '8 to 12 business days'],
+  ['Best for', 'New launch, first website', 'Established local business', 'Growing, high enquiry volume'],
+  ['Built with', 'HTML5, CSS3, simple JavaScript', 'React.js and Vite', 'React + backend API + AI'],
+  ['Website layout', 'One landing page, 4–5 sections', 'Interactive, multi-section', 'Multi-section with dynamic views'],
+  ['Photo gallery', 'Standard photo grid', 'Slider / carousel', 'Filterable, with pop-up views'],
+  ['How customers reach you', 'WhatsApp and phone buttons', 'Validated contact form', 'Automated booking and lead system'],
+  ['AI assistant', 'Not included', 'Optional extra, priced separately', 'Included, answers 24/7'],
+]
+
+const INCLUDED = [
+  ['Hero & promise', 'A strong top banner that shows who you are, with clear buttons for customers to act.'],
+  ['Photo gallery', 'Rooms, facilities, menus or finished work, shown beautifully.'],
+  ['Services & prices', 'Service tiers, room types, amenities and rates that are easy to scan.'],
+  ['Trust & reviews', 'Testimonials, guest reviews and badges that build confidence fast.'],
+  ['Contact & map', 'Contact form, WhatsApp and phone buttons, and an embedded Google Map.'],
+  ['Built to a standard', 'Every site meets strict standards for phone-friendliness, typography and speed.'],
+]
+
+const PROCESS = [
+  ['Discovery', 'DAYS 1–2', 'We collect your brand colours, photos, service details and how you want customers to contact you.'],
+  ['Layout preview', 'DAYS 3–4', 'We plan the layout and send you a private preview link so you can see it and give feedback.'],
+  ['Build', 'DAYS 5–8', 'We code your site in HTML/CSS or React, adding the backend and AI if your package includes them.'],
+  ['Test and handoff', 'FINAL DAYS', 'We test on many devices and hand over the complete code and files.'],
+]
+
+const NEEDS = [
+  ['Brand look', 'Your logo and brand colours, if you have them.'],
+  ['Photos', 'Pictures of rooms, food, premises or finished work.'],
+  ['Service details', 'What you offer, plus your prices or rate cards.'],
+  ['Contact preferences', 'WhatsApp, phone, email: how customers should reach you.'],
+]
+
+const PROMISES = [
+  ['You own everything', 'All source code, assets and settings are yours once the project is signed off.'],
+  ['You approve first', 'You review a private preview and approve it before the final handoff.'],
+  ['Room to grow', 'Clean, modular code means new pages and features can be added later.'],
+]
+
+const NOT_INCLUDED = [
+  ['Domain name and hosting', 'Bought and paid for by you, directly. This includes hosting for the Deep Space booking system.'],
+  ['Domain and hosting set-up', 'Optional extra. We can do it for an additional fee.'],
+  ['AI assistant on Orbit', 'Optional extra, priced separately. Included in Deep Space.'],
+]
+
+const GLOSSARY = [
+  ['Responsive', 'Your site automatically fits phones, tablets and laptops.'],
+  ['SEO', 'Small technical touches that help people find your business on Google.'],
+  ['Landing page', 'One scrolling page that tells your whole story.'],
+  ['Carousel', 'A gallery that slides sideways to show more photos.'],
+  ['Lightbox', 'Tap a photo and it opens large, full-screen.'],
+  ['Backend', 'The hidden part of a site that stores enquiries and emails you alerts. Used in the Deep Space package.'],
+  ['AI assistant', 'A chat box that answers common customer questions by itself, day or night.'],
+  ['Domain and hosting', 'Your domain is your web address (like yourbusiness.com). Hosting is the online space where your site lives. You pay for both directly. Setting them up for you is an optional extra.'],
+]
+
+function Pricing() {
+  usePageMeta(
+    'Pricing — PROTOTYPE',
+    'Three clear website packages from ₹5,000 to ₹10,000 for hotels, restaurants, local services and creative studios. Plain prices, plain timelines.'
+  )
+
+  return (
+    <main className="service-page pricing-page">
+
+      <ServiceNavbar />
+
+      {/* HERO */}
+      <section className="service-hero">
+
+        <p className="service-eyebrow" data-reveal>
+          WEBSITE PRICING GUIDE — FY 2026-27
+        </p>
+
+        <h1 data-reveal="1">
+          PICK A
+          <br />
+          <span>PACKAGE.</span>
+        </h1>
+
+        <p className="service-page-description" data-reveal="2">
+          Three clear website packages for hotels, restaurants, local
+          services and creative studios. Plain prices, plain timelines,
+          and a simple process from first hello to launch day.
+        </p>
+
+        <div className="pricing-stats" data-reveal="3">
+          <div><strong>3</strong><span>PACKAGES TO CHOOSE FROM</span></div>
+          <div><strong>₹5K – ₹10K</strong><span>PRICE RANGE</span></div>
+          <div><strong>3 – 12</strong><span>BUSINESS DAYS TO DELIVER</span></div>
+        </div>
+
+        <a href="/#contact" className="service-cta" data-reveal="3">
+          Book a project scoping chat <span>↗</span>
+        </a>
+
+      </section>
+
+
+      {/* PACKAGES */}
+      <section className="pricing-section" id="packages">
+
+        <div className="work-heading" data-reveal>
+          <p className="section-label">01 / PACKAGES</p>
+          <h2>
+            THREE WAYS
+            <br />
+            <span>TO START.</span>
+          </h2>
+          <p className="work-intro">
+            Your website is a 24/7 storefront. It builds trust quickly and
+            turns visitors into enquiries. Choose the stage your business
+            is at, and we build to match.
+          </p>
+        </div>
+
+        <div className="tier-grid">
+          {TIERS.map((t, i) => (
+            <article
+              key={t.key}
+              className={`tier-card ${t.featured ? 'is-featured' : ''}`}
+              data-reveal={i}
+            >
+              {t.featured && <span className="tier-badge">MOST POPULAR</span>}
+
+              <p className="tier-label">{t.tier}</p>
+              <h3 className="tier-name">{t.name}</h3>
+              <p className="tier-title">{t.title}</p>
+
+              <p className="tier-price">{t.price}</p>
+
+              <dl className="tier-meta">
+                <div>
+                  <dt>DELIVERY</dt>
+                  <dd>{t.delivery}</dd>
+                </div>
+                <div>
+                  <dt>BEST FOR</dt>
+                  <dd>{t.bestFor}</dd>
+                </div>
+              </dl>
+
+              <p className="tier-label">YOU GET</p>
+              <ul className="tier-features">
+                {t.features.map((f) => (
+                  <li key={f}>{f}</li>
+                ))}
+              </ul>
+
+              <p className="tier-built">
+                <span>BUILT WITH</span> {t.built}
+              </p>
+
+              <a href="/#contact" className="tier-cta">
+                Choose {t.name} <span>↗</span>
+              </a>
+            </article>
+          ))}
+        </div>
+
+        <p className="pricing-note" data-reveal>
+          Prices don’t include a domain name or hosting. You buy these
+          directly. Optional set-up help is available for an extra fee.
+        </p>
+
+        <div className="pricing-helper" data-reveal>
+          <p className="section-label">NOT SURE WHICH ONE FITS?</p>
+          <div className="helper-grid">
+            <div><span>I’m just starting out</span><strong>Choose LIFTOFF</strong></div>
+            <div><span>I’m established and want a polished, interactive site</span><strong>Choose ORBIT</strong></div>
+            <div><span>I get many enquiries and want automation</span><strong>Choose DEEP SPACE</strong></div>
+          </div>
+        </div>
+
+      </section>
+
+
+      {/* COMPARE */}
+      <section className="pricing-section" id="compare">
+
+        <div className="work-heading" data-reveal>
+          <p className="section-label">02 / COMPARE</p>
+          <h2>
+            SIDE
+            <br />
+            <span>BY SIDE.</span>
+          </h2>
+          <p className="work-intro">
+            The same information in one table. Look across a row to see
+            what changes as you move up.
+          </p>
+        </div>
+
+        <div className="compare-scroll" data-reveal>
+          <table className="compare-table">
+            <thead>
+              <tr>
+                <th />
+                <th>LIFTOFF<small>Essential Starter</small></th>
+                <th>ORBIT<small>Dynamic Interactive</small></th>
+                <th>DEEP SPACE<small>Growth &amp; Smart AI</small></th>
+              </tr>
+            </thead>
+            <tbody>
+              {COMPARE_ROWS.map(([label, a, b, c]) => (
+                <tr key={label}>
+                  <th scope="row">{label}</th>
+                  <td>{a}</td>
+                  <td>{b}</td>
+                  <td>{c}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+
+        <div className="pricing-two-col">
+
+          <div data-reveal>
+            <p className="section-label">INCLUDED IN EVERY PACKAGE</p>
+            <div className="details-list pricing-list">
+              {INCLUDED.map(([title, text]) => (
+                <div className="detail-item" key={title}>
+                  <h3>{title}</h3>
+                  <p>{text}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div data-reveal="1">
+            <p className="section-label">NOT INCLUDED IN THE PRICE</p>
+            <div className="details-list pricing-list">
+              {NOT_INCLUDED.map(([title, text]) => (
+                <div className="detail-item" key={title}>
+                  <h3>{title}</h3>
+                  <p>{text}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+
+        </div>
+
+      </section>
+
+
+      {/* PROCESS */}
+      <section className="pricing-section" id="process">
+
+        <div className="work-heading" data-reveal>
+          <p className="section-label">03 / PROCESS</p>
+          <h2>
+            FROM HELLO
+            <br />
+            <span>TO DONE.</span>
+          </h2>
+          <p className="work-intro">
+            Four simple steps. You always know what is happening, and you
+            approve the site before it is handed over.
+          </p>
+        </div>
+
+        <div className="process-grid">
+          {PROCESS.map(([title, days, text], i) => (
+            <div className="process-step" key={title} data-reveal={i}>
+              <span className="process-num">{i + 1}</span>
+              <p className="process-days">{days}</p>
+              <h3>{title}</h3>
+              <p>{text}</p>
+            </div>
+          ))}
+        </div>
+
+        <p className="pricing-note" data-reveal>
+          These day numbers show a larger build. Smaller packages finish
+          sooner; each package’s delivery time is shown above.
+        </p>
+
+        <div className="pricing-two-col">
+
+          <div data-reveal>
+            <p className="section-label">WHAT WE NEED FROM YOU</p>
+            <div className="details-list pricing-list">
+              {NEEDS.map(([title, text], i) => (
+                <div className="detail-item" key={title}>
+                  <h3>0{i + 1} — {title}</h3>
+                  <p>{text}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div data-reveal="1">
+            <p className="section-label">HOW PAYMENT WORKS</p>
+            <div className="payment-split">
+              <div>
+                <strong>50%</strong>
+                <span>Advance, to start the project</span>
+              </div>
+              <div>
+                <strong>50%</strong>
+                <span>Balance, after you approve the preview</span>
+              </div>
+            </div>
+            <p className="pricing-note pricing-note-left">
+              You pay the balance after you have seen and approved the final
+              preview, and before we hand over the finished site.
+            </p>
+
+            <p className="section-label" style={{ marginTop: 50 }}>
+              OUR PROMISES
+            </p>
+            <div className="details-list pricing-list">
+              {PROMISES.map(([title, text]) => (
+                <div className="detail-item" key={title}>
+                  <h3>{title}</h3>
+                  <p>{text}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+
+        </div>
+
+      </section>
+
+
+      {/* GLOSSARY */}
+      <section className="pricing-section" id="good-to-know">
+
+        <div className="work-heading" data-reveal>
+          <p className="section-label">04 / GOOD TO KNOW</p>
+          <h2>
+            PLAIN-ENGLISH
+            <br />
+            <span>GUIDE.</span>
+          </h2>
+          <p className="work-intro">
+            A few web terms you may hear from us, explained simply.
+          </p>
+        </div>
+
+        <div className="glossary-grid">
+          {GLOSSARY.map(([term, text], i) => (
+            <div className="glossary-item" key={term} data-reveal={i % 2}>
+              <h3>{term}</h3>
+              <p>{text}</p>
+            </div>
+          ))}
+        </div>
+
+      </section>
+
+
+      {/* CTA */}
+      <section className="service-project-cta">
+
+        <p className="service-eyebrow" data-reveal>
+          READY WHEN YOU ARE
+        </p>
+
+        <h2 data-reveal="1">
+          LET’S SCOPE
+          <br />
+          <span>YOUR PROJECT.</span>
+        </h2>
+
+        <p data-reveal="2">
+          Schedule a short project scoping discussion. Tell us about your
+          business and we will recommend the package that fits.
+        </p>
+
+        <div className="contact-actions" data-reveal="3">
+          <a href="mailto:gaurav.official.018@gmail.com" className="email-button">
+            gaurav.official.018@gmail.com <span>↗</span>
+          </a>
+          <a href="tel:+918957549660" className="phone-link">
+            +91 89575 49660
+          </a>
+        </div>
+
+      </section>
+
+      <Footer />
+
+    </main>
+  )
+}
+
 
 /* =================================
    SCROLL HANDLING
@@ -1607,7 +2071,7 @@ function App() {
             path="/projects/:slug"
             element={<ProjectPage />}
           />
-
+          <Route path="/pricing" element={<Pricing />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </div>
