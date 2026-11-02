@@ -4196,3 +4196,25 @@ html {
 .service-page h3 {
   color: #ffffff;
 }
+
+.service-page h1,
+.service-page h2,
+.service-page h3,
+.prototype-app h1,
+.prototype-app h2,
+.prototype-app h3 {
+  color: #ffffff !important;
+  -webkit-text-fill-color: #ffffff;
+}
+
+.service-hero h1 span,
+.service-project-cta h2 span,
+.work-heading h2 span,
+.services-heading h2 span,
+.contact-heading h2 span,
+.footer-connect h3 span,
+.project-info h3 span,
+.hero-content h1 span {
+  color: #8f8f8f !important;
+  -webkit-text-fill-color: #8f8f8f;
+}
