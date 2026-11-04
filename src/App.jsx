@@ -64,7 +64,7 @@ const projects = [
     ctaText:
       "Have an idea or business that needs a strong digital presence? Let's create something that makes an impact.",
 
-    liveUrl: '', // optional: add a link to show a "Live Site" button
+    liveUrl: 'https://www.pcpmedia.in', // optional: add a link to show a "Live Site" button
   },
 ]
 
@@ -1466,9 +1466,21 @@ function ProjectPage() {
           <span>{project.titleBottom}</span>
         </h1>
 
-        <p className="service-page-description" data-reveal="2">
+                <p className="service-page-description" data-reveal="2">
           {project.pageSummary}
         </p>
+
+        {project.liveUrl && (
+          <a
+            href={project.liveUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="service-cta"
+            data-reveal="3"
+          >
+            View Live Site <span>↗</span>
+          </a>
+        )}
 
       </section>
 
