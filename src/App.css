@@ -5038,3 +5038,433 @@ body.menu-open .game-launcher {
     text-align: center;
   }
 }
+
+/* =================================
+   TRUST SECTION
+================================= */
+
+.trust-section {
+  padding: 140px 5%;
+  background: #0d0d0d;
+  color: #ffffff;
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.trust-heading {
+  max-width: 850px;
+  margin-bottom: 80px;
+}
+
+.trust-heading h2 {
+  font-size: clamp(48px, 7vw, 100px);
+  line-height: 0.95;
+  letter-spacing: -3px;
+  font-weight: 700;
+}
+
+.trust-heading h2 span {
+  color: #8f8f8f;
+  font-style: italic;
+  font-weight: 400;
+}
+
+.trust-intro {
+  max-width: 520px;
+  margin-top: 28px;
+  color: #a8a8a8;
+  font-size: 16px;
+  line-height: 1.7;
+}
+
+
+/* Trust cards */
+
+.trust-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  border-top: 1px solid rgba(255, 255, 255, 0.15);
+  border-left: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.trust-card {
+  min-height: 320px;
+  padding: 35px;
+  border-right: 1px solid rgba(255, 255, 255, 0.15);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+  transition: background 0.3s ease, transform 0.3s ease;
+}
+
+.trust-card:hover {
+  background: #161616;
+  transform: translateY(-6px);
+}
+
+.trust-number {
+  display: block;
+  color: #777777;
+  font-size: 11px;
+  letter-spacing: 2px;
+  margin-bottom: 80px;
+}
+
+.trust-card h3 {
+  font-size: 24px;
+  font-weight: 500;
+  margin-bottom: 16px;
+}
+
+.trust-card p {
+  max-width: 250px;
+  color: #9c9c9c;
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+
+/* =================================
+   FAQ SECTION
+================================= */
+
+.faq-section {
+  padding: 140px 5%;
+  background: #080808;
+  color: #ffffff;
+  display: grid;
+  grid-template-columns: 1fr 1.5fr;
+  gap: 100px;
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.faq-heading h2 {
+  font-size: clamp(48px, 7vw, 100px);
+  line-height: 0.95;
+  letter-spacing: -3px;
+  font-weight: 700;
+}
+
+.faq-heading h2 span {
+  color: #8f8f8f;
+  font-style: italic;
+  font-weight: 400;
+}
+
+.faq-list {
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.faq-item {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.faq-item summary {
+  list-style: none;
+  cursor: pointer;
+  padding: 25px 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 30px;
+  font-size: 18px;
+  font-weight: 500;
+}
+
+.faq-item summary::-webkit-details-marker {
+  display: none;
+}
+
+.faq-item summary b {
+  color: #999999;
+  font-size: 24px;
+  font-weight: 300;
+  transition: transform 0.3s ease;
+}
+
+.faq-item[open] summary b {
+  transform: rotate(45deg);
+}
+
+.faq-item p {
+  max-width: 650px;
+  padding: 0 50px 25px 0;
+  color: #9c9c9c;
+  font-size: 15px;
+  line-height: 1.7;
+}
+
+
+/* =================================
+   RESPONSIVE
+================================= */
+
+@media (max-width: 900px) {
+
+  .trust-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .faq-section {
+    grid-template-columns: 1fr;
+    gap: 60px;
+  }
+}
+
+@media (max-width: 600px) {
+
+  .trust-section,
+  .faq-section {
+    padding: 90px 6%;
+  }
+
+  .trust-heading {
+    margin-bottom: 50px;
+  }
+
+  .trust-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .trust-card {
+    min-height: 260px;
+    padding: 28px;
+  }
+
+  .trust-number {
+    margin-bottom: 50px;
+  }
+
+  .faq-item summary {
+    font-size: 16px;
+    padding: 22px 0;
+  }
+
+  .faq-item p {
+    font-size: 14px;
+    padding-right: 15px;
+  }
+}
+
+/* =================================
+   WHY PROTOTYPE / TRUST SECTION
+================================= */
+
+.trust-section {
+  padding: 140px 5%;
+  background: #080808;
+  color: #ffffff;
+  overflow: hidden;
+}
+
+.trust-heading {
+  max-width: 900px;
+  margin-bottom: 65px;
+}
+
+/* Small heading */
+
+.trust-heading .section-label {
+  display: flex;
+  align-items: center;
+  gap: 25px;
+  margin-bottom: 38px;
+
+  color: #ffffff;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 5px;
+}
+
+.trust-heading .section-label::after {
+  content: "";
+  width: 120px;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.7);
+}
+
+/* Main heading */
+
+.trust-heading h2 {
+  font-size: clamp(52px, 7vw, 100px);
+  line-height: 0.9;
+  letter-spacing: -4px;
+  font-weight: 800;
+}
+
+.trust-heading h2 span {
+  color: #a7a7a7;
+  font-style: italic;
+  font-weight: 400;
+}
+
+/* Description */
+
+.trust-intro {
+  max-width: 720px;
+  margin-top: 28px;
+
+  color: #d0d0d0;
+  font-size: 17px;
+  line-height: 1.65;
+}
+
+/* =================================
+   CARDS
+================================= */
+
+.trust-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+
+  border: 1px solid rgba(255, 255, 255, 0.65);
+}
+
+/* Individual card */
+
+.trust-card {
+  position: relative;
+  min-height: 400px;
+  padding: 34px;
+
+  border-right: 1px solid rgba(255, 255, 255, 0.65);
+
+  display: flex;
+  flex-direction: column;
+
+  background: transparent;
+}
+
+.trust-card:last-child {
+  border-right: none;
+}
+
+/* Number + line */
+
+.card-top {
+  display: flex;
+  align-items: center;
+  gap: 22px;
+}
+
+.card-top span {
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 2px;
+}
+
+.card-line {
+  height: 1px;
+  flex: 1;
+
+  background: rgba(255, 255, 255, 0.65);
+}
+
+/* Icon */
+
+.trust-icon {
+  margin-top: 58px;
+  margin-bottom: 55px;
+
+  color: #ffffff;
+  font-size: 48px;
+  line-height: 1;
+
+  min-height: 50px;
+
+  display: flex;
+  align-items: center;
+}
+
+/* Card title */
+
+.trust-card h3 {
+  margin-bottom: 22px;
+
+  color: #ffffff;
+  font-size: clamp(24px, 2vw, 34px);
+  line-height: 1.05;
+  letter-spacing: -1.5px;
+  font-weight: 800;
+}
+
+/* Card description */
+
+.trust-card p {
+  margin-top: auto;
+
+  color: #c5c5c5;
+  font-size: 14px;
+  line-height: 1.6;
+  font-style: italic;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+
+/* =================================
+   RESPONSIVE DESIGN
+================================= */
+
+@media (max-width: 1000px) {
+
+  .trust-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .trust-card:nth-child(2) {
+    border-right: none;
+  }
+
+  .trust-card:nth-child(-n + 2) {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.65);
+  }
+}
+
+
+@media (max-width: 600px) {
+
+  .trust-section {
+    padding: 90px 6%;
+  }
+
+  .trust-heading {
+    margin-bottom: 50px;
+  }
+
+  .trust-heading .section-label {
+    font-size: 10px;
+    letter-spacing: 3px;
+  }
+
+  .trust-heading .section-label::after {
+    width: 60px;
+  }
+
+  .trust-heading h2 {
+    font-size: clamp(44px, 13vw, 64px);
+    letter-spacing: -2px;
+  }
+
+  .trust-intro {
+    font-size: 15px;
+  }
+
+  .trust-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .trust-card {
+    min-height: 340px;
+    padding: 28px;
+
+    border-right: none;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.65);
+  }
+
+  .trust-card:last-child {
+    border-bottom: none;
+  }
+
+  .trust-icon {
+    margin-top: 45px;
+    margin-bottom: 40px;
+  }
+}

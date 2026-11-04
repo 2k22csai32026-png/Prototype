@@ -985,6 +985,201 @@ ${formData.name}
 
       </section>
 
+{/* TRUST SECTION */}
+{/* WHY PROTOTYPE SECTION */}
+<section className="trust-section">
+
+  <div className="trust-heading">
+    <p className="section-label">WHY PROTOTYPE</p>
+
+    <h2>
+      BUILT FOR YOUR
+      <br />
+      <span>NEXT BIG IDEA.</span>
+    </h2>
+
+    <p className="trust-intro">
+      We combine thoughtful design and clean development to create
+      digital experiences that help your business stand out.
+    </p>
+  </div>
+
+  <div className="trust-grid">
+
+    {/* CARD 01 */}
+    <div className="trust-card">
+      <div className="card-top">
+        <span>01</span>
+        <div className="card-line"></div>
+      </div>
+
+      <div className="trust-icon">◇</div>
+
+      <h3>MODERN DESIGN.</h3>
+
+      <p>
+        Clean, professional
+        <br />
+        &amp; on brand.
+      </p>
+    </div>
+
+
+    {/* CARD 02 */}
+    <div className="trust-card">
+      <div className="card-top">
+        <span>02</span>
+        <div className="card-line"></div>
+      </div>
+
+      <div className="trust-icon">▣</div>
+
+      <h3>
+        BUILT FOR
+        <br />
+        EVERY SCREEN.
+      </h3>
+
+      <p>
+        A smooth experience
+        <br />
+        on any device.
+      </p>
+    </div>
+
+
+    {/* CARD 03 */}
+    <div className="trust-card">
+      <div className="card-top">
+        <span>03</span>
+        <div className="card-line"></div>
+      </div>
+
+      <div className="trust-icon">◌</div>
+
+      <h3>
+        CLEAR
+        <br />
+        COMMUNICATION.
+      </h3>
+
+      <p>
+        A simple &amp; transparent
+        <br />
+        process.
+      </p>
+    </div>
+
+
+    {/* CARD 04 */}
+    <div className="trust-card">
+      <div className="card-top">
+        <span>04</span>
+        <div className="card-line"></div>
+      </div>
+
+      <div className="trust-icon">&lt;/&gt;</div>
+
+      <h3>
+        CLEAN
+        <br />
+        DEVELOPMENT.
+      </h3>
+
+      <p>
+        Performance, responsiveness
+        <br />
+        &amp; long-term flexibility.
+      </p>
+    </div>
+
+  </div>
+
+</section>
+
+
+{/* FAQ SECTION */}
+<section className="faq-section">
+
+  <div className="faq-heading" data-reveal>
+    <p className="section-label">QUESTIONS & ANSWERS</p>
+
+    <h2>
+      GOOD TO
+      <br />
+      <span>KNOW.</span>
+    </h2>
+  </div>
+
+  <div className="faq-list">
+
+    <details className="faq-item" data-reveal="0">
+      <summary>
+        <span>How much does a website cost?</span>
+        <b>+</b>
+      </summary>
+
+      <p>
+        Every project is different. The final cost depends on the
+        website's size, features and requirements. You can check our
+        pricing page or contact us for a project estimate.
+      </p>
+    </details>
+
+    <details className="faq-item" data-reveal="1">
+      <summary>
+        <span>How long does a website take to build?</span>
+        <b>+</b>
+      </summary>
+
+      <p>
+        Smaller websites can be completed within a few business days,
+        while larger projects may take longer depending on the
+        features and feedback process.
+      </p>
+    </details>
+
+    <details className="faq-item" data-reveal="2">
+      <summary>
+        <span>Do I need to buy a domain and hosting?</span>
+        <b>+</b>
+      </summary>
+
+      <p>
+        Yes. Domain and hosting costs are separate from website
+        development. We can guide you through the process and help
+        with the setup if needed.
+      </p>
+    </details>
+
+    <details className="faq-item" data-reveal="3">
+      <summary>
+        <span>Will my website work on mobile devices?</span>
+        <b>+</b>
+      </summary>
+
+      <p>
+        Yes. Every website is designed to be responsive and provide
+        a smooth experience across phones, tablets and desktop
+        screens.
+      </p>
+    </details>
+
+    <details className="faq-item" data-reveal="4">
+      <summary>
+        <span>Can my website be updated in the future?</span>
+        <b>+</b>
+      </summary>
+
+      <p>
+        Yes. Websites can be expanded with new pages, content and
+        features as your business grows.
+      </p>
+    </details>
+
+  </div>
+
+</section>
 
       {/* CONTACT SECTION */}
       <section className="contact-section" id="contact">
