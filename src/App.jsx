@@ -14,6 +14,7 @@ import {
 } from 'react-router-dom'
 import './App.css'
 import ChatWidget from './ChatWidget'
+import SpaceDodge from './SpaceDodge'
 /* =================================
    PORTFOLIO DATA
 
@@ -499,6 +500,9 @@ function Footer() {
             Creating modern digital experiences from
             idea to interface.
           </p>
+          <Link to="/play" className="footer-play">
+            TAKE A BREAK: PLAY A GAME ↗
+          </Link>
         </div>
 
         <div className="footer-connect">
@@ -2017,12 +2021,87 @@ function Pricing() {
   )
 }
 
+/* =================================
+   PLAY PAGE (mini game)
+================================= */
 
+function Play() {
+  usePageMeta(
+    'Take a Break — PROTOTYPE',
+    'A tiny space game from PROTOTYPE. Dodge the asteroids and beat your best score.'
+  )
+
+  return (
+    <main className="service-page">
+
+      <ServiceNavbar />
+
+      <section className="service-hero game-hero">
+
+        <p className="service-eyebrow" data-reveal>
+          TAKE A BREAK
+        </p>
+
+        <h1 data-reveal="1">
+          ASTEROID
+          <br />
+          <span>DODGE.</span>
+        </h1>
+
+        <p className="service-page-description" data-reveal="2">
+          A tiny game built with the same care as our websites. How long
+          can you survive?
+        </p>
+
+        <SpaceDodge />
+
+      </section>
+
+      <Footer />
+
+    </main>
+  )
+}
 /* =================================
    SCROLL HANDLING
    - new page → scroll to top
    - /#work style links → scroll to that section
 ================================= */
+/* =================================
+   FLOATING GAME BUTTON
+================================= */
+
+function GameLauncher() {
+  const { pathname } = useLocation()
+
+  if (pathname === '/play') return null
+
+  return (
+    <Link
+      to="/play"
+      className="game-launcher"
+      title="Play a game"
+      aria-label="Play a mini game"
+    >
+      <svg viewBox="0 0 64 40" width="30" height="19" aria-hidden="true">
+        {/* controller body */}
+        <path
+          d="M16 4 H48 C57 4 62 14 62 26 C62 33 58 37 53 37 C48 37 46 33 43 30 H21 C18 33 16 37 11 37 C6 37 2 33 2 26 C2 14 7 4 16 4 Z"
+          fill="#f2f2f2"
+          stroke="#9c9c9c"
+          strokeWidth="1.5"
+        />
+        {/* d-pad */}
+        <rect x="12" y="15" width="12" height="4" rx="1" fill="#0a0a0a" />
+        <rect x="16" y="11" width="4" height="12" rx="1" fill="#0a0a0a" />
+        {/* buttons */}
+        <circle cx="45" cy="13" r="2.8" fill="#0a0a0a" />
+        <circle cx="52" cy="19" r="2.8" fill="#0a0a0a" />
+        <circle className="game-led" cx="32" cy="14" r="2" fill="#4ade80" />
+      </svg>
+    </Link>
+  )
+}
 
 function ScrollToTop() {
   const { pathname, hash } = useLocation()
@@ -2059,6 +2138,7 @@ function App() {
       <ScrollProgress />
       <ScrollToTop />
       <ChatWidget />
+      <GameLauncher />
 
       {/* key = pathname → quick fade on every page change */}
       <div className="page-fade" key={pathname}>
@@ -2085,6 +2165,7 @@ function App() {
             element={<ProjectPage />}
           />
           <Route path="/pricing" element={<Pricing />} />
+          <Route path="/play" element={<Play />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </div>
