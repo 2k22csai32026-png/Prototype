@@ -13,7 +13,7 @@ import {
   useParams,
 } from 'react-router-dom'
 import './App.css'
-
+import ChatWidget from './ChatWidget'
 /* =================================
    PORTFOLIO DATA
 
@@ -2046,6 +2046,7 @@ function App() {
     <>
       <ScrollProgress />
       <ScrollToTop />
+      <ChatWidget />
 
       {/* key = pathname → quick fade on every page change */}
       <div className="page-fade" key={pathname}>
