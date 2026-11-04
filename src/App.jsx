@@ -464,8 +464,8 @@ function Navbar({ onLogoClick }) {
         <div className="menu-footer">
           <p>HAVE A PROJECT IN MIND?</p>
 
-          <a href="mailto:gaurav.official.018@gmail.com">
-            gaurav.official.018@gmail.com
+          <a href="mailto:prototype.tech.webdev@gmail.com">
+            prototype.tech.webdev@gmail.com
           </a>
 
           <a href="tel:+918957549660">
@@ -516,8 +516,8 @@ function Footer() {
           </h3>
 
           <div className="footer-contact-links">
-            <a href="mailto:gaurav.official.018@gmail.com">
-              gaurav.official.018@gmail.com ↗
+            <a href="mailto:prototype.tech.webdev@gmail.com">
+              prototype.tech.webdev@gmail.com ↗
             </a>
 
             <a href="tel:+918957549660">
@@ -549,6 +549,14 @@ function Footer() {
   )
 }
 
+const ENQUIRY_SERVICES = [
+  'Business Website',
+  'Landing Page',
+  'Frontend Development',
+  'Something Else',
+]
+
+const ENQUIRY_PLANS = ['LIFTOFF', 'ORBIT', 'DEEP SPACE', 'Not sure yet']
 
 /* =================================
    HOME PAGE
@@ -563,15 +571,6 @@ function Home() {
   const [showIntro, setShowIntro] = useState(false)
   const [introRun, setIntroRun] = useState(0)
   const introTimer = useRef(null)
-
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    company: '',
-    message: ''
-  })
-
-  const [formStatus, setFormStatus] = useState('')
 
   const runIntro = () => {
     clearTimeout(introTimer.current)
@@ -609,21 +608,43 @@ function Home() {
     return () => clearTimeout(introTimer.current)
   }, [])
 
-  const handleChange = (e) => {
-    const { name, value } = e.target
+const [formData, setFormData] = useState({
+  name: '',
+  email: '',
+  company: '',
+  service: '',
+  plan: '',
+  message: ''
+})
 
-    setFormData((prevData) => ({
-      ...prevData,
-      [name]: value
-    }))
-  }
+const [formStatus, setFormStatus] = useState('')
 
-  const handleSubmit = (e) => {
-    e.preventDefault()
+const requiredFilled = [formData.name, formData.email, formData.message]
+  .filter((v) => v.trim()).length
 
-    const subject = `New Project Enquiry from ${formData.name}`
+const handleChange = (e) => {
+  const { name, value } = e.target
 
-    const body = `
+  setFormData((prevData) => ({
+    ...prevData,
+    [name]: value
+  }))
+}
+
+/* click a chip to select it, click again to unselect */
+const pickChip = (field, value) => {
+  setFormData((prev) => ({
+    ...prev,
+    [field]: prev[field] === value ? '' : value
+  }))
+}
+
+const handleSubmit = (e) => {
+  e.preventDefault()
+
+  const subject = `New Project Enquiry from ${formData.name}`
+
+  const body = `
 Hello Gaurav,
 
 You have received a new project enquiry through the PROTOTYPE website.
@@ -631,23 +652,25 @@ You have received a new project enquiry through the PROTOTYPE website.
 Name: ${formData.name}
 Email: ${formData.email}
 Company / Business: ${formData.company || 'Not provided'}
+Service: ${formData.service || 'Not selected'}
+Package: ${formData.plan || 'Not selected'}
 
 Project Details:
 ${formData.message}
 
 Regards,
 ${formData.name}
-    `.trim()
+  `.trim()
 
-    const mailtoLink =
-      `mailto:gaurav.official.018@gmail.com` +
-      `?subject=${encodeURIComponent(subject)}` +
-      `&body=${encodeURIComponent(body)}`
+  const mailtoLink =
+    `mailto:prototype.tech.webdev@gmail.com` +
+    `?subject=${encodeURIComponent(subject)}` +
+    `&body=${encodeURIComponent(body)}`
 
-    setFormStatus('Opening your email application...')
+  setFormStatus('Opening your email application...')
 
-    window.location.href = mailtoLink
-  }
+  window.location.href = mailtoLink
+}
 
   return (
     <main className="prototype-app">
@@ -985,8 +1008,8 @@ ${formData.name}
 
           <div className="contact-direct">
 
-            <a href="mailto:gaurav.official.018@gmail.com">
-              gaurav.official.018@gmail.com
+            <a href="mailto:prototype.tech.webdev@gmail.com">
+              prototype.tech.webdev@gmail.com
             </a>
 
             <a href="tel:+918957549660">
@@ -999,94 +1022,135 @@ ${formData.name}
 
 
         <form
-          className="contact-form"
-          onSubmit={handleSubmit}
-          data-reveal="1"
+  className="enquiry-card"
+  onSubmit={handleSubmit}
+  data-reveal="1"
+>
+
+  <div className="enquiry-top">
+    <span className="enquiry-status">
+      <i /> NEW TRANSMISSION
+    </span>
+    <span className="enquiry-code">PRJ—{new Date().getFullYear()}</span>
+  </div>
+
+  <div className="enquiry-progress" aria-hidden="true">
+    <span style={{ transform: `scaleX(${requiredFilled / 3})` }} />
+  </div>
+
+
+  <div className="enquiry-row">
+
+    <div className="enquiry-field">
+      <label htmlFor="enquiry-name"><b>01</b> YOUR NAME</label>
+      <input
+        id="enquiry-name"
+        type="text"
+        name="name"
+        placeholder="Enter your name"
+        autoComplete="name"
+        value={formData.name}
+        onChange={handleChange}
+        required
+      />
+    </div>
+
+    <div className="enquiry-field">
+      <label htmlFor="enquiry-email"><b>02</b> EMAIL ADDRESS</label>
+      <input
+        id="enquiry-email"
+        type="email"
+        name="email"
+        placeholder="you@example.com"
+        autoComplete="email"
+        value={formData.email}
+        onChange={handleChange}
+        required
+      />
+    </div>
+
+  </div>
+
+
+  <div className="enquiry-field">
+    <label htmlFor="enquiry-company"><b>03</b> COMPANY / BUSINESS <em>optional</em></label>
+    <input
+      id="enquiry-company"
+      type="text"
+      name="company"
+      placeholder="Your company or business"
+      autoComplete="organization"
+      value={formData.company}
+      onChange={handleChange}
+    />
+  </div>
+
+
+  <div className="enquiry-chips">
+    <p><b>04</b> WHAT DO YOU NEED? <em>optional</em></p>
+    <div>
+      {ENQUIRY_SERVICES.map((s) => (
+        <button
+          type="button"
+          key={s}
+          className={`chip ${formData.service === s ? 'is-active' : ''}`}
+          aria-pressed={formData.service === s}
+          onClick={() => pickChip('service', s)}
         >
-
-          <div className="form-group">
-
-            <label htmlFor="enquiry-name">YOUR NAME</label>
-
-            <input
-              id="enquiry-name"
-              type="text"
-              name="name"
-              placeholder="Enter your name"
-              autoComplete="name"
-              value={formData.name}
-              onChange={handleChange}
-              required
-            />
-
-          </div>
+          {s}
+        </button>
+      ))}
+    </div>
+  </div>
 
 
-          <div className="form-group">
-
-            <label htmlFor="enquiry-email">EMAIL ADDRESS</label>
-
-            <input
-              id="enquiry-email"
-              type="email"
-              name="email"
-              placeholder="Enter your email"
-              autoComplete="email"
-              value={formData.email}
-              onChange={handleChange}
-              required
-            />
-
-          </div>
-
-
-          <div className="form-group">
-
-            <label htmlFor="enquiry-company">COMPANY / BUSINESS</label>
-
-            <input
-              id="enquiry-company"
-              type="text"
-              name="company"
-              placeholder="Your company or business"
-              autoComplete="organization"
-              value={formData.company}
-              onChange={handleChange}
-            />
-
-          </div>
+  <div className="enquiry-chips">
+    <p><b>05</b> PREFERRED PACKAGE <em>optional</em></p>
+    <div>
+      {ENQUIRY_PLANS.map((p) => (
+        <button
+          type="button"
+          key={p}
+          className={`chip ${formData.plan === p ? 'is-active' : ''}`}
+          aria-pressed={formData.plan === p}
+          onClick={() => pickChip('plan', p)}
+        >
+          {p}
+        </button>
+      ))}
+    </div>
+  </div>
 
 
-          <div className="form-group">
+  <div className="enquiry-field">
+    <label htmlFor="enquiry-message"><b>06</b> TELL US ABOUT YOUR PROJECT</label>
+    <textarea
+      id="enquiry-message"
+      name="message"
+      placeholder="Describe your project or idea..."
+      maxLength={600}
+      value={formData.message}
+      onChange={handleChange}
+      required
+    />
+    <small className="enquiry-count">{formData.message.length} / 600</small>
+  </div>
 
-            <label htmlFor="enquiry-message">TELL US ABOUT YOUR PROJECT</label>
 
-            <textarea
-              id="enquiry-message"
-              name="message"
-              placeholder="Describe your project or idea..."
-              value={formData.message}
-              onChange={handleChange}
-              required
-            />
+  <div className="enquiry-send">
+    <button type="submit" className="contact-button">
+      SEND ENQUIRY <span>↗</span>
+    </button>
+    <p className="enquiry-note">REPLY WITHIN 24 HOURS</p>
+  </div>
 
-          </div>
+  {formStatus && (
+    <p className="form-status" role="status">
+      {formStatus}
+    </p>
+  )}
 
-
-          <button
-            type="submit"
-            className="contact-button"
-          >
-            SEND ENQUIRY <span>↗</span>
-          </button>
-
-          {formStatus && (
-            <p className="form-status" role="status">
-              {formStatus}
-            </p>
-          )}
-
-        </form>
+</form>
 
       </section>
 
@@ -2005,8 +2069,8 @@ function Pricing() {
         </p>
 
         <div className="contact-actions" data-reveal="3">
-          <a href="mailto:gaurav.official.018@gmail.com" className="email-button">
-            gaurav.official.018@gmail.com <span>↗</span>
+          <a href="mailto:prototype.tech.webdev@gmail.com" className="email-button">
+            prototype.tech.webdev@gmail.com <span>↗</span>
           </a>
           <a href="tel:+918957549660" className="phone-link">
             +91 89575 49660

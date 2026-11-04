@@ -4754,3 +4754,287 @@ body.menu-open .game-launcher {
     animation: none !important;
   }
 }
+
+/* =================================
+   ENQUIRY CARD (creative form)
+================================= */
+
+.contact-section .enquiry-card {
+  position: relative;
+  width: 100%;
+  max-width: 640px;
+  padding: 44px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+
+  background:
+    linear-gradient(160deg, rgba(255,255,255,0.06), rgba(255,255,255,0.01));
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  backdrop-filter: blur(10px);
+}
+
+/* corner brackets */
+.enquiry-card::before,
+.enquiry-card::after {
+  content: "";
+  position: absolute;
+  width: 26px;
+  height: 26px;
+  pointer-events: none;
+  transition: width 0.4s ease, height 0.4s ease;
+}
+
+.enquiry-card::before {
+  top: -1px;
+  left: -1px;
+  border-top: 2px solid #fff;
+  border-left: 2px solid #fff;
+}
+
+.enquiry-card::after {
+  right: -1px;
+  bottom: -1px;
+  border-right: 2px solid #fff;
+  border-bottom: 2px solid #fff;
+}
+
+.enquiry-card:focus-within::before,
+.enquiry-card:focus-within::after {
+  width: 46px;
+  height: 46px;
+}
+
+/* top bar */
+.enquiry-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: #9c9c9c;
+  font-size: 10px;
+  letter-spacing: 3px;
+}
+
+.enquiry-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  color: #d0d0d0;
+}
+
+.enquiry-status i {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #4ade80;
+  box-shadow: 0 0 10px #4ade80;
+  animation: enquiryPulse 2s ease-in-out infinite;
+}
+
+@keyframes enquiryPulse {
+  50% { opacity: 0.3; }
+}
+
+/* progress line */
+.enquiry-progress {
+  height: 2px;
+  margin-top: -12px;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.enquiry-progress span {
+  display: block;
+  height: 100%;
+  background: #fff;
+  box-shadow: 0 0 12px rgba(255, 255, 255, 0.7);
+  transform-origin: left;
+  transition: transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+/* fields */
+.enquiry-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 28px;
+}
+
+.enquiry-field {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.enquiry-field label,
+.enquiry-chips p {
+  color: #777;
+  font-size: 10px;
+  letter-spacing: 2px;
+  transition: color 0.3s ease;
+}
+
+.enquiry-field label b,
+.enquiry-chips p b {
+  color: #4a4a4a;
+  margin-right: 8px;
+  font-weight: 600;
+}
+
+.enquiry-field label em,
+.enquiry-chips p em {
+  margin-left: 8px;
+  color: #4a4a4a;
+  font-style: normal;
+  letter-spacing: 1px;
+  text-transform: lowercase;
+}
+
+.enquiry-field:focus-within label {
+  color: #fff;
+}
+
+.enquiry-field input,
+.enquiry-field textarea {
+  width: 100%;
+  padding: 14px 0;
+
+  background: transparent;
+  color: #fff;
+
+  border: none;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  outline: none;
+
+  font-family: inherit;
+  font-size: 15px;
+}
+
+.enquiry-field textarea {
+  min-height: 120px;
+  resize: vertical;
+}
+
+.enquiry-field input::placeholder,
+.enquiry-field textarea::placeholder {
+  color: #555;
+}
+
+/* animated focus line */
+.enquiry-field::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 1px;
+  background: #fff;
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.4s ease;
+}
+
+.enquiry-field:focus-within::after {
+  transform: scaleX(1);
+}
+
+.enquiry-count {
+  align-self: flex-end;
+  margin-top: 6px;
+  color: #555;
+  font-size: 10px;
+  letter-spacing: 1px;
+}
+
+/* chips */
+.enquiry-chips {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.enquiry-chips > div {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.chip {
+  padding: 10px 16px;
+
+  background: transparent;
+  color: #bdbdbd;
+
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 999px;
+
+  font-family: inherit;
+  font-size: 11px;
+  letter-spacing: 1px;
+
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.chip:hover {
+  border-color: #fff;
+  color: #fff;
+  transform: translateY(-2px);
+}
+
+.chip.is-active {
+  background: #fff;
+  border-color: #fff;
+  color: #080808;
+  font-weight: 700;
+  box-shadow: 0 0 18px rgba(255, 255, 255, 0.25);
+}
+
+/* send row */
+.enquiry-send {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-top: 6px;
+}
+
+.enquiry-card .contact-button {
+  margin-top: 0;
+}
+
+.enquiry-note {
+  color: #666;
+  font-size: 10px;
+  letter-spacing: 3px;
+}
+
+/* mobile */
+@media (max-width: 768px) {
+  .contact-section .enquiry-card {
+    padding: 28px 22px;
+    gap: 26px;
+  }
+
+  .enquiry-row {
+    grid-template-columns: 1fr;
+    gap: 26px;
+  }
+
+  .enquiry-send {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .enquiry-card .contact-button {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .enquiry-note {
+    text-align: center;
+  }
+}
