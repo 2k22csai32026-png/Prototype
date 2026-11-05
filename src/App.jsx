@@ -692,37 +692,53 @@ const pickChip = (field, value) => {
   }))
 }
 
-const handleSubmit = (e) => {
+const [isSubmitting, setIsSubmitting] = useState(false)
+
+const handleSubmit = async (e) => {
   e.preventDefault()
+  setIsSubmitting(true)
+  setFormStatus('Transmitting enquiry...')
 
-  const subject = `New Project Enquiry from ${formData.name}`
+  try {
+    const response = await fetch('https://api.web3forms.com/submit', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+      },
+      body: JSON.stringify({
+        access_key: '0720abdd-5fb9-4159-8184-7b610ce7109f',
+        subject: `New Project Enquiry from ${formData.name}`,
+        from_name: 'PROTOTYPE Website',
+        name: formData.name,
+        email: formData.email,
+        company: formData.company || 'Not provided',
+        service: formData.service || 'Not selected',
+        plan: formData.plan || 'Not selected',
+        message: formData.message,
+      }),
+    })
 
-  const body = `
-Hello Gaurav,
+    const result = await response.json()
 
-You have received a new project enquiry through the PROTOTYPE website.
-
-Name: ${formData.name}
-Email: ${formData.email}
-Company / Business: ${formData.company || 'Not provided'}
-Service: ${formData.service || 'Not selected'}
-Package: ${formData.plan || 'Not selected'}
-
-Project Details:
-${formData.message}
-
-Regards,
-${formData.name}
-  `.trim()
-
-  const mailtoLink =
-    `mailto:prototype.tech.webdev@gmail.com` +
-    `?subject=${encodeURIComponent(subject)}` +
-    `&body=${encodeURIComponent(body)}`
-
-  setFormStatus('Opening your email application...')
-
-  window.location.href = mailtoLink
+    if (result.success) {
+      setFormStatus('Enquiry transmitted successfully. We will get back to you within 24 hours.')
+      setFormData({
+        name: '',
+        email: '',
+        company: '',
+        service: '',
+        plan: '',
+        message: '',
+      })
+    } else {
+      setFormStatus(result.message || 'Something went wrong. Please try again.')
+    }
+  } catch (error) {
+    setFormStatus('Unable to connect. You can reach us directly at prototype.tech.webdev@gmail.com')
+  } finally {
+    setIsSubmitting(false)
+  }
 }
 
   return (
@@ -1477,11 +1493,16 @@ ${formData.name}
 
 
   <div className="enquiry-send">
-    <button type="submit" className="contact-button">
-      SEND ENQUIRY <span>↗</span>
-    </button>
-    <p className="enquiry-note">REPLY WITHIN 24 HOURS</p>
-  </div>
+  <button 
+    type="submit" 
+    className="contact-button"
+    disabled={isSubmitting}
+    style={isSubmitting ? { opacity: 0.6, cursor: 'not-allowed' } : undefined}
+  >
+    {isSubmitting ? 'TRANSMITTING...' : 'SEND ENQUIRY'} <span>↗</span>
+  </button>
+  <p className="enquiry-note">REPLY WITHIN 24 HOURS</p>
+</div>
 
   {formStatus && (
     <p className="form-status" role="status">
