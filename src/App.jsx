@@ -67,6 +67,36 @@ const projects = [
 
     liveUrl: 'https://www.pcpmedia.in', // optional: add a link to show a "Live Site" button
   },
+    {
+    slug: 'apex-academy',
+    demo: true,
+    titleTop: 'APEX',
+    titleBottom: 'ACADEMY.',
+    category: 'EDUCATION & COACHING WEBSITE (DEMO CONCEPT)',
+    summary:
+      'A concept website for a coaching institute preparing students for JEE and NEET, showing how education brands can present courses, faculty, results and enquiries in one clean experience.',
+    pageSummary:
+      'A demo website for a coaching academy, focused on building trust with students and parents through clear courses, expert faculty, strong results and an easy enquiry flow.',
+    tags: ['WEB DESIGN', 'REACT', 'RESPONSIVE DESIGN', 'DEMO CONCEPT'],
+    cover: { src: '/images/projects/apex-1.png', alt: 'Apex Academy hero section' },
+    gallery: [
+      { src: '/images/projects/apex-2.png', alt: 'Apex Academy statistics section' },
+      { src: '/images/projects/apex-3.png', alt: 'Apex Academy educators section' },
+      { src: '/images/projects/apex-4.png', alt: 'Apex Academy enquiry form' },
+      { src: '/images/projects/apex-5.png', alt: 'Apex Academy call-to-action section' },
+    ],
+    overviewTop: 'A TRUSTED',
+    overviewBottom: 'LEARNING EXPERIENCE.',
+    highlights: [
+      'Education & Coaching Website Design',
+      'Course, Faculty & Results Presentation',
+      'Enquiry Form for Student Admissions',
+      'Fully Responsive Frontend',
+      'Clean Light Theme with Strong Branding',
+    ],
+    ctaText:
+      "Running a coaching institute, school or training centre? Let's build a website that earns trust and brings in admissions.",
+  },
 ]
 
 const MARQUEE_ITEMS = [
@@ -76,6 +106,28 @@ const MARQUEE_ITEMS = [
   'CLEAN CODE',
   'MODERN DESIGN',
   'BUILT TO LAUNCH',
+]
+const TEMPLATES = [
+  {
+    slug: 'apex-academy',
+    industry: 'EDUCATION / COACHING',
+    name: 'Apex Academy',
+    text: 'Courses, faculty, results and admissions enquiries for coaching institutes and schools.',
+    img: '/images/projects/apex-1.png',
+    tags: ['LIGHT THEME', 'ENQUIRY FORM', 'FACULTY'],
+  },
+  {
+    soon: true,
+    industry: 'HOTEL / RESTAURANT',
+    name: 'Coming soon',
+    text: 'Galleries, menus, room types and booking requests.',
+  },
+  {
+    soon: true,
+    industry: 'PORTFOLIO / STUDIO',
+    name: 'Coming soon',
+    text: 'A clean showcase for photographers, designers and creative studios.',
+  },
 ]
 
 
@@ -352,6 +404,7 @@ const NAV_ITEMS = [
   ['Home', '#home'],
   ['Services', '#services'],
   ['Work', '#work'],
+  ['Templates', '#templates'],
   ['Pricing', '/pricing'],
   ['Contact', '#contact'],
 ]
@@ -884,7 +937,7 @@ ${formData.name}
 
 
         {/* One block per project — edit the projects array at the top to add more */}
-        {projects.map((project, index) => (
+        {projects.filter((p) => !p.demo).map((project, index) => (
           <Fragment key={project.slug}>
 
             <div className="featured-project">
@@ -983,6 +1036,68 @@ ${formData.name}
           </Fragment>
         ))}
 
+      </section>
+            <section className="templates-section" id="templates">
+        <div className="work-heading" data-reveal>
+          <p className="section-label">DEMO TEMPLATES</p>
+          <h2>
+            READY-MADE
+            <br />
+            <span>STARTING POINTS.</span>
+          </h2>
+          <p className="work-intro">
+            Concept websites for different industries. Pick a style you
+            like and we will customise it around your brand.
+          </p>
+        </div>
+
+        <div className="template-grid">
+          {TEMPLATES.map((t, i) => {
+            const body = (
+              <>
+                <div className="template-thumb">
+                  {t.soon ? (
+                    <span className="template-soon">NEXT DEMO</span>
+                  ) : (
+                    <ProjectImage src={t.img} alt={`${t.name} template preview`} />
+                  )}
+                </div>
+                <div className="template-body">
+                  <p className="template-industry">{t.industry}</p>
+                  <h3>{t.name}</h3>
+                  <p className="template-text">{t.text}</p>
+                  {t.tags && (
+                    <div className="project-tags">
+                      {t.tags.map((tag) => (
+                        <span key={tag}>{tag}</span>
+                      ))}
+                    </div>
+                  )}
+                  {!t.soon && (
+                    <span className="template-link">
+                      View demo <span>↗</span>
+                    </span>
+                  )}
+                </div>
+              </>
+            )
+
+            return t.soon ? (
+              <div className="template-card is-soon" key={t.name} data-reveal={i}>
+                {body}
+              </div>
+            ) : (
+              <Link
+                to={`/projects/${t.slug}`}
+                className="template-card"
+                key={t.slug}
+                data-reveal={i}
+              >
+                {body}
+              </Link>
+            )
+          })}
+        </div>
       </section>
 
 {/* TRUST SECTION */}
@@ -1402,8 +1517,10 @@ function BusinessWebsites() {
 
       <section className="service-hero">
 
-        <p className="service-eyebrow" data-reveal>
-          01 / 03 — DIGITAL PRESENCE
+                <p className="service-eyebrow" data-reveal>
+          {project.demo
+            ? 'DEMO CONCEPT'
+            : `${String(projects.indexOf(project) + 1).padStart(2, '0')} / SELECTED WORK`}
         </p>
 
         <h1 data-reveal="1">
@@ -1744,7 +1861,10 @@ function ProjectPage() {
   return (
     <main className="service-page project-page">
 
-      <ServiceNavbar to="/#work" label="← BACK TO WORK" />
+            <ServiceNavbar
+        to={project.demo ? '/#templates' : '/#work'}
+        label={project.demo ? '← BACK TO TEMPLATES' : '← BACK TO WORK'}
+      />
 
       <section className="service-hero">
 

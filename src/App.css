@@ -5521,3 +5521,141 @@ body.menu-open .game-launcher {
     margin-bottom: 40px;
   }
 }
+
+/* TEMPLATES SECTION */
+
+.templates-section {
+  padding: 140px 5%;
+  background: #080808;
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.template-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  border-top: 1px solid rgba(255, 255, 255, 0.15);
+  border-left: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.template-card {
+  display: flex;
+  flex-direction: column;
+  color: inherit;
+  text-decoration: none;
+  border-right: 1px solid rgba(255, 255, 255, 0.15);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+  transition: background 0.4s ease;
+}
+
+.template-card:not(.is-soon):hover {
+  background: linear-gradient(145deg, #191919 0%, #0c0c0c 100%);
+}
+
+.template-thumb {
+  position: relative;
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+  background: #151515;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.template-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top;
+  display: block;
+  transition: transform 0.6s ease;
+}
+
+.template-card:hover .template-thumb img {
+  transform: scale(1.05);
+}
+
+.template-soon {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #555555;
+  font-size: 11px;
+  letter-spacing: 4px;
+  background: repeating-linear-gradient(
+    45deg,
+    transparent 0 14px,
+    rgba(255, 255, 255, 0.03) 14px 15px
+  );
+}
+
+.template-body {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  padding: 30px 32px 34px;
+}
+
+.template-industry {
+  color: #777777;
+  font-size: 10px;
+  letter-spacing: 3px;
+  margin-bottom: 14px;
+}
+
+.template-body h3 {
+  font-size: clamp(26px, 2.4vw, 36px);
+  font-weight: 700;
+  letter-spacing: -1.5px;
+  line-height: 1;
+  margin-bottom: 16px;
+}
+
+.template-text {
+  max-width: 340px;
+  margin-bottom: 24px;
+  color: #9c9c9c;
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+.template-body .project-tags {
+  margin-bottom: 28px;
+}
+
+.template-link {
+  margin-top: auto;
+  color: #ffffff;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+.template-link span {
+  display: inline-block;
+  transition: transform 0.3s ease;
+}
+
+.template-card:hover .template-link span {
+  transform: translate(4px, -4px);
+}
+
+.template-card.is-soon .template-body h3 {
+  color: #6a6a6a !important;
+  -webkit-text-fill-color: #6a6a6a;
+}
+
+@media (max-width: 1024px) {
+  .templates-section { padding: 100px 5%; }
+  .template-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+@media (max-width: 768px) {
+  .templates-section { padding: 64px 20px; }
+  .template-grid { grid-template-columns: 1fr; }
+  .template-body { padding: 24px 22px 28px; }
+}
+
+@media (hover: none) {
+  .template-card:hover .template-thumb img { transform: none; }
+}
