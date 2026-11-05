@@ -27,8 +27,8 @@ const TOPICS = [
     weight: 1,
     keywords: ['package', 'packages', 'plan', 'plans', 'tier', 'tiers', 'options'],
     answer:
-      'There are three packages:\n\nLIFTOFF: ₹5,000 – ₹6,500 (one-page starter site)\nORBIT: ₹7,000 – ₹8,500 (interactive, most popular)\nDEEP SPACE: ₹9,000 – ₹10,000 (bookings + AI assistant)\n\nAsk me about any of them, or I can help you pick.',
-    link: { label: 'See full pricing', href: '/pricing' },
+      'There are three packages:\n\nLIFTOFF: one-page starter site, ready in 3–5 days\nORBIT: interactive and most popular, ready in 5–8 days\nDEEP SPACE: bookings + AI assistant, ready in 8–12 days\n\nPricing is genuine and shared after a free scoping chat. Ask me about any package, or I can help you pick.',
+    link: { label: 'See all packages', href: '/pricing' },
     suggestions: ['Tell me about LIFTOFF', 'Tell me about ORBIT', 'Tell me about DEEP SPACE', 'Which one should I choose?'],
   },
   {
@@ -36,7 +36,7 @@ const TOPICS = [
     weight: 3,
     keywords: ['liftoff', 'lift off', 'starter', 'essential', 'cheapest', 'basic'],
     answer:
-      'LIFTOFF (₹5,000 – ₹6,500, ready in 3–5 business days) is a one-page site with 4–5 sections: hero, about, offers, gallery and contact. It loads fast on mobile and includes WhatsApp, call and email buttons, basic Google SEO and a Google Maps embed. Best for new businesses.',
+      'LIFTOFF (ready in 3–5 business days) is a one-page site with 4–5 sections: hero, about, offers, gallery and contact. It loads fast on mobile and includes WhatsApp, call and email buttons, basic Google SEO and a Google Maps embed. Best for new businesses.',
     link: { label: 'Choose LIFTOFF', href: '/#contact' },
     suggestions: ['Tell me about ORBIT', 'How does payment work?'],
   },
@@ -45,7 +45,7 @@ const TOPICS = [
     weight: 3,
     keywords: ['orbit', 'interactive', 'dynamic', 'popular'],
     answer:
-      'ORBIT (₹7,000 – ₹8,500, ready in 5–8 business days) is our most popular package. It adds sliding galleries, category filters, full-screen photo view, a review slider, a validated contact form and smooth animations, built with React. Best for established local businesses like hotels, restaurants and studios.',
+      'ORBIT (ready in 5–8 business days) is our most popular package. It adds sliding galleries, category filters, full-screen photo view, a review slider, a validated contact form and smooth animations, built with React. Best for established local businesses like hotels, restaurants and studios.',
     link: { label: 'Choose ORBIT', href: '/#contact' },
     suggestions: ['Tell me about DEEP SPACE', 'How does payment work?'],
   },
@@ -54,7 +54,7 @@ const TOPICS = [
     weight: 3,
     keywords: ['deep space', 'deepspace', 'growth', 'booking', 'bookings', 'automation', 'automate'],
     answer:
-      'DEEP SPACE (₹9,000 – ₹10,000, ready in 8–12 business days) includes booking requests with dates and guests, enquiries saved and emailed to you instantly, and an AI assistant that answers customers 24/7. Best for businesses with many enquiries.',
+      'DEEP SPACE (ready in 8–12 business days) includes booking requests with dates and guests, enquiries saved and emailed to you instantly, and an AI assistant that answers customers 24/7. Best for businesses with many enquiries.',
     link: { label: 'Choose DEEP SPACE', href: '/#contact' },
     suggestions: ['Tell me about LIFTOFF', 'Does hosting cost extra?'],
   },
@@ -72,8 +72,8 @@ const TOPICS = [
     weight: 2,
     keywords: ['price', 'prices', 'pricing', 'cost', 'costs', 'how much', 'rate', 'rates', 'budget', 'charge', 'fee', 'fees', 'rupee', 'rs', 'inr', 'cheap', 'afford'],
     answer:
-      'Packages start at ₹5,000 (LIFTOFF) and go up to ₹10,000 (DEEP SPACE). ORBIT is ₹7,000 – ₹8,500. Prices do not include a domain name or hosting.',
-    link: { label: 'See full pricing', href: '/pricing' },
+      'Our pricing is genuine and transparent, with no surprises. Your exact quote is shared after a free scoping chat with Gaurav, based on what your project needs. A domain name and hosting are bought separately.',
+    link: { label: 'Get a quote', href: '/#contact' },
     suggestions: ['How does payment work?', 'Does hosting cost extra?', 'Which one should I choose?'],
   },
   {
@@ -113,7 +113,7 @@ const TOPICS = [
     weight: 2,
     keywords: ['domain', 'hosting', 'host', 'server', 'included', 'include', 'extra', 'additional', 'hidden'],
     answer:
-      'The package price does not include a domain name or hosting. You buy these directly. Setting them up for you is an optional extra for an additional fee. The AI assistant is also an optional extra on ORBIT, and included in DEEP SPACE.',
+      'A domain name and hosting are not part of the package. You buy these directly. Setting them up for you is an optional extra. The AI assistant is also an optional extra on ORBIT, and included in DEEP SPACE.',
     suggestions: ['Packages & pricing', 'Contact Gaurav'],
   },
   {
@@ -146,7 +146,7 @@ const TOPICS = [
     weight: 2,
     keywords: ['contact', 'email', 'mail', 'phone', 'call', 'whatsapp', 'number', 'reach', 'talk', 'speak', 'gaurav', 'enquiry', 'inquiry', 'hire', 'start', 'quote'],
     answer:
-      'You can reach Gaurav at gaurav.official.018@gmail.com or +91 89575 49660, or use the enquiry form on the home page.',
+      'You can reach Gaurav at prototype.tech.webdev@gmail.com or +91 89575 49660, or use the enquiry form on the home page.',
     link: { label: 'Open enquiry form', href: '/#contact' },
     suggestions: ['Packages & pricing', 'How long does it take?'],
   },
@@ -166,7 +166,7 @@ const TOPICS = [
 
 const FALLBACK = {
   answer:
-    "I'm a small assistant, so I may not have an answer for that one. Gaurav can help directly at gaurav.official.018@gmail.com or +91 89575 49660.",
+    "I'm a small assistant, so I may not have an answer for that one. Gaurav can help directly at prototype.tech.webdev@gmail.com or +91 89575 49660.",
   link: { label: 'Open enquiry form', href: '/#contact' },
   suggestions: ['Packages & pricing', 'How long does it take?', 'Contact Gaurav'],
 }

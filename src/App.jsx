@@ -1518,10 +1518,8 @@ function BusinessWebsites() {
       <section className="service-hero">
 
                 <p className="service-eyebrow" data-reveal>
-          {project.demo
-            ? 'DEMO CONCEPT'
-            : `${String(projects.indexOf(project) + 1).padStart(2, '0')} / SELECTED WORK`}
-        </p>
+  01 / 03 — DIGITAL PRESENCE
+</p>
 
         <h1 data-reveal="1">
           BUSINESS
@@ -1987,8 +1985,8 @@ const TIERS = [
     tier: 'Tier 1',
     name: 'LIFTOFF',
     title: 'Essential Starter',
-    price: '₹5,000 – ₹6,500',
-    delivery: '3–5 business days',
+    days: '3–5',
+    speed: 92, // fuller bar = faster launch
     bestFor:
       'New businesses that need a quick, professional first website.',
     features: [
@@ -2004,8 +2002,8 @@ const TIERS = [
     tier: 'Tier 2',
     name: 'ORBIT',
     title: 'Dynamic Interactive',
-    price: '₹7,000 – ₹8,500',
-    delivery: '5–8 business days',
+    days: '5–8',
+    speed: 72,
     bestFor:
       'Established local businesses: hotels, restaurants, studios showing client work.',
     features: [
@@ -2023,8 +2021,8 @@ const TIERS = [
     tier: 'Tier 3',
     name: 'DEEP SPACE',
     title: 'Growth & Smart AI',
-    price: '₹9,000 – ₹10,000',
-    delivery: '8–12 business days',
+    days: '8–12',
+    speed: 52,
     bestFor:
       'Businesses with many enquiries that want them handled automatically.',
     features: [
@@ -2039,7 +2037,8 @@ const TIERS = [
 ]
 
 const COMPARE_ROWS = [
-  ['Price', '₹5,000 – ₹6,500', '₹7,000 – ₹8,500', '₹9,000 – ₹10,000'],
+  ['Pricing', 'Genuine, fair quote', 'Genuine, fair quote', 'Genuine, fair quote'],
+['Ready in', '3 to 5 business days', '5 to 8 business days', '8 to 12 business days'],
   ['Ready in', '3 to 5 business days', '5 to 8 business days', '8 to 12 business days'],
   ['Best for', 'New launch, first website', 'Established local business', 'Growing, high enquiry volume'],
   ['Built with', 'HTML5, CSS3, simple JavaScript', 'React.js and Vite', 'React + backend API + AI'],
@@ -2097,9 +2096,9 @@ const GLOSSARY = [
 
 function Pricing() {
   usePageMeta(
-    'Pricing — PROTOTYPE',
-    'Three clear website packages from ₹5,000 to ₹10,000 for hotels, restaurants, local services and creative studios. Plain prices, plain timelines.'
-  )
+  'Pricing — PROTOTYPE',
+  'Three website packages for hotels, restaurants, local services and creative studios. Genuine pricing, lightning-fast delivery.'
+)
 
   return (
     <main className="service-page pricing-page">
@@ -2109,33 +2108,33 @@ function Pricing() {
       {/* HERO */}
       <section className="service-hero">
 
-        <p className="service-eyebrow" data-reveal>
-          WEBSITE PRICING GUIDE — FY 2026-27
-        </p>
+  <p className="service-eyebrow" data-reveal>
+    WEBSITE PACKAGES — FY 2026-27
+  </p>
 
-        <h1 data-reveal="1">
-          PICK A
-          <br />
-          <span>PACKAGE.</span>
-        </h1>
+  <h1 data-reveal="1">
+    PICK A
+    <br />
+    <span>PACKAGE.</span>
+  </h1>
 
-        <p className="service-page-description" data-reveal="2">
-          Three clear website packages for hotels, restaurants, local
-          services and creative studios. Plain prices, plain timelines,
-          and a simple process from first hello to launch day.
-        </p>
+  <p className="service-page-description" data-reveal="2">
+    Three clear website packages for hotels, restaurants, local
+    services and creative studios. Genuine pricing, lightning-fast
+    timelines, and a simple process from first hello to launch day.
+  </p>
 
-        <div className="pricing-stats" data-reveal="3">
-          <div><strong>3</strong><span>PACKAGES TO CHOOSE FROM</span></div>
-          <div><strong>₹5K – ₹10K</strong><span>PRICE RANGE</span></div>
-          <div><strong>3 – 12</strong><span>BUSINESS DAYS TO DELIVER</span></div>
-        </div>
+  <div className="pricing-stats" data-reveal="3">
+    <div><strong>3</strong><span>PACKAGES TO CHOOSE FROM</span></div>
+    <div><strong>100%</strong><span>GENUINE PRICING</span></div>
+    <div><strong>3 – 12</strong><span>DAYS TO LAUNCH</span></div>
+  </div>
 
-        <a href="/#contact" className="service-cta" data-reveal="3">
-          Book a project scoping chat <span>↗</span>
-        </a>
+  <a href="/#contact" className="service-cta" data-reveal="3">
+    Get your genuine quote <span>↗</span>
+  </a>
 
-      </section>
+</section>
 
 
       {/* PACKAGES */}
@@ -2154,7 +2153,11 @@ function Pricing() {
             is at, and we build to match.
           </p>
         </div>
-
+        <div className="pricing-ribbon" data-reveal>
+  <span>✓ GENUINE PRICE</span>
+  <span>⚡ LAUNCH IN DAYS, NOT WEEKS</span>
+  <span>◇ NO HIDDEN COSTS</span>
+</div>
         <div className="tier-grid">
           {TIERS.map((t, i) => (
             <article
@@ -2168,18 +2171,30 @@ function Pricing() {
               <h3 className="tier-name">{t.name}</h3>
               <p className="tier-title">{t.title}</p>
 
-              <p className="tier-price">{t.price}</p>
+              <div className="tier-genuine">
+  <span className="genuine-stamp">✓ GENUINE PRICE</span>
+  <p>
+    Fair and transparent. No hidden charges. Your quote is shared
+    on a free scoping chat.
+  </p>
+</div>
 
-              <dl className="tier-meta">
-                <div>
-                  <dt>DELIVERY</dt>
-                  <dd>{t.delivery}</dd>
-                </div>
-                <div>
-                  <dt>BEST FOR</dt>
-                  <dd>{t.bestFor}</dd>
-                </div>
-              </dl>
+<div className="tier-launch">
+  <div className="launch-top">
+    <span>LAUNCH COUNTDOWN</span>
+    <strong>T-MINUS {t.days} DAYS</strong>
+  </div>
+  <div className="launch-track">
+    <span style={{ '--fill': `${t.speed}%` }} />
+  </div>
+</div>
+
+<dl className="tier-meta">
+  <div>
+    <dt>BEST FOR</dt>
+    <dd>{t.bestFor}</dd>
+  </div>
+</dl>
 
               <p className="tier-label">YOU GET</p>
               <ul className="tier-features">
@@ -2200,9 +2215,9 @@ function Pricing() {
         </div>
 
         <p className="pricing-note" data-reveal>
-          Prices don’t include a domain name or hosting. You buy these
-          directly. Optional set-up help is available for an extra fee.
-        </p>
+  A domain name and hosting are not part of the package. You buy
+  these directly. Optional set-up help is available.
+</p>
 
         <div className="pricing-helper" data-reveal>
           <p className="section-label">NOT SURE WHICH ONE FITS?</p>

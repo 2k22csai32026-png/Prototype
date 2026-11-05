@@ -5659,3 +5659,54 @@ body.menu-open .game-launcher {
 @media (hover: none) {
   .template-card:hover .template-thumb img { transform: none; }
 }
+
+/* =================================
+   16. STICKY NAVBAR ON DESKTOP
+================================= */
+
+@media (min-width: 769px) {
+
+  html {
+    scroll-padding-top: 100px;
+  }
+
+  /* home page */
+  .hero-screen {
+    padding-top: 100px;  /* room for the fixed navbar */
+    z-index: 50;         /* keeps the navbar above later sections */
+  }
+
+  .navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 50;
+    padding: 0 1%;
+    border-bottom-color: rgba(255, 255, 255, 0.2);
+    transition: background 0.3s ease;
+  }
+
+  /* dark bar appears once you scroll (the .is-scrolled class already exists in your React code) */
+  .navbar.is-scrolled {
+    background: rgba(8, 8, 8, 0.85);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+  }
+
+  /* service, pricing, project and play pages */
+  .service-navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 40;
+    background: rgba(8, 8, 8, 0.85);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+  }
+
+  .service-page {
+    padding-top: 100px;
+  }
+}
