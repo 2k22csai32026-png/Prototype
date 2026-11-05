@@ -1099,6 +1099,7 @@ ${formData.name}
 
 
 {/* FAQ SECTION */}
+{/* FAQ SECTION */}
 <section className="faq-section">
 
   <div className="faq-heading" data-reveal>
@@ -1113,68 +1114,96 @@ ${formData.name}
 
   <div className="faq-list">
 
+    {/* FAQ 1 */}
     <details className="faq-item" data-reveal="0">
       <summary>
         <span>How much does a website cost?</span>
         <b>+</b>
       </summary>
 
-      <p>
-        Every project is different. The final cost depends on the
-        website's size, features and requirements. You can check our
-        pricing page or contact us for a project estimate.
-      </p>
+      <div className="faq-answer">
+        <div>
+          <p>
+            Every project is different. The final cost depends on the
+            website's size, features and requirements.
+          </p>
+        </div>
+      </div>
     </details>
 
+
+    {/* FAQ 2 */}
     <details className="faq-item" data-reveal="1">
       <summary>
         <span>How long does a website take to build?</span>
         <b>+</b>
       </summary>
 
-      <p>
-        Smaller websites can be completed within a few business days,
-        while larger projects may take longer depending on the
-        features and feedback process.
-      </p>
+      <div className="faq-answer">
+        <div>
+          <p>
+            Smaller websites can be completed within a few business days,
+            while larger projects may take longer depending on the
+            features and feedback process.
+          </p>
+        </div>
+      </div>
     </details>
 
+
+    {/* FAQ 3 */}
     <details className="faq-item" data-reveal="2">
       <summary>
         <span>Do I need to buy a domain and hosting?</span>
         <b>+</b>
       </summary>
 
-      <p>
-        Yes. Domain and hosting costs are separate from website
-        development. We can guide you through the process and help
-        with the setup if needed.
-      </p>
+      <div className="faq-answer">
+        <div>
+          <p>
+            Yes. Domain and hosting costs are separate from website
+            development. We can guide you through the process and help
+            with the setup if needed.
+          </p>
+        </div>
+      </div>
     </details>
 
+
+    {/* FAQ 4 */}
     <details className="faq-item" data-reveal="3">
       <summary>
         <span>Will my website work on mobile devices?</span>
         <b>+</b>
       </summary>
 
-      <p>
-        Yes. Every website is designed to be responsive and provide
-        a smooth experience across phones, tablets and desktop
-        screens.
-      </p>
+      <div className="faq-answer">
+        <div>
+          <p>
+            Yes. Every website is designed to be responsive and provide
+            a smooth experience across phones, tablets and desktop
+            screens.
+          </p>
+        </div>
+      </div>
     </details>
 
+
+    {/* FAQ 5 */}
     <details className="faq-item" data-reveal="4">
       <summary>
         <span>Can my website be updated in the future?</span>
         <b>+</b>
       </summary>
 
-      <p>
-        Yes. Websites can be expanded with new pages, content and
-        features as your business grows.
-      </p>
+      <div className="faq-answer">
+        <div>
+          <p>
+            Yes. Websites can be expanded with new pages, content and
+            features as your business grows.
+          </p>
+        </div>
+      </div>
     </details>
 
   </div>
