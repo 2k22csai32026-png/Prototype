@@ -17,6 +17,7 @@ import ChatWidget from './ChatWidget'
 import SpaceDodge from './SpaceDodge'
 import { sound } from './utils/soundEngine';
 import ScopeCalculator from './components/ScopeCalculator';
+import PerformanceBadge from './components/PerformanceBadge';
 /* =================================
    PORTFOLIO DATA
 ================================= */
@@ -827,7 +828,8 @@ function Home() {
           <span>SCROLL TO EXPLORE ↓</span>
         </div>
       </section>
-
+        {/* LIGHTHOUSE SCORECARD STRIP */}
+      <PerformanceBadge />
       {/* SCROLLING STRIP */}
       <Marquee />
 

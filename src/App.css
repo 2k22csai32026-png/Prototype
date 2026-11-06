@@ -5971,3 +5971,154 @@ body.menu-open .game-launcher {
     display: flex !important;
   }
 }
+
+/* =================================
+   LIGHTHOUSE PERFORMANCE SCORECARD
+================================= */
+
+.perf-badge-strip {
+  width: 100%;
+  background: #09090b;
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+  padding: 24px 5%;
+}
+
+.perf-badge-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 32px;
+}
+
+.perf-badge-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 10px;
+  letter-spacing: 2.5px;
+  font-weight: 700;
+  color: #71717a;
+}
+
+.perf-pulse-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #4ade80;
+  box-shadow: 0 0 8px #4ade80;
+}
+
+.perf-badge-desc {
+  margin: 4px 0 0;
+  color: #a1a1aa;
+  font-size: 13px;
+  letter-spacing: 0.3px;
+}
+
+.perf-scores-grid {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+}
+
+.perf-score-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  transition: transform 0.25s ease;
+}
+
+.perf-score-item:hover {
+  transform: translateY(-2px);
+}
+
+.perf-ring-wrap {
+  position: relative;
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.perf-ring-svg {
+  width: 100%;
+  height: 100%;
+  transform: rotate(-90deg);
+}
+
+.perf-ring-bg {
+  fill: none;
+  stroke: rgba(255, 255, 255, 0.08);
+  stroke-width: 3;
+}
+
+.perf-ring-fill {
+  fill: none;
+  stroke: #4ade80;
+  stroke-width: 3.2;
+  stroke-linecap: round;
+  filter: drop-shadow(0 0 4px rgba(74, 222, 128, 0.5));
+}
+
+.perf-score-num {
+  position: absolute;
+  font-size: 12px;
+  font-weight: 800;
+  color: #f4f4f5;
+  font-family: monospace;
+}
+
+.perf-score-label {
+  font-size: 9px;
+  letter-spacing: 1.5px;
+  color: #71717a;
+  font-weight: 600;
+}
+
+.perf-badge-speed {
+  text-align: right;
+  border-left: 1px solid rgba(255, 255, 255, 0.12);
+  padding-left: 28px;
+}
+
+.perf-badge-speed strong {
+  display: block;
+  font-size: 20px;
+  font-weight: 800;
+  color: #4ade80;
+  font-family: monospace;
+  line-height: 1;
+}
+
+.perf-badge-speed span {
+  display: block;
+  margin-top: 4px;
+  font-size: 9px;
+  letter-spacing: 2px;
+  color: #71717a;
+}
+
+@media (max-width: 900px) {
+  .perf-badge-inner {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 24px;
+  }
+
+  .perf-scores-grid {
+    width: 100%;
+    justify-content: space-between;
+    gap: 12px;
+  }
+
+  .perf-badge-speed {
+    border-left: none;
+    padding-left: 0;
+    text-align: left;
+  }
+}
