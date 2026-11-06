@@ -18,6 +18,8 @@ import SpaceDodge from './SpaceDodge'
 import { sound } from './utils/soundEngine';
 import ScopeCalculator from './components/ScopeCalculator';
 import PerformanceBadge from './components/PerformanceBadge';
+import { useTilt } from './hooks/useTilt'
+import InteractivePricingEstimator from './components/InteractivePricingEstimator'
 /* =================================
    PORTFOLIO DATA
 ================================= */
@@ -621,6 +623,15 @@ const ENQUIRY_SERVICES = [
 
 const ENQUIRY_PLANS = ['LIFTOFF', 'ORBIT', 'DEEP SPACE', 'Not sure yet']
 
+function TiltCard({ children, className, ...rest }) {
+  const tiltRef = useTilt(10)
+  return (
+    <div ref={tiltRef} className={className} {...rest}>
+      {children}
+    </div>
+  )
+}
+
 /* =================================
    HOME PAGE
 ================================= */
@@ -853,49 +864,42 @@ function Home() {
         </div>
 
         <div className="services-grid">
-          <Link
-            to="/services/business-websites"
-            className="service-card"
-            data-reveal="0"
-          >
-            <span className="service-number">01 / 03</span>
-            <h3>Business Websites</h3>
-            <p>
-              Modern and responsive websites designed to give your
-              business a strong digital presence.
-            </p>
-            <span className="service-arrow">↗</span>
-          </Link>
+          <TiltCard className="service-card" data-reveal="0">
+            <Link to="/services/business-websites">
+              <span className="service-number">01 / 03</span>
+              <h3>Business Websites</h3>
+              <p>
+                Modern and responsive websites designed to give your business a
+                strong digital presence.
+              </p>
+              <span className="service-arrow">↗</span>
+            </Link>
+          </TiltCard>
 
-          <Link
-            to="/services/landing-pages"
-            className="service-card"
-            data-reveal="1"
-          >
-            <span className="service-number">02 / 03</span>
-            <h3>Landing Pages</h3>
-            <p>
-              High-impact landing pages designed to clearly present
-              your product, service or campaign and encourage visitors
-              to take action.
-            </p>
-            <span className="service-arrow">↗</span>
-          </Link>
+          <TiltCard className="service-card" data-reveal="1">
+            <Link to="/services/landing-pages">
+              <span className="service-number">02 / 03</span>
+              <h3>Landing Pages</h3>
+              <p>
+                High-impact landing pages designed to clearly present your
+                product, service or campaign and encourage visitors to take
+                action.
+              </p>
+              <span className="service-arrow">↗</span>
+            </Link>
+          </TiltCard>
 
-          <Link
-            to="/services/frontend-development"
-            className="service-card"
-            data-reveal="2"
-          >
-            <span className="service-number">03 / 03</span>
-            <h3>Custom Frontend Development</h3>
-            <p>
-              Custom React interfaces and responsive frontend
-              experiences built with clean code and attention
-              to every detail.
-            </p>
-            <span className="service-arrow">↗</span>
-          </Link>
+          <TiltCard className="service-card" data-reveal="2">
+            <Link to="/services/frontend-development">
+              <span className="service-number">03 / 03</span>
+              <h3>Custom Frontend Development</h3>
+              <p>
+                Custom React interfaces and responsive frontend experiences
+                built with clean code and attention to every detail.
+              </p>
+              <span className="service-arrow">↗</span>
+            </Link>
+          </TiltCard>
         </div>
       </section>
 
@@ -2001,7 +2005,7 @@ function Pricing() {
             is at, and we build to match.
           </p>
         </div>
-
+          <InteractivePricingEstimator />
         <div className="tier-grid">
           {TIERS.map((t, i) => (
             <article

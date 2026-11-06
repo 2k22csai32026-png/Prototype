@@ -39,13 +39,32 @@ body {
   inset: 0;
   z-index: 1000;
   overflow: hidden;
-  background:
-    radial-gradient(ellipse at center, #17191d 0%, #08090b 48%, #020202 100%);
+  background: radial-gradient(ellipse at center, #111215 0%, #060708 60%, #000000 100%);
   display: flex;
   justify-content: center;
   align-items: center;
-  perspective: 1200px;
-  animation: introFadeOut 0.6s ease 2.8s forwards;
+  perspective: 1000px;
+  
+  /* Force GPU acceleration & prevent repaints */
+  backface-visibility: hidden;
+  transform: translateZ(0);
+  will-change: opacity, transform;
+  
+  /* Snappy 0.45s exit without heavy blur calculation */
+  animation: introSmoothExit 0.45s cubic-bezier(0.4, 0, 0.2, 1) 2.2s forwards;
+}
+
+@keyframes introSmoothExit {
+  0% {
+    opacity: 1;
+    transform: scale3d(1, 1, 1);
+  }
+  100% {
+    opacity: 0;
+    transform: scale3d(1.2, 1.2, 1);
+    visibility: hidden;
+    pointer-events: none;
+  }
 }
 
 /* SPACE PARTICLES */
@@ -110,18 +129,48 @@ body {
   animation: planetReveal 1.4s ease-out both;
 }
 
-.planet {
+.planet::before {
+  content: "";
   position: absolute;
-  width: 210px;
-  height: 210px;
+  inset: -14px;
   border-radius: 50%;
-  background:
-    radial-gradient(circle at 32% 28%, #777b80 0%, #383b40 22%, #15171b 55%, #030304 80%);
-  box-shadow:
-    inset -25px -15px 45px #000000,
-    inset 10px 8px 25px rgba(255,255,255,0.18),
-    0 0 55px rgba(255,255,255,0.09);
-  animation: planetPulse 3s ease-in-out infinite;
+  /* Pure gradient soft edge — no laggy CSS blur filter */
+  background: radial-gradient(
+    circle, 
+    rgba(74, 222, 128, 0.2) 0%, 
+    rgba(255, 255, 255, 0.06) 50%, 
+    transparent 72%
+  );
+  animation: coronaPulse 2s ease-in-out infinite alternate;
+}
+
+@keyframes coronaPulse {
+  from { transform: scale(0.95); opacity: 0.6; }
+  to   { transform: scale(1.15); opacity: 1; }
+}
+
+.intro-skip-btn {
+  position: absolute;
+  bottom: 32px;
+  right: 32px;
+  z-index: 10;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: #71717a;
+  font-size: 10px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  padding: 8px 16px;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  backdrop-filter: blur(8px);
+}
+
+.intro-skip-btn:hover {
+  color: #ffffff;
+  border-color: rgba(255, 255, 255, 0.4);
+  background: rgba(255, 255, 255, 0.12);
 }
 
 @keyframes planetReveal {
@@ -146,37 +195,69 @@ body {
 
 /* ORBITAL RINGS */
 
+/* =================================
+   ORBITAL RINGS (ALL 3 ANIMATED)
+================================= */
+
 .orbit {
   position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+  will-change: transform;
+}
+
+/* Ring 1: Primary Equatorial Orbit */
+.orbit-one {
   width: 360px;
   height: 125px;
-  border: 1px solid rgba(220,225,235,0.5);
-  border-radius: 50%;
-  box-shadow: 0 0 12px rgba(255,255,255,0.1);
+  border: 1px solid rgba(220, 225, 235, 0.5);
+  box-shadow: 0 0 12px rgba(255, 255, 255, 0.12);
+  animation: orbitSpinOne 7s linear infinite;
 }
 
-.orbit-one {
-  transform: rotate(-28deg);
-  animation: orbitRotate 8s linear infinite;
-}
-
+/* Ring 2: Wide Inclined Orbit (Counter-clockwise) */
 .orbit-two {
   width: 390px;
   height: 145px;
-  transform: rotate(42deg);
-  border-color: rgba(255,255,255,0.22);
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  box-shadow: 0 0 14px rgba(255, 255, 255, 0.08);
+  animation: orbitSpinTwo 9s linear infinite;
 }
 
+/* Ring 3: Tight Polar Orbit */
 .orbit-three {
   width: 310px;
   height: 100px;
-  transform: rotate(75deg);
-  border-color: rgba(255,255,255,0.18);
+  border: 1px solid rgba(74, 222, 128, 0.35); /* Subtle emerald hint */
+  box-shadow: 0 0 10px rgba(74, 222, 128, 0.15);
+  animation: orbitSpinThree 11s linear infinite;
 }
 
-@keyframes orbitRotate {
+/* Independent Rotation Axes (Maintains 3D tilt while spinning 360°) */
+@keyframes orbitSpinOne {
+  from {
+    transform: rotate(-28deg) rotateZ(0deg);
+  }
   to {
-    transform: rotate(332deg);
+    transform: rotate(-28deg) rotateZ(360deg);
+  }
+}
+
+@keyframes orbitSpinTwo {
+  from {
+    transform: rotate(42deg) rotateZ(360deg);
+  }
+  to {
+    transform: rotate(42deg) rotateZ(0deg);
+  }
+}
+
+@keyframes orbitSpinThree {
+  from {
+    transform: rotate(75deg) rotateZ(0deg);
+  }
+  to {
+    transform: rotate(75deg) rotateZ(360deg);
   }
 }
 
@@ -6120,5 +6201,152 @@ body.menu-open .game-launcher {
     border-left: none;
     padding-left: 0;
     text-align: left;
+  }
+}
+
+.service-card, .template-card, .featured-project {
+  transition: transform 0.15s ease-out;
+  transform-style: preserve-3d;
+  position: relative;
+  overflow: hidden;
+}
+
+.service-card::after, .template-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(circle 220px at var(--glare-x, 50%) var(--glare-y, 50%), rgba(255, 255, 255, 0.08), transparent 70%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.service-card:hover::after, .template-card:hover::after {
+  opacity: 1;
+}
+
+.estimator-box {
+  background: #0d0d0e;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  padding: 36px;
+  max-width: 850px;
+  margin: 60px auto 0;
+  position: relative;
+}
+
+.estimator-badge {
+  font-size: 10px;
+  letter-spacing: 2px;
+  color: #4ade80;
+  font-weight: 700;
+  display: block;
+  margin-bottom: 8px;
+}
+
+.estimator-header h3 {
+  font-size: clamp(24px, 3vw, 32px);
+  margin-bottom: 28px;
+}
+
+.field-label-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+  color: #a1a1aa;
+  margin-bottom: 12px;
+}
+
+.field-label-row strong {
+  color: #ffffff;
+}
+
+.estimator-slider {
+  width: 100%;
+  accent-color: #ffffff;
+  cursor: pointer;
+  height: 6px;
+  background: #27272a;
+}
+
+.estimator-toggles {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin: 24px 0 32px;
+}
+
+.toggle-chip {
+  padding: 10px 16px;
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #a1a1aa;
+  font-size: 12px;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.toggle-chip.is-active {
+  background: #ffffff;
+  color: #09090b;
+  font-weight: 700;
+  border-color: #ffffff;
+}
+
+.estimator-result {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
+  padding-top: 24px;
+}
+
+.result-kicker {
+  font-size: 9px;
+  letter-spacing: 2px;
+  color: #71717a;
+}
+
+.result-tier {
+  font-size: 28px;
+  font-weight: 800;
+  color: #ffffff;
+  line-height: 1.1;
+  margin: 4px 0;
+}
+
+.result-days {
+  font-size: 12px;
+  color: #4ade80;
+  font-family: monospace;
+}
+
+.estimator-cta {
+  padding: 14px 24px;
+  background: #ffffff;
+  color: #09090b;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 1px;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: background 0.2s;
+}
+
+.estimator-cta:hover {
+  background: #d4d4d8;
+}
+
+@media (max-width: 768px) {
+  .estimator-result {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 18px;
+  }
+  .estimator-cta {
+    width: 100%;
+    justify-content: space-between;
   }
 }
