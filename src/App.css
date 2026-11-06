@@ -5710,3 +5710,239 @@ body.menu-open .game-launcher {
     padding-top: 100px;
   }
 }
+
+/* =================================
+   SCOPE CALCULATOR & AUDIO ENGINE
+================================= */
+
+.scope-calculator-section {
+  padding: 120px 5%;
+  background: #080808;
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.scope-calculator-card {
+  max-width: 950px;
+  margin: 0 auto;
+  padding: 44px;
+  background: linear-gradient(160deg, rgba(255, 255, 255, 0.04) 0%, rgba(255, 255, 255, 0.01) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  position: relative;
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.7);
+}
+
+.scope-calculator-card::before {
+  content: "";
+  position: absolute;
+  top: -1px;
+  left: -1px;
+  width: 32px;
+  height: 32px;
+  border-top: 2px solid #ffffff;
+  border-left: 2px solid #ffffff;
+}
+
+.scope-calculator-card::after {
+  content: "";
+  position: absolute;
+  bottom: -1px;
+  right: -1px;
+  width: 32px;
+  height: 32px;
+  border-bottom: 2px solid #ffffff;
+  border-right: 2px solid #ffffff;
+}
+
+.calc-tag {
+  color: #9c9c9c;
+  font-size: 11px;
+  letter-spacing: 3px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 8px;
+}
+
+.calc-sub {
+  color: #777777;
+  font-size: 13px;
+  margin-bottom: 34px;
+}
+
+.calc-group {
+  margin-bottom: 28px;
+}
+
+.calc-label {
+  display: block;
+  color: #888888;
+  font-size: 10px;
+  letter-spacing: 2px;
+  margin-bottom: 14px;
+}
+
+.calc-label b {
+  color: #ffffff;
+  margin-right: 6px;
+}
+
+.calc-options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.calc-chip {
+  padding: 12px 20px;
+  background: transparent;
+  color: #a8a8a8;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 999px;
+  font-family: inherit;
+  font-size: 12px;
+  letter-spacing: 0.5px;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.calc-chip:hover {
+  border-color: #ffffff;
+  color: #ffffff;
+  transform: translateY(-2px);
+}
+
+.calc-chip.is-active {
+  background: #ffffff;
+  color: #080808;
+  border-color: #ffffff;
+  font-weight: 700;
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.25);
+}
+
+/* Output Box */
+.calc-output {
+  margin-top: 36px;
+  padding: 28px 32px;
+  background: #0d0d0d;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 28px;
+}
+
+.output-kicker {
+  display: block;
+  font-size: 9px;
+  letter-spacing: 2.5px;
+  color: #777777;
+  margin-bottom: 6px;
+}
+
+.output-tier-row {
+  display: flex;
+  align-items: baseline;
+  gap: 16px;
+  margin-bottom: 6px;
+}
+
+.output-tier-name {
+  font-size: clamp(28px, 3.5vw, 44px);
+  font-weight: 800;
+  letter-spacing: -1.5px;
+  line-height: 1;
+  color: #ffffff;
+}
+
+.output-tag {
+  font-size: 10px;
+  letter-spacing: 1.5px;
+  color: #4ade80;
+  font-weight: 700;
+  font-family: monospace;
+}
+
+.output-desc {
+  font-size: 13px;
+  color: #999999;
+  line-height: 1.6;
+  max-width: 480px;
+}
+
+.calc-apply-btn {
+  padding: 16px 26px;
+  background: #ffffff;
+  color: #080808;
+  border: none;
+  font-family: inherit;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  white-space: nowrap;
+  transition: all 0.3s ease;
+}
+
+.calc-apply-btn:hover {
+  background: #d4d4d4;
+  transform: translateY(-3px);
+}
+
+/* Audio Switcher in Navbar */
+.audio-toggle-btn {
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  padding: 6px 14px;
+  border-radius: 999px;
+  color: #888888;
+  font-family: inherit;
+  font-size: 10px;
+  letter-spacing: 1.5px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.25s ease;
+}
+
+.audio-toggle-btn:hover {
+  border-color: #ffffff;
+  color: #ffffff;
+}
+
+.audio-toggle-btn.is-active {
+  border-color: #4ade80;
+  color: #ffffff;
+  background: rgba(74, 222, 128, 0.08);
+}
+
+.audio-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #777777;
+}
+
+.audio-toggle-btn.is-active .audio-dot {
+  background: #4ade80;
+  box-shadow: 0 0 8px #4ade80;
+}
+
+@media (max-width: 768px) {
+  .scope-calculator-card {
+    padding: 26px 18px;
+  }
+  .calc-output {
+    flex-direction: column;
+    align-items: stretch;
+    padding: 22px 18px;
+  }
+  .calc-apply-btn {
+    width: 100%;
+    justify-content: space-between;
+  }
+}

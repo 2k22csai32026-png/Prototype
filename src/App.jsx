@@ -15,43 +15,33 @@ import {
 import './App.css'
 import ChatWidget from './ChatWidget'
 import SpaceDodge from './SpaceDodge'
+import { sound } from './utils/soundEngine';
+import ScopeCalculator from './components/ScopeCalculator';
 /* =================================
    PORTFOLIO DATA
-
-   To add a new project:
-   1. Put its images in /public/images/projects/
-   2. Copy the PCP Media block and paste it after it
-   3. Change the slug, text and image paths
 ================================= */
 
 const projects = [
   {
-    slug: 'pcp-media', // becomes /projects/pcp-media
+    slug: 'pcp-media',
     titleTop: 'PCP',
     titleBottom: 'MEDIA.',
     category: 'DIGITAL MARKETING AGENCY WEBSITE',
-
     summary:
       'A modern frontend website designed and developed for PCP Media, showcasing digital marketing services, creative work and brand identity through a premium visual experience.',
-
     pageSummary:
       'A modern frontend website designed and developed for a digital marketing agency, focused on presenting services, creative work and brand identity through a premium digital experience.',
-
     tags: ['WEB DESIGN', 'FRONTEND DEVELOPMENT', 'RESPONSIVE DESIGN'],
-
-    // After converting to WebP (Step 4) change .png to .webp below
     cover: {
       src: '/images/projects/pcp-1.png',
       alt: 'PCP Media website project',
     },
-
     gallery: [
       { src: '/images/projects/pcp-2.png', alt: 'PCP Media project screenshot' },
       { src: '/images/projects/pcp-3.png', alt: 'PCP Media project screenshot' },
       { src: '/images/projects/pcp-4.png', alt: 'PCP Media project screenshot' },
       { src: '/images/projects/pcp-5.png', alt: 'PCP Media project screenshot' },
     ],
-
     overviewTop: 'A MODERN DIGITAL',
     overviewBottom: 'AGENCY EXPERIENCE.',
     highlights: [
@@ -61,13 +51,45 @@ const projects = [
       'Service & Portfolio Presentation',
       'Premium Visual Experience',
     ],
-
     ctaText:
       "Have an idea or business that needs a strong digital presence? Let's create something that makes an impact.",
-
-    liveUrl: 'https://www.pcpmedia.in', // optional: add a link to show a "Live Site" button
+    liveUrl: 'https://www.pcpmedia.in',
   },
-    {
+  {
+    slug: 'landmark',
+    demo: true,
+    titleTop: 'THE',
+    titleBottom: 'LANDMARK.',
+    category: 'FINE DINING & WELLNESS CLUB (DEMO CONCEPT)',
+    summary:
+      'A high-contrast luxury hospitality showcase featuring categorized woodfired menu cards, dual dining and wellness club features, direct table reservations, and an event enquiry concierge.',
+    pageSummary:
+      'A concept demo crafted for fine dining restaurants and private wellness clubs, built to drive table bookings, corporate gathering requests, and membership interest through a refined, dark editorial aesthetic.',
+    tags: ['REACT', 'VITE', 'TAILWIND CSS', 'ZERO BACKEND', 'DEMO CONCEPT'],
+    cover: { 
+      src: '/images/projects/landmark-1.png', 
+      alt: 'The Landmark restaurant hero section' 
+    },
+    gallery: [
+      { src: '/images/projects/landmark-3.png', alt: 'The Landmark Wellness Club suites' },
+      { src: '/images/projects/landmark-2.png', alt: 'The Landmark seasonal menu showcase' },
+      { src: '/images/projects/landmark-4.png', alt: 'The Landmark private event enquiry concierge' },
+      { src: '/images/projects/landmark-5.png', alt: 'The Landmark table reservation modal flow' },
+    ],
+    overviewTop: 'AN ICONIC HOSPITALITY',
+    overviewBottom: '& WELLNESS DESTINATION.',
+    highlights: [
+      'Quiet Luxury Visual Identity with High-Contrast Typography',
+      'Filterable Woodfired Menu with Visual Dish Cards',
+      'Dual Showcase for Fine Dining & Wellness Club Amenities',
+      'Interactive Table Reservation Modal Simulation',
+      'Full Venue Buyout & Corporate Event Lead Capture',
+    ],
+    ctaText:
+      "Running a fine dining venue, bistro, resort or wellness lounge? Let's build an iconic website that turns visitors into confirmed bookings.",
+    liveUrl: 'https://landmark-demo.pages.dev', // Replace with your live URL if different
+  },
+  {
     slug: 'apex-academy',
     demo: true,
     titleTop: 'APEX',
@@ -107,7 +129,16 @@ const MARQUEE_ITEMS = [
   'MODERN DESIGN',
   'BUILT TO LAUNCH',
 ]
+
 const TEMPLATES = [
+  {
+    slug: 'landmark',
+    industry: 'FINE DINING / RESTAURANT & WELLNESS',
+    name: 'The Landmark',
+    text: 'Seasonal menu filters, wellness club suites, instant table booking modal, and private event inquiries.',
+    img: '/images/projects/landmark-1.png',
+    tags: ['LUXURY DARK', 'RESERVATIONS', 'WELLNESS'],
+  },
   {
     slug: 'apex-academy',
     industry: 'EDUCATION / COACHING',
@@ -118,25 +149,16 @@ const TEMPLATES = [
   },
   {
     soon: true,
-    industry: 'HOTEL / RESTAURANT',
-    name: 'Coming soon',
-    text: 'Galleries, menus, room types and booking requests.',
-  },
-  {
-    soon: true,
     industry: 'PORTFOLIO / STUDIO',
     name: 'Coming soon',
     text: 'A clean showcase for photographers, designers and creative studios.',
   },
 ]
 
-
 /* =================================
    HOOKS & SMALL HELPERS
 ================================= */
 
-/* Adds "is-visible" to any [data-reveal] element
-   once it scrolls into view. Re-runs on every route. */
 function useScrollReveal() {
   const { pathname } = useLocation()
 
@@ -168,8 +190,6 @@ function useScrollReveal() {
   }, [pathname])
 }
 
-/* Cursor spotlight on service cards + magnetic buttons.
-   Desktop mouse only — does nothing on touch screens. */
 function useCursorEffects() {
   useEffect(() => {
     const canHover = window.matchMedia(
@@ -199,7 +219,6 @@ function useCursorEffects() {
       cancelAnimationFrame(frame)
 
       frame = requestAnimationFrame(() => {
-        /* spotlight */
         const card = target.closest ? target.closest('.service-card') : null
 
         if (card) {
@@ -208,7 +227,6 @@ function useCursorEffects() {
           card.style.setProperty('--my', `${e.clientY - rect.top}px`)
         }
 
-        /* magnetic buttons */
         if (reduceMotion) return
 
         document.querySelectorAll(MAGNETS).forEach((el) => {
@@ -241,7 +259,6 @@ function useCursorEffects() {
   }, [])
 }
 
-/* Sets the browser tab title + description + share-card tags */
 function setMeta(attr, key, value) {
   let el = document.head.querySelector(`meta[${attr}="${key}"]`)
 
@@ -262,7 +279,6 @@ function usePageMeta(title, description) {
     const image = `${window.location.origin}/og-image.png`
 
     setMeta('name', 'description', description)
-
     setMeta('property', 'og:type', 'website')
     setMeta('property', 'og:site_name', 'PROTOTYPE')
     setMeta('property', 'og:title', title)
@@ -277,7 +293,6 @@ function usePageMeta(title, description) {
   }, [title, description])
 }
 
-/* Thin progress line at the top of the screen */
 function ScrollProgress() {
   const { pathname } = useLocation()
   const barRef = useRef(null)
@@ -322,7 +337,6 @@ function ScrollProgress() {
   )
 }
 
-/* Image with a soft blur-up while loading */
 function ProjectImage({ src, alt, className = '', ...rest }) {
   const [loaded, setLoaded] = useState(false)
   const imgRef = useRef(null)
@@ -378,7 +392,6 @@ function DetailList({ items }) {
   )
 }
 
-/* Scrolling keyword strip */
 function Marquee() {
   return (
     <div className="marquee" aria-hidden="true">
@@ -395,9 +408,8 @@ function Marquee() {
   )
 }
 
-
 /* =================================
-   HOME NAVBAR (mobile menu, sticky on mobile, logo replays intro)
+   HOME NAVBAR
 ================================= */
 
 const NAV_ITEMS = [
@@ -408,10 +420,15 @@ const NAV_ITEMS = [
   ['Pricing', '/pricing'],
   ['Contact', '#contact'],
 ]
-
 function Navbar({ onLogoClick }) {
   const [open, setOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
+  const [audioActive, setAudioActive] = useState(false)
+
+  const toggleAudio = () => {
+    const state = sound.toggle()
+    setAudioActive(state)
+  }
 
   const closeMenu = () => {
     document.body.classList.remove('menu-open')
@@ -458,7 +475,6 @@ function Navbar({ onLogoClick }) {
 
   return (
     <nav className={`navbar ${scrolled ? 'is-scrolled' : ''}`}>
-
       <div
         className="brand-name"
         role="button"
@@ -474,6 +490,16 @@ function Navbar({ onLogoClick }) {
       >
         PROTOTYPE<span>®</span>
       </div>
+
+      <button
+        type="button"
+        className={`audio-toggle-btn ${audioActive ? 'is-active' : ''}`}
+        onClick={toggleAudio}
+        title="Toggle Sci-Fi Interface Sound FX"
+      >
+        <span className="audio-dot" />
+        SOUND FX: {audioActive ? 'ON' : 'OFF'}
+      </button>
 
       <button
         type="button"
@@ -493,26 +519,26 @@ function Navbar({ onLogoClick }) {
         className={`nav-links ${open ? 'is-open' : ''}`}
       >
         {NAV_ITEMS.map(([label, href], i) =>
-  href.startsWith('/') ? (
-    <Link
-      key={href}
-      to={href}
-      style={{ '--i': i }}
-      onClick={closeMenu}
-    >
-      {label}
-    </Link>
-  ) : (
-    <a
-      key={href}
-      href={href}
-      style={{ '--i': i }}
-      onClick={closeMenu}
-    >
-      {label}
-    </a>
-  )
-)}
+          href.startsWith('/') ? (
+            <Link
+              key={href}
+              to={href}
+              style={{ '--i': i }}
+              onClick={closeMenu}
+            >
+              {label}
+            </Link>
+          ) : (
+            <a
+              key={href}
+              href={href}
+              style={{ '--i': i }}
+              onClick={closeMenu}
+            >
+              {label}
+            </a>
+          )
+        )}
 
         <div className="menu-footer">
           <p>HAVE A PROJECT IN MIND?</p>
@@ -526,11 +552,9 @@ function Navbar({ onLogoClick }) {
           </a>
         </div>
       </div>
-
     </nav>
   )
 }
-
 
 /* =================================
    FOOTER
@@ -539,19 +563,14 @@ function Navbar({ onLogoClick }) {
 function Footer() {
   return (
     <footer className="site-footer">
-
       <div className="footer-main" data-reveal>
-
         <div className="footer-brand">
           <p className="footer-kicker">INDEPENDENT DIGITAL STUDIO</p>
-
           <div className="footer-logo">
             PROTOTYPE<span>®</span>
           </div>
-
           <p className="footer-tagline">
-            Creating modern digital experiences from
-            idea to interface.
+            Creating modern digital experiences from idea to interface.
           </p>
           <Link to="/play" className="footer-play">
             TAKE A BREAK: PLAY A GAME ↗
@@ -559,9 +578,7 @@ function Footer() {
         </div>
 
         <div className="footer-connect">
-
           <p className="footer-kicker">HAVE A PROJECT IN MIND?</p>
-
           <h3>
             LET'S CREATE
             <br />
@@ -572,32 +589,24 @@ function Footer() {
             <a href="mailto:prototype.tech.webdev@gmail.com">
               prototype.tech.webdev@gmail.com ↗
             </a>
-
             <a href="tel:+918957549660">
               +91 89575 49660
             </a>
           </div>
-
         </div>
-
       </div>
 
       <div className="footer-divider"></div>
 
       <div className="footer-bottom">
-
         <p>© 2026 PROTOTYPE</p>
-
         <p className="footer-credit">
           DESIGNED & DEVELOPED BY <span>GAURAV</span>
         </p>
-
         <p className="footer-signature">
           FROM IDEA TO INTERFACE.
         </p>
-
       </div>
-
     </footer>
   )
 }
@@ -625,19 +634,26 @@ function Home() {
   const [introRun, setIntroRun] = useState(0)
   const introTimer = useRef(null)
 
+  const handleApplyScope = ({ service, plan, note }) => {
+  setFormData((prev) => ({
+    ...prev,
+    service: service || prev.service,
+    plan: plan || prev.plan,
+    message: prev.message ? `${prev.message}\n\n[Scope Estimate]: ${note}` : `[Scope Estimate]: ${note}`
+  }));
+};
+
   const runIntro = () => {
     clearTimeout(introTimer.current)
-
-    setIntroRun((n) => n + 1) // new key = animation restarts
+    setIntroRun((n) => n + 1)
     setShowIntro(true)
 
     introTimer.current = setTimeout(() => {
       setShowIntro(false)
-
       try {
         sessionStorage.setItem('prototypeIntroShown', 'true')
       } catch {
-        /* ignore */
+        /* storage unavailable */
       }
     }, 3900)
   }
@@ -649,11 +665,10 @@ function Home() {
 
   useEffect(() => {
     let introAlreadyShown = false
-
     try {
       introAlreadyShown = sessionStorage.getItem('prototypeIntroShown')
     } catch {
-      /* storage unavailable — just show the intro */
+      /* ignore */
     }
 
     if (!introAlreadyShown) runIntro()
@@ -661,93 +676,91 @@ function Home() {
     return () => clearTimeout(introTimer.current)
   }, [])
 
-const [formData, setFormData] = useState({
-  name: '',
-  email: '',
-  company: '',
-  service: '',
-  plan: '',
-  message: ''
-})
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    company: '',
+    service: '',
+    plan: '',
+    message: ''
+  })
 
-const [formStatus, setFormStatus] = useState('')
+  const [formStatus, setFormStatus] = useState('')
 
-const requiredFilled = [formData.name, formData.email, formData.message]
-  .filter((v) => v.trim()).length
+  const requiredFilled = [formData.name, formData.email, formData.message]
+    .filter((v) => v.trim()).length
 
-const handleChange = (e) => {
-  const { name, value } = e.target
-
-  setFormData((prevData) => ({
-    ...prevData,
-    [name]: value
-  }))
-}
-
-/* click a chip to select it, click again to unselect */
-const pickChip = (field, value) => {
-  setFormData((prev) => ({
-    ...prev,
-    [field]: prev[field] === value ? '' : value
-  }))
-}
-
-const [isSubmitting, setIsSubmitting] = useState(false)
-
-const handleSubmit = async (e) => {
-  e.preventDefault()
-  setIsSubmitting(true)
-  setFormStatus('Transmitting enquiry...')
-
-  try {
-    const response = await fetch('https://api.web3forms.com/submit', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Accept: 'application/json',
-      },
-      body: JSON.stringify({
-        access_key: '0720abdd-5fb9-4159-8184-7b610ce7109f',
-        subject: `New Project Enquiry from ${formData.name}`,
-        from_name: 'PROTOTYPE Website',
-        name: formData.name,
-        email: formData.email,
-        company: formData.company || 'Not provided',
-        service: formData.service || 'Not selected',
-        plan: formData.plan || 'Not selected',
-        message: formData.message,
-      }),
-    })
-
-    const result = await response.json()
-
-    if (result.success) {
-      setFormStatus('Enquiry transmitted successfully. We will get back to you within 24 hours.')
-      setFormData({
-        name: '',
-        email: '',
-        company: '',
-        service: '',
-        plan: '',
-        message: '',
-      })
-    } else {
-      setFormStatus(result.message || 'Something went wrong. Please try again.')
-    }
-  } catch (error) {
-    setFormStatus('Unable to connect. You can reach us directly at prototype.tech.webdev@gmail.com')
-  } finally {
-    setIsSubmitting(false)
+  const handleChange = (e) => {
+    const { name, value } = e.target
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value
+    }))
   }
-}
+
+  const pickChip = (field, value) => {
+    setFormData((prev) => ({
+      ...prev,
+      [field]: prev[field] === value ? '' : value
+    }))
+  }
+
+  const [isSubmitting, setIsSubmitting] = useState(false)
+
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+    sound.playTransmission(); // Plays sci-fi transmit pulse
+    setIsSubmitting(true);
+    setIsSubmitting(true)
+    setFormStatus('Transmitting enquiry...')
+
+    try {
+      const response = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
+        },
+        body: JSON.stringify({
+          access_key: '0720abdd-5fb9-4159-8184-7b610ce7109f',
+          subject: `New Project Enquiry from ${formData.name}`,
+          from_name: 'PROTOTYPE Website',
+          name: formData.name,
+          email: formData.email,
+          company: formData.company || 'Not provided',
+          service: formData.service || 'Not selected',
+          plan: formData.plan || 'Not selected',
+          message: formData.message,
+        }),
+      })
+
+      const result = await response.json()
+
+      if (result.success) {
+        setFormStatus('Enquiry transmitted successfully. We will get back to you within 24 hours.')
+        setFormData({
+          name: '',
+          email: '',
+          company: '',
+          service: '',
+          plan: '',
+          message: '',
+        })
+      } else {
+        setFormStatus(result.message || 'Something went wrong. Please try again.')
+      }
+    } catch (error) {
+      setFormStatus('Unable to connect. You can reach us directly at prototype.tech.webdev@gmail.com')
+    } finally {
+      setIsSubmitting(false)
+    }
+  }
 
   return (
     <main className="prototype-app">
-
       {/* INTRO SCREEN */}
       {showIntro && (
         <div className="intro-screen" key={introRun}>
-
           <div className="space-particles">
             {Array.from({ length: 18 }, (_, i) => (
               <span
@@ -776,17 +789,14 @@ const handleSubmit = async (e) => {
           <div className="intro-caption">
             FROM IDEA TO INTERFACE
           </div>
-
         </div>
       )}
 
       {/* HERO SECTION */}
       <section className="hero-screen" id="home">
-
         <Navbar onLogoClick={replayIntro} />
 
         <div className="hero-content">
-
           <p className="availability">
             <span className="availability-dot" />
             AVAILABLE FOR NEW PROJECTS
@@ -810,26 +820,20 @@ const handleSubmit = async (e) => {
           <a href="#contact" className="hero-button">
             Start a project <span>↗</span>
           </a>
-
         </div>
 
         <div className="hero-footer">
           <span>DESIGN. DEVELOP. DEPLOY.</span>
           <span>SCROLL TO EXPLORE ↓</span>
         </div>
-
       </section>
-
 
       {/* SCROLLING STRIP */}
       <Marquee />
 
-
       {/* SERVICES SECTION */}
       <section className="services-section" id="services">
-
         <div className="services-heading" data-reveal>
-
           <p className="section-label">
             WHAT WE DO
           </p>
@@ -844,96 +848,68 @@ const handleSubmit = async (e) => {
             PROTOTYPE creates modern, responsive digital experiences
             designed around your ideas, goals and brand.
           </p>
-
         </div>
 
         <div className="services-grid">
-
           <Link
             to="/services/business-websites"
             className="service-card"
             data-reveal="0"
           >
-            <span className="service-number">
-              01 / 03
-            </span>
-
+            <span className="service-number">01 / 03</span>
             <h3>Business Websites</h3>
-
             <p>
               Modern and responsive websites designed to give your
               business a strong digital presence.
             </p>
-
             <span className="service-arrow">↗</span>
           </Link>
-
 
           <Link
             to="/services/landing-pages"
             className="service-card"
             data-reveal="1"
           >
-            <span className="service-number">
-              02 / 03
-            </span>
-
+            <span className="service-number">02 / 03</span>
             <h3>Landing Pages</h3>
-
             <p>
               High-impact landing pages designed to clearly present
               your product, service or campaign and encourage visitors
               to take action.
             </p>
-
             <span className="service-arrow">↗</span>
           </Link>
-
 
           <Link
             to="/services/frontend-development"
             className="service-card"
             data-reveal="2"
           >
-            <span className="service-number">
-              03 / 03
-            </span>
-
+            <span className="service-number">03 / 03</span>
             <h3>Custom Frontend Development</h3>
-
             <p>
               Custom React interfaces and responsive frontend
               experiences built with clean code and attention
               to every detail.
             </p>
-
             <span className="service-arrow">↗</span>
           </Link>
-
         </div>
-
       </section>
-
 
       {/* PHILOSOPHY */}
       <div className="hero-side-note">
-
         <span>OUR PHILOSOPHY</span>
-
         <h2>
           BUILT TO MAKE
           <br />
           AN IMPACT.
         </h2>
-
       </div>
-
 
       {/* WORK SECTION */}
       <section className="work-section" id="work">
-
         <div className="work-heading" data-reveal>
-
           <p className="section-label">
             SELECTED WORK
           </p>
@@ -948,55 +924,39 @@ const handleSubmit = async (e) => {
             A selection of digital experiences designed and developed
             around real businesses, brands and ideas.
           </p>
-
         </div>
 
-
-        {/* One block per project — edit the projects array at the top to add more */}
         {projects.filter((p) => !p.demo).map((project, index) => (
           <Fragment key={project.slug}>
-
             <div className="featured-project">
-
               <div className="project-image" data-reveal>
-
                 <ProjectImage
                   src={project.cover.src}
                   alt={project.cover.alt}
                 />
-
                 <div className="project-image-overlay">
                   <span>
                     {index === 0 ? 'FEATURED PROJECT' : 'PROJECT'}
                   </span>
                 </div>
-
               </div>
 
-
               <div className="project-info" data-reveal="1">
-
                 <div>
-
                   <p className="project-number">
                     {String(index + 1).padStart(2, '0')} / SELECTED WORK
                   </p>
-
                   <h3>
                     {project.titleTop}
                     <br />
                     <span>{project.titleBottom}</span>
                   </h3>
-
                 </div>
 
-
                 <div className="project-details">
-
                   <p className="project-category">
                     {project.category}
                   </p>
-
                   <p className="project-description">
                     {project.summary}
                   </p>
@@ -1008,7 +968,6 @@ const handleSubmit = async (e) => {
                   </div>
 
                   <div className="project-actions">
-
                     <Link
                       to={`/projects/${project.slug}`}
                       className="project-details-btn"
@@ -1026,15 +985,10 @@ const handleSubmit = async (e) => {
                         Live Site <span>↗</span>
                       </a>
                     )}
-
                   </div>
-
                 </div>
-
               </div>
-
             </div>
-
 
             {project.gallery.length > 0 && (
               <div className="project-gallery">
@@ -1048,12 +1002,12 @@ const handleSubmit = async (e) => {
                 ))}
               </div>
             )}
-
           </Fragment>
         ))}
-
       </section>
-            <section className="templates-section" id="templates">
+
+      {/* TEMPLATES SECTION */}
+      <section className="templates-section" id="templates">
         <div className="work-heading" data-reveal>
           <p className="section-label">DEMO TEMPLATES</p>
           <h2>
@@ -1116,236 +1070,190 @@ const handleSubmit = async (e) => {
         </div>
       </section>
 
-{/* TRUST SECTION */}
-{/* WHY PROTOTYPE SECTION */}
-<section className="trust-section">
+      {/* WHY PROTOTYPE SECTION */}
+      <section className="trust-section">
+        <div className="trust-heading">
+          <p className="section-label">WHY PROTOTYPE</p>
+          <h2>
+            BUILT FOR YOUR
+            <br />
+            <span>NEXT BIG IDEA.</span>
+          </h2>
+          <p className="trust-intro">
+            We combine thoughtful design and clean development to create
+            digital experiences that help your business stand out.
+          </p>
+        </div>
 
-  <div className="trust-heading">
-    <p className="section-label">WHY PROTOTYPE</p>
+        <div className="trust-grid">
+          <div className="trust-card">
+            <div className="card-top">
+              <span>01</span>
+              <div className="card-line"></div>
+            </div>
+            <div className="trust-icon">◇</div>
+            <h3>MODERN DESIGN.</h3>
+            <p>
+              Clean, professional
+              <br />
+              & on brand.
+            </p>
+          </div>
 
-    <h2>
-      BUILT FOR YOUR
-      <br />
-      <span>NEXT BIG IDEA.</span>
-    </h2>
+          <div className="trust-card">
+            <div className="card-top">
+              <span>02</span>
+              <div className="card-line"></div>
+            </div>
+            <div className="trust-icon">▣</div>
+            <h3>
+              BUILT FOR
+              <br />
+              EVERY SCREEN.
+            </h3>
+            <p>
+              A smooth experience
+              <br />
+              on any device.
+            </p>
+          </div>
 
-    <p className="trust-intro">
-      We combine thoughtful design and clean development to create
-      digital experiences that help your business stand out.
-    </p>
-  </div>
+          <div className="trust-card">
+            <div className="card-top">
+              <span>03</span>
+              <div className="card-line"></div>
+            </div>
+            <div className="trust-icon">◌</div>
+            <h3>
+              CLEAR
+              <br />
+              COMMUNICATION.
+            </h3>
+            <p>
+              A simple & transparent
+              <br />
+              process.
+            </p>
+          </div>
 
-  <div className="trust-grid">
+          <div className="trust-card">
+            <div className="card-top">
+              <span>04</span>
+              <div className="card-line"></div>
+            </div>
+            <div className="trust-icon">{'</>'}</div>
+            <h3>
+              CLEAN
+              <br />
+              DEVELOPMENT.
+            </h3>
+            <p>
+              Performance, responsiveness
+              <br />
+              & long-term flexibility.
+            </p>
+          </div>
+        </div>
+      </section>
 
-    {/* CARD 01 */}
-    <div className="trust-card">
-      <div className="card-top">
-        <span>01</span>
-        <div className="card-line"></div>
-      </div>
+      {/* FAQ SECTION */}
+      <section className="faq-section">
+        <div className="faq-heading" data-reveal>
+          <p className="section-label">QUESTIONS & ANSWERS</p>
+          <h2>
+            GOOD TO
+            <br />
+            <span>KNOW.</span>
+          </h2>
+        </div>
 
-      <div className="trust-icon">◇</div>
+        <div className="faq-list">
+          <details className="faq-item" data-reveal="0">
+            <summary>
+              <span>How much does a website cost?</span>
+              <b>+</b>
+            </summary>
+            <div className="faq-answer">
+              <div>
+                <p>
+                  Every project is different. The final cost depends on the
+                  website's size, features and requirements.
+                </p>
+              </div>
+            </div>
+          </details>
 
-      <h3>MODERN DESIGN.</h3>
+          <details className="faq-item" data-reveal="1">
+            <summary>
+              <span>How long does a website take to build?</span>
+              <b>+</b>
+            </summary>
+            <div className="faq-answer">
+              <div>
+                <p>
+                  Smaller websites can be completed within a few business days,
+                  while larger projects may take longer depending on the
+                  features and feedback process.
+                </p>
+              </div>
+            </div>
+          </details>
 
-      <p>
-        Clean, professional
-        <br />
-        &amp; on brand.
-      </p>
-    </div>
+          <details className="faq-item" data-reveal="2">
+            <summary>
+              <span>Do I need to buy a domain and hosting?</span>
+              <b>+</b>
+            </summary>
+            <div className="faq-answer">
+              <div>
+                <p>
+                  Yes. Domain and hosting costs are separate from website
+                  development. We can guide you through the process and help
+                  with the setup if needed.
+                </p>
+              </div>
+            </div>
+          </details>
 
+          <details className="faq-item" data-reveal="3">
+            <summary>
+              <span>Will my website work on mobile devices?</span>
+              <b>+</b>
+            </summary>
+            <div className="faq-answer">
+              <div>
+                <p>
+                  Yes. Every website is designed to be responsive and provide
+                  a smooth experience across phones, tablets and desktop
+                  screens.
+                </p>
+              </div>
+            </div>
+          </details>
 
-    {/* CARD 02 */}
-    <div className="trust-card">
-      <div className="card-top">
-        <span>02</span>
-        <div className="card-line"></div>
-      </div>
-
-      <div className="trust-icon">▣</div>
-
-      <h3>
-        BUILT FOR
-        <br />
-        EVERY SCREEN.
-      </h3>
-
-      <p>
-        A smooth experience
-        <br />
-        on any device.
-      </p>
-    </div>
-
-
-    {/* CARD 03 */}
-    <div className="trust-card">
-      <div className="card-top">
-        <span>03</span>
-        <div className="card-line"></div>
-      </div>
-
-      <div className="trust-icon">◌</div>
-
-      <h3>
-        CLEAR
-        <br />
-        COMMUNICATION.
-      </h3>
-
-      <p>
-        A simple &amp; transparent
-        <br />
-        process.
-      </p>
-    </div>
-
-
-    {/* CARD 04 */}
-    <div className="trust-card">
-      <div className="card-top">
-        <span>04</span>
-        <div className="card-line"></div>
-      </div>
-
-      <div className="trust-icon">&lt;/&gt;</div>
-
-      <h3>
-        CLEAN
-        <br />
-        DEVELOPMENT.
-      </h3>
-
-      <p>
-        Performance, responsiveness
-        <br />
-        &amp; long-term flexibility.
-      </p>
-    </div>
-
-  </div>
-
+          <details className="faq-item" data-reveal="4">
+            <summary>
+              <span>Can my website be updated in the future?</span>
+              <b>+</b>
+            </summary>
+            <div className="faq-answer">
+              <div>
+                <p>
+                  Yes. Websites can be expanded with new pages, content and
+                  features as your business grows.
+                </p>
+              </div>
+            </div>
+          </details>
+        </div>
+      </section>
+          {/* INTERACTIVE SCOPE CALCULATOR */}
+<section className="scope-calculator-section">
+  <ScopeCalculator onApplyConfig={handleApplyScope} />
 </section>
-
-
-{/* FAQ SECTION */}
-{/* FAQ SECTION */}
-<section className="faq-section">
-
-  <div className="faq-heading" data-reveal>
-    <p className="section-label">QUESTIONS & ANSWERS</p>
-
-    <h2>
-      GOOD TO
-      <br />
-      <span>KNOW.</span>
-    </h2>
-  </div>
-
-  <div className="faq-list">
-
-    {/* FAQ 1 */}
-    <details className="faq-item" data-reveal="0">
-      <summary>
-        <span>How much does a website cost?</span>
-        <b>+</b>
-      </summary>
-
-      <div className="faq-answer">
-        <div>
-          <p>
-            Every project is different. The final cost depends on the
-            website's size, features and requirements.
-          </p>
-        </div>
-      </div>
-    </details>
-
-
-    {/* FAQ 2 */}
-    <details className="faq-item" data-reveal="1">
-      <summary>
-        <span>How long does a website take to build?</span>
-        <b>+</b>
-      </summary>
-
-      <div className="faq-answer">
-        <div>
-          <p>
-            Smaller websites can be completed within a few business days,
-            while larger projects may take longer depending on the
-            features and feedback process.
-          </p>
-        </div>
-      </div>
-    </details>
-
-
-    {/* FAQ 3 */}
-    <details className="faq-item" data-reveal="2">
-      <summary>
-        <span>Do I need to buy a domain and hosting?</span>
-        <b>+</b>
-      </summary>
-
-      <div className="faq-answer">
-        <div>
-          <p>
-            Yes. Domain and hosting costs are separate from website
-            development. We can guide you through the process and help
-            with the setup if needed.
-          </p>
-        </div>
-      </div>
-    </details>
-
-
-    {/* FAQ 4 */}
-    <details className="faq-item" data-reveal="3">
-      <summary>
-        <span>Will my website work on mobile devices?</span>
-        <b>+</b>
-      </summary>
-
-      <div className="faq-answer">
-        <div>
-          <p>
-            Yes. Every website is designed to be responsive and provide
-            a smooth experience across phones, tablets and desktop
-            screens.
-          </p>
-        </div>
-      </div>
-    </details>
-
-
-    {/* FAQ 5 */}
-    <details className="faq-item" data-reveal="4">
-      <summary>
-        <span>Can my website be updated in the future?</span>
-        <b>+</b>
-      </summary>
-
-      <div className="faq-answer">
-        <div>
-          <p>
-            Yes. Websites can be expanded with new pages, content and
-            features as your business grows.
-          </p>
-        </div>
-      </div>
-    </details>
-
-  </div>
-
-</section>
-
       {/* CONTACT SECTION */}
       <section className="contact-section" id="contact">
-
         <div className="contact-heading" data-reveal>
-
           <p className="section-label">
             LET'S WORK TOGETHER
           </p>
@@ -1362,164 +1270,146 @@ const handleSubmit = async (e) => {
           </p>
 
           <div className="contact-direct">
-
             <a href="mailto:prototype.tech.webdev@gmail.com">
               prototype.tech.webdev@gmail.com
             </a>
-
             <a href="tel:+918957549660">
               +91 89575 49660
             </a>
-
           </div>
-
         </div>
 
-
         <form
-  className="enquiry-card"
-  onSubmit={handleSubmit}
-  data-reveal="1"
->
-
-  <div className="enquiry-top">
-    <span className="enquiry-status">
-      <i /> NEW TRANSMISSION
-    </span>
-    <span className="enquiry-code">PRJ—{new Date().getFullYear()}</span>
-  </div>
-
-  <div className="enquiry-progress" aria-hidden="true">
-    <span style={{ transform: `scaleX(${requiredFilled / 3})` }} />
-  </div>
-
-
-  <div className="enquiry-row">
-
-    <div className="enquiry-field">
-      <label htmlFor="enquiry-name"><b>01</b> YOUR NAME</label>
-      <input
-        id="enquiry-name"
-        type="text"
-        name="name"
-        placeholder="Enter your name"
-        autoComplete="name"
-        value={formData.name}
-        onChange={handleChange}
-        required
-      />
-    </div>
-
-    <div className="enquiry-field">
-      <label htmlFor="enquiry-email"><b>02</b> EMAIL ADDRESS</label>
-      <input
-        id="enquiry-email"
-        type="email"
-        name="email"
-        placeholder="you@example.com"
-        autoComplete="email"
-        value={formData.email}
-        onChange={handleChange}
-        required
-      />
-    </div>
-
-  </div>
-
-
-  <div className="enquiry-field">
-    <label htmlFor="enquiry-company"><b>03</b> COMPANY / BUSINESS <em>optional</em></label>
-    <input
-      id="enquiry-company"
-      type="text"
-      name="company"
-      placeholder="Your company or business"
-      autoComplete="organization"
-      value={formData.company}
-      onChange={handleChange}
-    />
-  </div>
-
-
-  <div className="enquiry-chips">
-    <p><b>04</b> WHAT DO YOU NEED? <em>optional</em></p>
-    <div>
-      {ENQUIRY_SERVICES.map((s) => (
-        <button
-          type="button"
-          key={s}
-          className={`chip ${formData.service === s ? 'is-active' : ''}`}
-          aria-pressed={formData.service === s}
-          onClick={() => pickChip('service', s)}
+          className="enquiry-card"
+          onSubmit={handleSubmit}
+          data-reveal="1"
         >
-          {s}
-        </button>
-      ))}
-    </div>
-  </div>
+          <div className="enquiry-top">
+            <span className="enquiry-status">
+              <i /> NEW TRANSMISSION
+            </span>
+            <span className="enquiry-code">PRJ—{new Date().getFullYear()}</span>
+          </div>
 
+          <div className="enquiry-progress" aria-hidden="true">
+            <span style={{ transform: `scaleX(${requiredFilled / 3})` }} />
+          </div>
 
-  <div className="enquiry-chips">
-    <p><b>05</b> PREFERRED PACKAGE <em>optional</em></p>
-    <div>
-      {ENQUIRY_PLANS.map((p) => (
-        <button
-          type="button"
-          key={p}
-          className={`chip ${formData.plan === p ? 'is-active' : ''}`}
-          aria-pressed={formData.plan === p}
-          onClick={() => pickChip('plan', p)}
-        >
-          {p}
-        </button>
-      ))}
-    </div>
-  </div>
+          <div className="enquiry-row">
+            <div className="enquiry-field">
+              <label htmlFor="enquiry-name"><b>01</b> YOUR NAME</label>
+              <input
+                id="enquiry-name"
+                type="text"
+                name="name"
+                placeholder="Enter your name"
+                autoComplete="name"
+                value={formData.name}
+                onChange={handleChange}
+                required
+              />
+            </div>
 
+            <div className="enquiry-field">
+              <label htmlFor="enquiry-email"><b>02</b> EMAIL ADDRESS</label>
+              <input
+                id="enquiry-email"
+                type="email"
+                name="email"
+                placeholder="you@example.com"
+                autoComplete="email"
+                value={formData.email}
+                onChange={handleChange}
+                required
+              />
+            </div>
+          </div>
 
-  <div className="enquiry-field">
-    <label htmlFor="enquiry-message"><b>06</b> TELL US ABOUT YOUR PROJECT</label>
-    <textarea
-      id="enquiry-message"
-      name="message"
-      placeholder="Describe your project or idea..."
-      maxLength={600}
-      value={formData.message}
-      onChange={handleChange}
-      required
-    />
-    <small className="enquiry-count">{formData.message.length} / 600</small>
-  </div>
+          <div className="enquiry-field">
+            <label htmlFor="enquiry-company"><b>03</b> COMPANY / BUSINESS <em>optional</em></label>
+            <input
+              id="enquiry-company"
+              type="text"
+              name="company"
+              placeholder="Your company or business"
+              autoComplete="organization"
+              value={formData.company}
+              onChange={handleChange}
+            />
+          </div>
 
+          <div className="enquiry-chips">
+            <p><b>04</b> WHAT DO YOU NEED? <em>optional</em></p>
+            <div>
+              {ENQUIRY_SERVICES.map((s) => (
+                <button
+                  type="button"
+                  key={s}
+                  className={`chip ${formData.service === s ? 'is-active' : ''}`}
+                  aria-pressed={formData.service === s}
+                  onClick={() => pickChip('service', s)}
+                >
+                  {s}
+                </button>
+              ))}
+            </div>
+          </div>
 
-  <div className="enquiry-send">
-  <button 
-    type="submit" 
-    className="contact-button"
-    disabled={isSubmitting}
-    style={isSubmitting ? { opacity: 0.6, cursor: 'not-allowed' } : undefined}
-  >
-    {isSubmitting ? 'TRANSMITTING...' : 'SEND ENQUIRY'} <span>↗</span>
-  </button>
-  <p className="enquiry-note">REPLY WITHIN 24 HOURS</p>
-</div>
+          <div className="enquiry-chips">
+            <p><b>05</b> PREFERRED PACKAGE <em>optional</em></p>
+            <div>
+              {ENQUIRY_PLANS.map((p) => (
+                <button
+                  type="button"
+                  key={p}
+                  className={`chip ${formData.plan === p ? 'is-active' : ''}`}
+                  aria-pressed={formData.plan === p}
+                  onClick={() => pickChip('plan', p)}
+                >
+                  {p}
+                </button>
+              ))}
+            </div>
+          </div>
 
-  {formStatus && (
-    <p className="form-status" role="status">
-      {formStatus}
-    </p>
-  )}
+          <div className="enquiry-field">
+            <label htmlFor="enquiry-message"><b>06</b> TELL US ABOUT YOUR PROJECT</label>
+            <textarea
+              id="enquiry-message"
+              name="message"
+              placeholder="Describe your project or idea..."
+              maxLength={600}
+              value={formData.message}
+              onChange={handleChange}
+              required
+            />
+            <small className="enquiry-count">{formData.message.length} / 600</small>
+          </div>
 
-</form>
+          <div className="enquiry-send">
+            <button 
+              type="submit" 
+              className="contact-button"
+              disabled={isSubmitting}
+              style={isSubmitting ? { opacity: 0.6, cursor: 'not-allowed' } : undefined}
+            >
+              {isSubmitting ? 'TRANSMITTING...' : 'SEND ENQUIRY'} <span>↗</span>
+            </button>
+            <p className="enquiry-note">REPLY WITHIN 24 HOURS</p>
+          </div>
 
+          {formStatus && (
+            <p className="form-status" role="status">
+              {formStatus}
+            </p>
+          )}
+        </form>
       </section>
 
       <Footer />
-
     </main>
   )
 }
-
 
 /* =================================
    BUSINESS WEBSITES PAGE
@@ -1533,14 +1423,12 @@ function BusinessWebsites() {
 
   return (
     <main className="service-page">
-
       <ServiceNavbar />
 
       <section className="service-hero">
-
-                <p className="service-eyebrow" data-reveal>
-  01 / 03 — DIGITAL PRESENCE
-</p>
+        <p className="service-eyebrow" data-reveal>
+          01 / 03 — DIGITAL PRESENCE
+        </p>
 
         <h1 data-reveal="1">
           BUSINESS
@@ -1557,18 +1445,14 @@ function BusinessWebsites() {
         <a href="/#contact" className="service-cta" data-reveal="3">
           Start a project <span>↗</span>
         </a>
-
       </section>
 
-
       <section className="service-details">
-
         <div className="details-label">
           WHAT WE CREATE
         </div>
 
         <div className="details-content">
-
           <h2>
             A DIGITAL PRESENCE
             <br />
@@ -1599,14 +1483,10 @@ function BusinessWebsites() {
               ],
             ]}
           />
-
         </div>
-
       </section>
 
-
       <section className="service-project-cta">
-
         <p className="service-eyebrow" data-reveal>
           HAVE A PROJECT IN MIND?
         </p>
@@ -1621,15 +1501,12 @@ function BusinessWebsites() {
           Tell us about your idea, business or project and let's create
           a digital experience that makes an impact.
         </p>
-
       </section>
 
       <Footer />
-
     </main>
   )
 }
-
 
 /* =================================
    LANDING PAGES
@@ -1643,11 +1520,9 @@ function LandingPages() {
 
   return (
     <main className="service-page">
-
       <ServiceNavbar />
 
       <section className="service-hero">
-
         <p className="service-eyebrow" data-reveal>
           02 / 03 — FOCUSED EXPERIENCES
         </p>
@@ -1667,18 +1542,14 @@ function LandingPages() {
         <a href="/#contact" className="service-cta" data-reveal="3">
           Start a project <span>↗</span>
         </a>
-
       </section>
 
-
       <section className="service-details">
-
         <div className="details-label">
           WHAT WE CREATE
         </div>
 
         <div className="details-content">
-
           <h2>
             PAGES BUILT TO
             <br />
@@ -1709,17 +1580,13 @@ function LandingPages() {
               ],
             ]}
           />
-
         </div>
-
       </section>
 
       <Footer />
-
     </main>
   )
 }
-
 
 /* =================================
    FRONTEND DEVELOPMENT
@@ -1733,11 +1600,9 @@ function FrontendDevelopment() {
 
   return (
     <main className="service-page">
-
       <ServiceNavbar />
 
       <section className="service-hero">
-
         <p className="service-eyebrow" data-reveal>
           03 / 03 — MODERN DEVELOPMENT
         </p>
@@ -1756,18 +1621,14 @@ function FrontendDevelopment() {
         <a href="/#contact" className="service-cta" data-reveal="3">
           Start a project <span>↗</span>
         </a>
-
       </section>
 
-
       <section className="service-details">
-
         <div className="details-label">
           WHAT WE CREATE
         </div>
 
         <div className="details-content">
-
           <h2>
             CUSTOM INTERFACES.
             <br />
@@ -1798,17 +1659,13 @@ function FrontendDevelopment() {
               ],
             ]}
           />
-
         </div>
-
       </section>
 
       <Footer />
-
     </main>
   )
 }
-
 
 /* =================================
    404 PAGE
@@ -1822,11 +1679,9 @@ function NotFound() {
 
   return (
     <main className="service-page">
-
       <ServiceNavbar />
 
       <section className="service-hero">
-
         <p className="service-eyebrow" data-reveal>
           404 — PAGE NOT FOUND
         </p>
@@ -1845,19 +1700,15 @@ function NotFound() {
         <Link to="/" className="service-cta" data-reveal="3">
           Back to home <span>↗</span>
         </Link>
-
       </section>
 
       <Footer />
-
     </main>
   )
 }
 
-
 /* =================================
    PROJECT DETAIL PAGE
-   (one component for every project in the projects array)
 ================================= */
 
 function ProjectPage() {
@@ -1879,16 +1730,14 @@ function ProjectPage() {
 
   return (
     <main className="service-page project-page">
-
-            <ServiceNavbar
+      <ServiceNavbar
         to={project.demo ? '/#templates' : '/#work'}
         label={project.demo ? '← BACK TO TEMPLATES' : '← BACK TO WORK'}
       />
 
       <section className="service-hero">
-
         <p className="service-eyebrow" data-reveal>
-          {String(projects.indexOf(project) + 1).padStart(2, '0')} / SELECTED WORK
+          {String(projects.indexOf(project) + 1).padStart(2, '0')} / {project.demo ? 'DEMO SHOWCASE' : 'SELECTED WORK'}
         </p>
 
         <h1 data-reveal="1">
@@ -1897,7 +1746,7 @@ function ProjectPage() {
           <span>{project.titleBottom}</span>
         </h1>
 
-                <p className="service-page-description" data-reveal="2">
+        <p className="service-page-description" data-reveal="2">
           {project.pageSummary}
         </p>
 
@@ -1912,18 +1761,14 @@ function ProjectPage() {
             View Live Site <span>↗</span>
           </a>
         )}
-
       </section>
 
-
       <section className="service-details">
-
         <div className="details-label">
           PROJECT OVERVIEW
         </div>
 
         <div className="details-content">
-
           <h2>
             {project.overviewTop}
             <br />
@@ -1935,16 +1780,11 @@ function ProjectPage() {
               <span key={item}>{item}</span>
             ))}
           </div>
-
         </div>
-
       </section>
 
-
       <section className="project-showcase">
-
         <div className="work-heading" data-reveal>
-
           <p className="section-label">
             PROJECT SHOWCASE
           </p>
@@ -1954,9 +1794,7 @@ function ProjectPage() {
             <br />
             <span>PROJECT.</span>
           </h2>
-
         </div>
-
 
         <div className="project-showcase-grid">
           {showcaseImages.map((image, i) => (
@@ -1968,12 +1806,9 @@ function ProjectPage() {
             />
           ))}
         </div>
-
       </section>
 
-
       <section className="service-project-cta">
-
         <p className="service-eyebrow" data-reveal>
           HAVE A PROJECT IN MIND?
         </p>
@@ -1987,11 +1822,9 @@ function ProjectPage() {
         <p data-reveal="2">
           {project.ctaText}
         </p>
-
       </section>
 
       <Footer />
-
     </main>
   )
 }
@@ -2007,7 +1840,7 @@ const TIERS = [
     name: 'LIFTOFF',
     title: 'Essential Starter',
     days: '3–5',
-    speed: 92, // fuller bar = faster launch
+    speed: 92,
     bestFor:
       'New businesses that need a quick, professional first website.',
     features: [
@@ -2059,7 +1892,6 @@ const TIERS = [
 
 const COMPARE_ROWS = [
   ['Pricing', 'Genuine, fair quote', 'Genuine, fair quote', 'Genuine, fair quote'],
-['Ready in', '3 to 5 business days', '5 to 8 business days', '8 to 12 business days'],
   ['Ready in', '3 to 5 business days', '5 to 8 business days', '8 to 12 business days'],
   ['Best for', 'New launch, first website', 'Established local business', 'Growing, high enquiry volume'],
   ['Built with', 'HTML5, CSS3, simple JavaScript', 'React.js and Vite', 'React + backend API + AI'],
@@ -2117,50 +1949,43 @@ const GLOSSARY = [
 
 function Pricing() {
   usePageMeta(
-  'Pricing — PROTOTYPE',
-  'Three website packages for hotels, restaurants, local services and creative studios. Genuine pricing, lightning-fast delivery.'
-)
+    'Pricing — PROTOTYPE',
+    'Three website packages for hotels, restaurants, local services and creative studios. Genuine pricing, lightning-fast delivery.'
+  )
 
   return (
     <main className="service-page pricing-page">
-
       <ServiceNavbar />
 
-      {/* HERO */}
       <section className="service-hero">
+        <p className="service-eyebrow" data-reveal>
+          WEBSITE PACKAGES — FY 2026-27
+        </p>
 
-  <p className="service-eyebrow" data-reveal>
-    WEBSITE PACKAGES — FY 2026-27
-  </p>
+        <h1 data-reveal="1">
+          PICK A
+          <br />
+          <span>PACKAGE.</span>
+        </h1>
 
-  <h1 data-reveal="1">
-    PICK A
-    <br />
-    <span>PACKAGE.</span>
-  </h1>
+        <p className="service-page-description" data-reveal="2">
+          Three clear website packages for hotels, restaurants, local
+          services and creative studios. Genuine pricing, lightning-fast
+          timelines, and a simple process from first hello to launch day.
+        </p>
 
-  <p className="service-page-description" data-reveal="2">
-    Three clear website packages for hotels, restaurants, local
-    services and creative studios. Genuine pricing, lightning-fast
-    timelines, and a simple process from first hello to launch day.
-  </p>
+        <div className="pricing-stats" data-reveal="3">
+          <div><strong>3</strong><span>PACKAGES TO CHOOSE FROM</span></div>
+          <div><strong>100%</strong><span>GENUINE PRICING</span></div>
+          <div><strong>3 – 12</strong><span>DAYS TO LAUNCH</span></div>
+        </div>
 
-  <div className="pricing-stats" data-reveal="3">
-    <div><strong>3</strong><span>PACKAGES TO CHOOSE FROM</span></div>
-    <div><strong>100%</strong><span>GENUINE PRICING</span></div>
-    <div><strong>3 – 12</strong><span>DAYS TO LAUNCH</span></div>
-  </div>
+        <a href="/#contact" className="service-cta" data-reveal="3">
+          Get your genuine quote <span>↗</span>
+        </a>
+      </section>
 
-  <a href="/#contact" className="service-cta" data-reveal="3">
-    Get your genuine quote <span>↗</span>
-  </a>
-
-</section>
-
-
-      {/* PACKAGES */}
       <section className="pricing-section" id="packages">
-
         <div className="work-heading" data-reveal>
           <p className="section-label">01 / PACKAGES</p>
           <h2>
@@ -2174,11 +1999,7 @@ function Pricing() {
             is at, and we build to match.
           </p>
         </div>
-        <div className="pricing-ribbon" data-reveal>
-  <span>✓ GENUINE PRICE</span>
-  <span>⚡ LAUNCH IN DAYS, NOT WEEKS</span>
-  <span>◇ NO HIDDEN COSTS</span>
-</div>
+
         <div className="tier-grid">
           {TIERS.map((t, i) => (
             <article
@@ -2192,30 +2013,22 @@ function Pricing() {
               <h3 className="tier-name">{t.name}</h3>
               <p className="tier-title">{t.title}</p>
 
-              <div className="tier-genuine">
-  <span className="genuine-stamp">✓ GENUINE PRICE</span>
-  <p>
-    Fair and transparent. No hidden charges. Your quote is shared
-    on a free scoping chat.
-  </p>
-</div>
+              <div className="tier-launch">
+                <div className="launch-top">
+                  <span>LAUNCH COUNTDOWN</span>
+                  <strong>T-MINUS {t.days} DAYS</strong>
+                </div>
+                <div className="launch-track">
+                  <span style={{ '--fill': `${t.speed}%` }} />
+                </div>
+              </div>
 
-<div className="tier-launch">
-  <div className="launch-top">
-    <span>LAUNCH COUNTDOWN</span>
-    <strong>T-MINUS {t.days} DAYS</strong>
-  </div>
-  <div className="launch-track">
-    <span style={{ '--fill': `${t.speed}%` }} />
-  </div>
-</div>
-
-<dl className="tier-meta">
-  <div>
-    <dt>BEST FOR</dt>
-    <dd>{t.bestFor}</dd>
-  </div>
-</dl>
+              <dl className="tier-meta">
+                <div>
+                  <dt>BEST FOR</dt>
+                  <dd>{t.bestFor}</dd>
+                </div>
+              </dl>
 
               <p className="tier-label">YOU GET</p>
               <ul className="tier-features">
@@ -2236,9 +2049,9 @@ function Pricing() {
         </div>
 
         <p className="pricing-note" data-reveal>
-  A domain name and hosting are not part of the package. You buy
-  these directly. Optional set-up help is available.
-</p>
+          A domain name and hosting are not part of the package. You buy
+          these directly. Optional set-up help is available.
+        </p>
 
         <div className="pricing-helper" data-reveal>
           <p className="section-label">NOT SURE WHICH ONE FITS?</p>
@@ -2248,13 +2061,9 @@ function Pricing() {
             <div><span>I get many enquiries and want automation</span><strong>Choose DEEP SPACE</strong></div>
           </div>
         </div>
-
       </section>
 
-
-      {/* COMPARE */}
       <section className="pricing-section" id="compare">
-
         <div className="work-heading" data-reveal>
           <p className="section-label">02 / COMPARE</p>
           <h2>
@@ -2275,7 +2084,7 @@ function Pricing() {
                 <th />
                 <th>LIFTOFF<small>Essential Starter</small></th>
                 <th>ORBIT<small>Dynamic Interactive</small></th>
-                <th>DEEP SPACE<small>Growth &amp; Smart AI</small></th>
+                <th>DEEP SPACE<small>Growth & Smart AI</small></th>
               </tr>
             </thead>
             <tbody>
@@ -2292,7 +2101,6 @@ function Pricing() {
         </div>
 
         <div className="pricing-two-col">
-
           <div data-reveal>
             <p className="section-label">INCLUDED IN EVERY PACKAGE</p>
             <div className="details-list pricing-list">
@@ -2316,15 +2124,10 @@ function Pricing() {
               ))}
             </div>
           </div>
-
         </div>
-
       </section>
 
-
-      {/* PROCESS */}
       <section className="pricing-section" id="process">
-
         <div className="work-heading" data-reveal>
           <p className="section-label">03 / PROCESS</p>
           <h2>
@@ -2355,7 +2158,6 @@ function Pricing() {
         </p>
 
         <div className="pricing-two-col">
-
           <div data-reveal>
             <p className="section-label">WHAT WE NEED FROM YOU</p>
             <div className="details-list pricing-list">
@@ -2397,15 +2199,10 @@ function Pricing() {
               ))}
             </div>
           </div>
-
         </div>
-
       </section>
 
-
-      {/* GLOSSARY */}
       <section className="pricing-section" id="good-to-know">
-
         <div className="work-heading" data-reveal>
           <p className="section-label">04 / GOOD TO KNOW</p>
           <h2>
@@ -2426,13 +2223,9 @@ function Pricing() {
             </div>
           ))}
         </div>
-
       </section>
 
-
-      {/* CTA */}
       <section className="service-project-cta">
-
         <p className="service-eyebrow" data-reveal>
           READY WHEN YOU ARE
         </p>
@@ -2456,17 +2249,15 @@ function Pricing() {
             +91 89575 49660
           </a>
         </div>
-
       </section>
 
       <Footer />
-
     </main>
   )
 }
 
 /* =================================
-   PLAY PAGE (mini game)
+   PLAY PAGE
 ================================= */
 
 function Play() {
@@ -2477,11 +2268,9 @@ function Play() {
 
   return (
     <main className="service-page">
-
       <ServiceNavbar />
 
       <section className="service-hero game-hero">
-
         <p className="service-eyebrow" data-reveal>
           TAKE A BREAK
         </p>
@@ -2498,19 +2287,13 @@ function Play() {
         </p>
 
         <SpaceDodge />
-
       </section>
 
       <Footer />
-
     </main>
   )
 }
-/* =================================
-   SCROLL HANDLING
-   - new page → scroll to top
-   - /#work style links → scroll to that section
-================================= */
+
 /* =================================
    FLOATING GAME BUTTON
 ================================= */
@@ -2528,17 +2311,14 @@ function GameLauncher() {
       aria-label="Play a mini game"
     >
       <svg viewBox="0 0 64 40" width="30" height="19" aria-hidden="true">
-        {/* controller body */}
         <path
           d="M16 4 H48 C57 4 62 14 62 26 C62 33 58 37 53 37 C48 37 46 33 43 30 H21 C18 33 16 37 11 37 C6 37 2 33 2 26 C2 14 7 4 16 4 Z"
           fill="#f2f2f2"
           stroke="#9c9c9c"
           strokeWidth="1.5"
         />
-        {/* d-pad */}
         <rect x="12" y="15" width="12" height="4" rx="1" fill="#0a0a0a" />
         <rect x="16" y="11" width="4" height="12" rx="1" fill="#0a0a0a" />
-        {/* buttons */}
         <circle cx="45" cy="13" r="2.8" fill="#0a0a0a" />
         <circle cx="52" cy="19" r="2.8" fill="#0a0a0a" />
         <circle className="game-led" cx="32" cy="14" r="2" fill="#4ade80" />
@@ -2566,9 +2346,8 @@ function ScrollToTop() {
   return null
 }
 
-
 /* =================================
-   APP ROUTES
+   APP MAIN
 ================================= */
 
 function App() {
@@ -2584,7 +2363,6 @@ function App() {
       <ChatWidget />
       <GameLauncher />
 
-      {/* key = pathname → quick fade on every page change */}
       <div className="page-fade" key={pathname}>
         <Routes>
           <Route path="/" element={<Home />} />
