@@ -5946,3 +5946,28 @@ body.menu-open .game-launcher {
     justify-content: space-between;
   }
 }
+
+@media (max-width: 768px) {
+  /* Keep brand and toggles aligned cleanly */
+  .navbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 16px;
+    height: 70px;
+  }
+
+  /* Compact Sound FX button on phones */
+  .audio-toggle-btn {
+    padding: 4px 10px;
+    font-size: 9px;
+    letter-spacing: 1px;
+    margin-left: auto;
+    margin-right: 8px;
+  }
+
+  /* Ensure hamburger menu stays visible */
+  .menu-toggle {
+    display: flex !important;
+  }
+}
