@@ -6350,3 +6350,27 @@ body.menu-open .game-launcher {
     justify-content: space-between;
   }
 }
+
+/* Remove default underlines and inherit text styling on service card links */
+.service-card a,
+a.service-card {
+  text-decoration: none !important;
+  color: inherit !important;
+}
+
+.service-card a *,
+a.service-card * {
+  text-decoration: none !important;
+}
+
+.service-card a:hover,
+a.service-card:hover {
+  text-decoration: none !important;
+}
+
+/* Sharp rendering for complex UI screenshots */
+.project-showcase-grid img,
+.project-gallery img {
+  image-rendering: -webkit-optimize-contrast;
+  background: #0d0e12;
+}

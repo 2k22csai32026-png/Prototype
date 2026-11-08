@@ -122,6 +122,41 @@ const projects = [
     ctaText:
       "Running a coaching institute, school or training centre? Let's build a website that earns trust and brings in admissions.",
   },
+  {
+    slug: 'abc-portal',
+    demo: true,
+    titleTop: 'ABC',
+    titleBottom: 'PORTAL.',
+    category: 'CAMPUS ERP & ACADEMIC MANAGEMENT (DEMO CONCEPT)',
+    summary:
+      'A dark-themed high-density academic management dashboard featuring live attendance quota tracking, biometric gate-pass syncing, class schedule matrices, and faculty grade terminals.',
+    pageSummary:
+      'An enterprise academic portal and student information dashboard designed for engineering colleges and technical universities. Features automated 75% attendance quota simulation, timetable dispatch, late entry tokens, and professor grade registers.',
+    tags: ['REACT', 'DASHBOARD', 'CAMPUS ERP', 'EDTECH', 'DEMO CONCEPT'],
+    cover: {
+      src: '/images/projects/abc-1.png',
+      alt: 'ABC Portal student academic dashboard',
+    },
+    gallery: [
+      { src: '/images/projects/abc-2.png', alt: 'Professor attendance and sessional management terminal' },
+      { src: '/images/projects/abc-3.png', alt: 'Master weekly timetable matrix' },
+      { src: '/images/projects/abc-4.png', alt: 'Interactive attendance quota and safe bunk simulator' },
+      { src: '/images/projects/abc-5.png', alt: 'Continuous internal evaluation statement' },
+      { src: '/images/projects/abc-6.png', alt: 'Campus digital gate pass and QR verification' },
+    ],
+    overviewTop: 'NEXT-GENERATION',
+    overviewBottom: 'CAMPUS INTELLIGENCE.',
+    highlights: [
+      'Real-Time Quota Monitor with 75% Safe Bunk Prediction',
+      'Dual-Role Interface: Student Overview & Faculty Registry Terminal',
+      'Continuous Biometric Sync & Dynamic QR Gate Pass Generation',
+      'Comprehensive Semester Timetable Matrix with Live Session Tracking',
+      'Sessional Exam Ledger and University Clearance System',
+    ],
+    ctaText:
+      "Running a college, university department, or coaching institution? Let's design a high-performance portal that simplifies campus operations.",
+    liveUrl: '', // Add deployed demo link if available (e.g. https://abc-portal-demo.pages.dev)
+  },
 ]
 
 const MARQUEE_ITEMS = [
@@ -151,11 +186,22 @@ const TEMPLATES = [
     tags: ['LIGHT THEME', 'ENQUIRY FORM', 'FACULTY'],
   },
   {
+    slug: 'abc-portal',
+    industry: 'EDTECH / CAMPUS ERP',
+    name: 'ABC Academic Portal',
+    text: 'Real-time attendance quota monitor, timetable dispatch, sessional evaluation ledger, and faculty grading console.',
+    img: '/images/projects/abc-1.png',
+    tags: ['ERP DASHBOARD', 'ATTENDANCE SIMULATOR', 'ACADEMIC MATRIX'],
+  },
+  {
     soon: true,
     industry: 'PORTFOLIO / STUDIO',
     name: 'Coming soon',
     text: 'A clean showcase for photographers, designers and creative studios.',
   },
+  
+  
+
 ]
 
 /* =================================
