@@ -14,12 +14,12 @@ import {
 } from 'react-router-dom'
 import './App.css'
 import ChatWidget from './ChatWidget'
-import SpaceDodge from './SpaceDodge'
-import { sound } from './utils/soundEngine';
-import ScopeCalculator from './components/ScopeCalculator';
-import PerformanceBadge from './components/PerformanceBadge';
+import { sound } from './utils/soundEngine'
+import ScopeCalculator from './components/ScopeCalculator'
+import PerformanceBadge from './components/PerformanceBadge'
 import { useTilt } from './hooks/useTilt'
 import InteractivePricingEstimator from './components/InteractivePricingEstimator'
+
 /* =================================
    PORTFOLIO DATA
 ================================= */
@@ -31,31 +31,31 @@ const projects = [
     titleBottom: 'MEDIA.',
     category: 'DIGITAL MARKETING AGENCY WEBSITE',
     summary:
-      'A modern frontend website designed and developed for PCP Media, showcasing digital marketing services, creative work and brand identity through a premium visual experience.',
+      'A high-performance frontend website designed and engineered for PCP Media, highlighting services, creative campaign work, and brand authority through an editorial digital experience.',
     pageSummary:
-      'A modern frontend website designed and developed for a digital marketing agency, focused on presenting services, creative work and brand identity through a premium digital experience.',
-    tags: ['WEB DESIGN', 'FRONTEND DEVELOPMENT', 'RESPONSIVE DESIGN'],
+      'A bespoke agency web interface developed to elevate digital marketing service tiers, showcase high-converting client case studies, and generate inbound B2B client enquiries.',
+    tags: ['WEB DESIGN', 'REACT', 'RESPONSIVE UI', 'CLIENT PRODUCTION'],
     cover: {
       src: '/images/projects/pcp-1.png',
-      alt: 'PCP Media website project',
+      alt: 'PCP Media agency website interface',
     },
     gallery: [
-      { src: '/images/projects/pcp-2.png', alt: 'PCP Media project screenshot' },
-      { src: '/images/projects/pcp-3.png', alt: 'PCP Media project screenshot' },
-      { src: '/images/projects/pcp-4.png', alt: 'PCP Media project screenshot' },
-      { src: '/images/projects/pcp-5.png', alt: 'PCP Media project screenshot' },
+      { src: '/images/projects/pcp-2.png', alt: 'PCP Media services section' },
+      { src: '/images/projects/pcp-3.png', alt: 'PCP Media portfolio grid' },
+      { src: '/images/projects/pcp-4.png', alt: 'PCP Media brand storytelling' },
+      { src: '/images/projects/pcp-5.png', alt: 'PCP Media responsive mobile view' },
     ],
-    overviewTop: 'A MODERN DIGITAL',
-    overviewBottom: 'AGENCY EXPERIENCE.',
+    overviewTop: 'BESPOKE DIGITAL',
+    overviewBottom: 'AGENCY PLATFORM.',
     highlights: [
-      'Modern Website Design',
-      'Responsive Frontend Development',
-      'Digital Marketing Agency Interface',
-      'Service & Portfolio Presentation',
-      'Premium Visual Experience',
+      'Engineered with Fast-Loading Semantic Architecture',
+      'High-Conversion Service & Case Study Showcase',
+      'Dynamic Responsive Adaptation Across All Breakpoints',
+      'Optimized Visual Flow and Lead-Generation CTAs',
+      'Seamless Brand Expression with High Visual Polish',
     ],
     ctaText:
-      "Have an idea or business that needs a strong digital presence? Let's create something that makes an impact.",
+      "Need a modern, commanding digital identity for your agency or service business? Let's build an interface that earns immediate credibility.",
     liveUrl: 'https://www.pcpmedia.in',
   },
   {
@@ -65,13 +65,13 @@ const projects = [
     titleBottom: 'LANDMARK.',
     category: 'FINE DINING & WELLNESS CLUB (DEMO CONCEPT)',
     summary:
-      'A high-contrast luxury hospitality showcase featuring categorized woodfired menu cards, dual dining and wellness club features, direct table reservations, and an event enquiry concierge.',
+      'A dark luxury hospitality showcase featuring categorized woodfired menu cards, wellness club suite discovery, table reservation simulation, and private event lead capture.',
     pageSummary:
-      'A concept demo crafted for fine dining restaurants and private wellness clubs, built to drive table bookings, corporate gathering requests, and membership interest through a refined, dark editorial aesthetic.',
+      'A quiet-luxury digital concept crafted for fine dining establishments and boutique wellness clubs, built to drive covers, private dining buyouts, and high-value club memberships.',
     tags: ['REACT', 'VITE', 'TAILWIND CSS', 'ZERO BACKEND', 'DEMO CONCEPT'],
-    cover: { 
-      src: '/images/projects/landmark-1.png', 
-      alt: 'The Landmark restaurant hero section' 
+    cover: {
+      src: '/images/projects/landmark-1.png',
+      alt: 'The Landmark restaurant hero section',
     },
     gallery: [
       { src: '/images/projects/landmark-3.png', alt: 'The Landmark Wellness Club suites' },
@@ -82,15 +82,15 @@ const projects = [
     overviewTop: 'AN ICONIC HOSPITALITY',
     overviewBottom: '& WELLNESS DESTINATION.',
     highlights: [
-      'Quiet Luxury Visual Identity with High-Contrast Typography',
-      'Filterable Woodfired Menu with Visual Dish Cards',
-      'Dual Showcase for Fine Dining & Wellness Club Amenities',
-      'Interactive Table Reservation Modal Simulation',
-      'Full Venue Buyout & Corporate Event Lead Capture',
+      'Quiet Luxury Aesthetic with Editorial Typography Hierarchy',
+      'Filterable Woodfired Culinary Menu with Dynamic Card Elements',
+      'Dual Experience Architecture: Dining & Wellness Suites',
+      'Zero-Latency Reservation & Booking Modal Simulator',
+      'Private Dining & Corporate Venue Lead Intake',
     ],
     ctaText:
-      "Running a fine dining venue, bistro, resort or wellness lounge? Let's build an iconic website that turns visitors into confirmed bookings.",
-    liveUrl: 'https://landmark-demo.pages.dev', // Replace with your live URL if different
+      "Running a bistro, resort, fine dining lounge or private club? Let's build a digital experience that converts discerning guests into booked reservations.",
+    liveUrl: 'https://landmark-demo.pages.dev',
   },
   {
     slug: 'apex-academy',
@@ -99,28 +99,28 @@ const projects = [
     titleBottom: 'ACADEMY.',
     category: 'EDUCATION & COACHING WEBSITE (DEMO CONCEPT)',
     summary:
-      'A concept website for a coaching institute preparing students for JEE and NEET, showing how education brands can present courses, faculty, results and enquiries in one clean experience.',
+      'A structured, high-trust digital portal for competitive exam coaching institutes, articulating course curricula, faculty credentials, ranker results, and admission flows.',
     pageSummary:
-      'A demo website for a coaching academy, focused on building trust with students and parents through clear courses, expert faculty, strong results and an easy enquiry flow.',
-    tags: ['WEB DESIGN', 'REACT', 'RESPONSIVE DESIGN', 'DEMO CONCEPT'],
-    cover: { src: '/images/projects/apex-1.png', alt: 'Apex Academy hero section' },
+      'A purpose-built web architecture for coaching academies and educational institutions, engineered to inspire trust in parents and prospective students through verified results and clear course paths.',
+    tags: ['REACT', 'RESPONSIVE', 'CLEAN ARCHITECTURE', 'DEMO CONCEPT'],
+    cover: { src: '/images/projects/apex-1.png', alt: 'Apex Academy hero banner' },
     gallery: [
-      { src: '/images/projects/apex-2.png', alt: 'Apex Academy statistics section' },
-      { src: '/images/projects/apex-3.png', alt: 'Apex Academy educators section' },
-      { src: '/images/projects/apex-4.png', alt: 'Apex Academy enquiry form' },
-      { src: '/images/projects/apex-5.png', alt: 'Apex Academy call-to-action section' },
+      { src: '/images/projects/apex-2.png', alt: 'Apex Academy track record and statistics' },
+      { src: '/images/projects/apex-3.png', alt: 'Apex Academy faculty profiles' },
+      { src: '/images/projects/apex-4.png', alt: 'Apex Academy admission enquiry flow' },
+      { src: '/images/projects/apex-5.png', alt: 'Apex Academy call-to-action block' },
     ],
-    overviewTop: 'A TRUSTED',
-    overviewBottom: 'LEARNING EXPERIENCE.',
+    overviewTop: 'A PURPOSE-BUILT',
+    overviewBottom: 'ACADEMIC SHOWCASE.',
     highlights: [
-      'Education & Coaching Website Design',
-      'Course, Faculty & Results Presentation',
-      'Enquiry Form for Student Admissions',
-      'Fully Responsive Frontend',
-      'Clean Light Theme with Strong Branding',
+      'Trust-First Visual Layout with Clear Verification Metrics',
+      'Comprehensive Program, Batch, and Faculty Directories',
+      'Direct Admission & Counseling Intake Modules',
+      'Ultra-Fast Loading Times across Mobile Handsets',
+      'Accessible, Professional Contrast and Typography',
     ],
     ctaText:
-      "Running a coaching institute, school or training centre? Let's build a website that earns trust and brings in admissions.",
+      "Directing a school, training institute or academy? We develop modern websites that establish academic prestige and drive steady enrolments.",
   },
   {
     slug: 'abc-portal',
@@ -129,79 +129,77 @@ const projects = [
     titleBottom: 'PORTAL.',
     category: 'CAMPUS ERP & ACADEMIC MANAGEMENT (DEMO CONCEPT)',
     summary:
-      'A dark-themed high-density academic management dashboard featuring live attendance quota tracking, biometric gate-pass syncing, class schedule matrices, and faculty grade terminals.',
+      'A dense, dark-themed campus dashboard featuring real-time attendance quota tracking, biometric gate-pass syncing, master timetable matrices, and professor evaluation portals.',
     pageSummary:
-      'An enterprise academic portal and student information dashboard designed for engineering colleges and technical universities. Features automated 75% attendance quota simulation, timetable dispatch, late entry tokens, and professor grade registers.',
-    tags: ['REACT', 'DASHBOARD', 'CAMPUS ERP', 'EDTECH', 'DEMO CONCEPT'],
+      'An enterprise academic portal and student information dashboard designed for engineering colleges and universities. Models automated 75% attendance quota simulation, timetable dispatch, and professor grading consoles.',
+    tags: ['REACT', 'DASHBOARD UI', 'CAMPUS ERP', 'EDTECH', 'DEMO CONCEPT'],
     cover: {
       src: '/images/projects/abc-1.png',
-      alt: 'ABC Portal student academic dashboard',
+      alt: 'ABC Portal student academic dashboard overview',
     },
     gallery: [
-      { src: '/images/projects/abc-2.png', alt: 'Professor attendance and sessional management terminal' },
-      { src: '/images/projects/abc-3.png', alt: 'Master weekly timetable matrix' },
-      { src: '/images/projects/abc-4.png', alt: 'Interactive attendance quota and safe bunk simulator' },
-      { src: '/images/projects/abc-5.png', alt: 'Continuous internal evaluation statement' },
-      { src: '/images/projects/abc-6.png', alt: 'Campus digital gate pass and QR verification' },
+      { src: '/images/projects/abc-2.png', alt: 'Faculty attendance and assessment terminal' },
+      { src: '/images/projects/abc-3.png', alt: 'Weekly schedule timetable matrix' },
+      { src: '/images/projects/abc-4.png', alt: 'Interactive 75% attendance quota and safe bunk predictor' },
+      { src: '/images/projects/abc-5.png', alt: 'Continuous internal evaluation ledger' },
+      { src: '/images/projects/abc-6.png', alt: 'Campus digital gate pass with QR clearance' },
     ],
     overviewTop: 'NEXT-GENERATION',
     overviewBottom: 'CAMPUS INTELLIGENCE.',
     highlights: [
-      'Real-Time Quota Monitor with 75% Safe Bunk Prediction',
-      'Dual-Role Interface: Student Overview & Faculty Registry Terminal',
-      'Continuous Biometric Sync & Dynamic QR Gate Pass Generation',
-      'Comprehensive Semester Timetable Matrix with Live Session Tracking',
-      'Sessional Exam Ledger and University Clearance System',
+      'Real-Time Quota Monitor with 75% Safe Bunk Prediction Algorithm',
+      'Dual-Role Workflow: Student Dashboard & Faculty Grading Console',
+      'Dynamic Digital QR Gate Pass & Verification Architecture',
+      'High-Density Semester Timetable with Live Slot Indicators',
+      'Continuous Assessment & Exam Clearance Ledger',
     ],
     ctaText:
-      "Running a college, university department, or coaching institution? Let's design a high-performance portal that simplifies campus operations.",
-    liveUrl: '', // Add deployed demo link if available (e.g. https://abc-portal-demo.pages.dev)
+      "Looking to digitize internal workflows for a college or private department? Let's design a high-density, lightning-fast application.",
+    liveUrl: '',
   },
 ]
 
 const MARQUEE_ITEMS = [
-  'REACT',
-  'RESPONSIVE',
-  'FAST',
-  'CLEAN CODE',
-  'MODERN DESIGN',
-  'BUILT TO LAUNCH',
+  'REACT + VITE',
+  'ZERO BLOAT CODE',
+  'SUB-SECOND LOAD TIMES',
+  'BESPOKE INTERFACES',
+  'MOBILE FIRST ARCHITECTURE',
+  'BUILT TO CONVERT',
 ]
 
 const TEMPLATES = [
   {
     slug: 'landmark',
-    industry: 'FINE DINING / RESTAURANT & WELLNESS',
+    industry: 'FINE DINING & HOSPITALITY',
     name: 'The Landmark',
-    text: 'Seasonal menu filters, wellness club suites, instant table booking modal, and private event inquiries.',
+    text: 'Quiet luxury menu presentation, wellness club suites, instant table booking modal, and private buyout lead concierge.',
     img: '/images/projects/landmark-1.png',
-    tags: ['LUXURY DARK', 'RESERVATIONS', 'WELLNESS'],
+    tags: ['LUXURY EDITORIAL', 'RESERVATIONS', 'HOSPITALITY'],
   },
   {
     slug: 'apex-academy',
-    industry: 'EDUCATION / COACHING',
+    industry: 'EDTECH & COACHING',
     name: 'Apex Academy',
-    text: 'Courses, faculty, results and admissions enquiries for coaching institutes and schools.',
+    text: 'Curriculum directories, faculty showcases, verified results counter, and streamlined parent admission enquiries.',
     img: '/images/projects/apex-1.png',
-    tags: ['LIGHT THEME', 'ENQUIRY FORM', 'FACULTY'],
+    tags: ['HIGH-TRUST LIGHT', 'ENQUIRY FUNNEL', 'FACULTY PROFILES'],
   },
   {
     slug: 'abc-portal',
-    industry: 'EDTECH / CAMPUS ERP',
+    industry: 'ENTERPRISE & ACADEMIC ERP',
     name: 'ABC Academic Portal',
-    text: 'Real-time attendance quota monitor, timetable dispatch, sessional evaluation ledger, and faculty grading console.',
+    text: 'Real-time attendance quota monitor, timetable dispatch, internal marks ledger, and faculty grading console.',
     img: '/images/projects/abc-1.png',
-    tags: ['ERP DASHBOARD', 'ATTENDANCE SIMULATOR', 'ACADEMIC MATRIX'],
+    tags: ['ERP DASHBOARD', 'DATA DENSE', 'ACADEMIC MATRIX'],
   },
   {
     soon: true,
-    industry: 'PORTFOLIO / STUDIO',
-    name: 'Coming soon',
-    text: 'A clean showcase for photographers, designers and creative studios.',
+    industry: 'PORTFOLIO & ARCHITECTURE STUDIO',
+    name: 'Atelier Concept',
+    text: 'A minimalist horizontal showcase for architects, industrial designers, and visual production studios.',
+    tags: ['MINIMALIST', 'CASE STUDIES', 'COMING SOON'],
   },
-  
-  
-
 ]
 
 /* =================================
@@ -300,10 +298,7 @@ function useCursorEffects() {
     return () => {
       cancelAnimationFrame(frame)
       window.removeEventListener('pointermove', onMove)
-      document.documentElement.removeEventListener(
-        'pointerleave',
-        resetMagnets
-      )
+      document.documentElement.removeEventListener('pointerleave', resetMagnets)
     }
   }, [])
 }
@@ -469,6 +464,7 @@ const NAV_ITEMS = [
   ['Pricing', '/pricing'],
   ['Contact', '#contact'],
 ]
+
 function Navbar({ onLogoClick }) {
   const [open, setOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
@@ -544,7 +540,7 @@ function Navbar({ onLogoClick }) {
         type="button"
         className={`audio-toggle-btn ${audioActive ? 'is-active' : ''}`}
         onClick={toggleAudio}
-        title="Toggle Sci-Fi Interface Sound FX"
+        title="Toggle Interface Sound FX"
       >
         <span className="audio-dot" />
         SOUND FX: {audioActive ? 'ON' : 'OFF'}
@@ -591,11 +587,9 @@ function Navbar({ onLogoClick }) {
 
         <div className="menu-footer">
           <p>HAVE A PROJECT IN MIND?</p>
-
           <a href="mailto:prototype.tech.webdev@gmail.com">
             prototype.tech.webdev@gmail.com
           </a>
-
           <a href="tel:+918957549660">
             +91 89575 49660
           </a>
@@ -606,7 +600,7 @@ function Navbar({ onLogoClick }) {
 }
 
 /* =================================
-   FOOTER
+   FOOTER (PURE COMMERCIAL STUDIO)
 ================================= */
 
 function Footer() {
@@ -619,19 +613,16 @@ function Footer() {
             PROTOTYPE<span>®</span>
           </div>
           <p className="footer-tagline">
-            Creating modern digital experiences from idea to interface.
+            Engineering bespoke web experiences, interactive applications, and performance-driven interfaces from idea to deployment.
           </p>
-          <Link to="/play" className="footer-play">
-            TAKE A BREAK: PLAY A GAME ↗
-          </Link>
         </div>
 
         <div className="footer-connect">
-          <p className="footer-kicker">HAVE A PROJECT IN MIND?</p>
+          <p className="footer-kicker">PROJECT ENQUIRIES & PARTNERSHIPS</p>
           <h3>
             LET'S CREATE
             <br />
-            <span>SOMETHING.</span>
+            <span>SOMETHING REMARKABLE.</span>
           </h3>
 
           <div className="footer-contact-links">
@@ -645,10 +636,10 @@ function Footer() {
         </div>
       </div>
 
-      <div className="footer-divider"></div>
+      <div className="footer-divider" />
 
       <div className="footer-bottom">
-        <p>© 2026 PROTOTYPE</p>
+        <p>© 2026 PROTOTYPE STUDIO. ALL RIGHTS RESERVED.</p>
         <p className="footer-credit">
           DESIGNED & DEVELOPED BY <span>GAURAV</span>
         </p>
@@ -664,10 +655,10 @@ const ENQUIRY_SERVICES = [
   'Business Website',
   'Landing Page',
   'Frontend Development',
-  'Something Else',
+  'Custom Web App / Portal',
 ]
 
-const ENQUIRY_PLANS = ['LIFTOFF', 'ORBIT', 'DEEP SPACE', 'Not sure yet']
+const ENQUIRY_PLANS = ['LIFTOFF', 'ORBIT', 'DEEP SPACE', 'Custom Consultation']
 
 function TiltCard({ children, className, ...rest }) {
   const tiltRef = useTilt(10)
@@ -685,7 +676,7 @@ function TiltCard({ children, className, ...rest }) {
 function Home() {
   usePageMeta(
     'PROTOTYPE — Independent Digital Studio',
-    'PROTOTYPE is an independent digital studio creating modern, responsive websites, landing pages and custom frontend experiences, from idea to interface.'
+    'PROTOTYPE creates modern, responsive websites, landing pages and bespoke frontend experiences with exceptional speed and precision.'
   )
 
   const [showIntro, setShowIntro] = useState(false)
@@ -693,13 +684,13 @@ function Home() {
   const introTimer = useRef(null)
 
   const handleApplyScope = ({ service, plan, note }) => {
-  setFormData((prev) => ({
-    ...prev,
-    service: service || prev.service,
-    plan: plan || prev.plan,
-    message: prev.message ? `${prev.message}\n\n[Scope Estimate]: ${note}` : `[Scope Estimate]: ${note}`
-  }));
-};
+    setFormData((prev) => ({
+      ...prev,
+      service: service || prev.service,
+      plan: plan || prev.plan,
+      message: prev.message ? `${prev.message}\n\n[Scope Estimate]: ${note}` : `[Scope Estimate]: ${note}`
+    }))
+  }
 
   const runIntro = () => {
     clearTimeout(introTimer.current)
@@ -744,6 +735,7 @@ function Home() {
   })
 
   const [formStatus, setFormStatus] = useState('')
+  const [isSubmitting, setIsSubmitting] = useState(false)
 
   const requiredFilled = [formData.name, formData.email, formData.message]
     .filter((v) => v.trim()).length
@@ -763,12 +755,9 @@ function Home() {
     }))
   }
 
-  const [isSubmitting, setIsSubmitting] = useState(false)
-
   const handleSubmit = async (e) => {
     e.preventDefault()
-    sound.playTransmission(); // Plays sci-fi transmit pulse
-    setIsSubmitting(true);
+    sound.playTransmission()
     setIsSubmitting(true)
     setFormStatus('Transmitting enquiry...')
 
@@ -782,7 +771,7 @@ function Home() {
         body: JSON.stringify({
           access_key: '0720abdd-5fb9-4159-8184-7b610ce7109f',
           subject: `New Project Enquiry from ${formData.name}`,
-          from_name: 'PROTOTYPE Website',
+          from_name: 'PROTOTYPE Studio',
           name: formData.name,
           email: formData.email,
           company: formData.company || 'Not provided',
@@ -795,7 +784,7 @@ function Home() {
       const result = await response.json()
 
       if (result.success) {
-        setFormStatus('Enquiry transmitted successfully. We will get back to you within 24 hours.')
+        setFormStatus('Enquiry transmitted successfully. We will respond within 24 hours.')
         setFormData({
           name: '',
           email: '',
@@ -857,7 +846,7 @@ function Home() {
         <div className="hero-content">
           <p className="availability">
             <span className="availability-dot" />
-            AVAILABLE FOR NEW PROJECTS
+            ACCEPTING NEW CLIENT COMMISSIONS — Q1 2026
           </p>
 
           <p className="eyebrow">
@@ -871,8 +860,7 @@ function Home() {
           </h1>
 
           <p className="hero-description">
-            We create modern websites and digital experiences
-            for ambitious businesses and individuals.
+            We architect and build precision-engineered websites and high-impact digital experiences for forward-thinking brands and founders.
           </p>
 
           <a href="#contact" className="hero-button">
@@ -885,9 +873,11 @@ function Home() {
           <span>SCROLL TO EXPLORE ↓</span>
         </div>
       </section>
-        {/* LIGHTHOUSE SCORECARD STRIP */}
+
+      {/* PERFORMANCE SCORECARD */}
       <PerformanceBadge />
-      {/* SCROLLING STRIP */}
+
+      {/* SCROLLING MARQUEE */}
       <Marquee />
 
       {/* SERVICES SECTION */}
@@ -904,8 +894,7 @@ function Home() {
           </h2>
 
           <p className="services-intro">
-            PROTOTYPE creates modern, responsive digital experiences
-            designed around your ideas, goals and brand.
+            PROTOTYPE blends clean component architecture with striking visual design to deliver websites that look exceptional and drive measurable action.
           </p>
         </div>
 
@@ -915,8 +904,7 @@ function Home() {
               <span className="service-number">01 / 03</span>
               <h3>Business Websites</h3>
               <p>
-                Modern and responsive websites designed to give your business a
-                strong digital presence.
+                Authoritative, high-performance websites engineered to establish strong brand presence and communicate services with clarity.
               </p>
               <span className="service-arrow">↗</span>
             </Link>
@@ -927,9 +915,7 @@ function Home() {
               <span className="service-number">02 / 03</span>
               <h3>Landing Pages</h3>
               <p>
-                High-impact landing pages designed to clearly present your
-                product, service or campaign and encourage visitors to take
-                action.
+                Conversion-focused single-page experiences built to present offers clearly and turn visitors into qualified leads.
               </p>
               <span className="service-arrow">↗</span>
             </Link>
@@ -938,10 +924,9 @@ function Home() {
           <TiltCard className="service-card" data-reveal="2">
             <Link to="/services/frontend-development">
               <span className="service-number">03 / 03</span>
-              <h3>Custom Frontend Development</h3>
+              <h3>Custom Frontend</h3>
               <p>
-                Custom React interfaces and responsive frontend experiences
-                built with clean code and attention to every detail.
+                Tailored React web applications and modular interfaces with smooth interactions, clean code, and zero runtime bloat.
               </p>
               <span className="service-arrow">↗</span>
             </Link>
@@ -949,13 +934,13 @@ function Home() {
         </div>
       </section>
 
-      {/* PHILOSOPHY */}
+      {/* PHILOSOPHY STATEMENT */}
       <div className="hero-side-note">
         <span>OUR PHILOSOPHY</span>
         <h2>
-          BUILT TO MAKE
+          SPEED. PRECISION.
           <br />
-          AN IMPACT.
+          DISTINCTION.
         </h2>
       </div>
 
@@ -967,14 +952,13 @@ function Home() {
           </p>
 
           <h2>
-            PROJECTS WE'VE
+            PROVEN CLIENT
             <br />
-            <span>BUILT.</span>
+            <span>PRODUCTION.</span>
           </h2>
 
           <p className="work-intro">
-            A selection of digital experiences designed and developed
-            around real businesses, brands and ideas.
+            A showcase of digital products and client websites designed and shipped with rigorous attention to detail.
           </p>
         </div>
 
@@ -988,7 +972,7 @@ function Home() {
                 />
                 <div className="project-image-overlay">
                   <span>
-                    {index === 0 ? 'FEATURED PROJECT' : 'PROJECT'}
+                    {index === 0 ? 'FEATURED CLIENT RELEASE' : 'CLIENT RELEASE'}
                   </span>
                 </div>
               </div>
@@ -996,7 +980,7 @@ function Home() {
               <div className="project-info" data-reveal="1">
                 <div>
                   <p className="project-number">
-                    {String(index + 1).padStart(2, '0')} / SELECTED WORK
+                    {String(index + 1).padStart(2, '0')} / LIVE CASE STUDY
                   </p>
                   <h3>
                     {project.titleTop}
@@ -1024,7 +1008,7 @@ function Home() {
                       to={`/projects/${project.slug}`}
                       className="project-details-btn"
                     >
-                      View Project Details <span>→</span>
+                      View Case Study <span>→</span>
                     </Link>
 
                     {project.liveUrl && (
@@ -1034,7 +1018,7 @@ function Home() {
                         rel="noopener noreferrer"
                         className="live-project-btn"
                       >
-                        Live Site <span>↗</span>
+                        Live Website <span>↗</span>
                       </a>
                     )}
                   </div>
@@ -1061,15 +1045,14 @@ function Home() {
       {/* TEMPLATES SECTION */}
       <section className="templates-section" id="templates">
         <div className="work-heading" data-reveal>
-          <p className="section-label">DEMO TEMPLATES</p>
+          <p className="section-label">DEMO SHOWCASES</p>
           <h2>
-            READY-MADE
+            INDUSTRY-SPECIFIC
             <br />
             <span>STARTING POINTS.</span>
           </h2>
           <p className="work-intro">
-            Concept websites for different industries. Pick a style you
-            like and we will customise it around your brand.
+            Full-featured concept websites illustrating industry workflows. Select a foundation and we customize every layout and component to your brand.
           </p>
         </div>
 
@@ -1079,7 +1062,9 @@ function Home() {
               <>
                 <div className="template-thumb">
                   {t.soon ? (
-                    <span className="template-soon">NEXT DEMO</span>
+                    <div className="template-soon-placeholder">
+                      <span className="template-soon">UPCOMING ARCHITECTURE</span>
+                    </div>
                   ) : (
                     <ProjectImage src={t.img} alt={`${t.name} template preview`} />
                   )}
@@ -1097,7 +1082,7 @@ function Home() {
                   )}
                   {!t.soon && (
                     <span className="template-link">
-                      View demo <span>↗</span>
+                      Explore Concept <span>↗</span>
                     </span>
                   )}
                 </div>
@@ -1125,15 +1110,14 @@ function Home() {
       {/* WHY PROTOTYPE SECTION */}
       <section className="trust-section">
         <div className="trust-heading">
-          <p className="section-label">WHY PROTOTYPE</p>
+          <p className="section-label">THE STUDIO STANDARD</p>
           <h2>
-            BUILT FOR YOUR
+            BUILT FOR SCALE
             <br />
-            <span>NEXT BIG IDEA.</span>
+            <span>AND PERFORMANCE.</span>
           </h2>
           <p className="trust-intro">
-            We combine thoughtful design and clean development to create
-            digital experiences that help your business stand out.
+            We avoid generic page builders. Every line of code is structured for sub-second speeds, flawless responsive behavior, and clear user conversions.
           </p>
         </div>
 
@@ -1141,68 +1125,48 @@ function Home() {
           <div className="trust-card">
             <div className="card-top">
               <span>01</span>
-              <div className="card-line"></div>
+              <div className="card-line" />
             </div>
             <div className="trust-icon">◇</div>
-            <h3>MODERN DESIGN.</h3>
+            <h3>BESPOKE DESIGN</h3>
             <p>
-              Clean, professional
-              <br />
-              & on brand.
+              Custom visual identity crafted around your specific brand aesthetic rather than recycled templates.
             </p>
           </div>
 
           <div className="trust-card">
             <div className="card-top">
               <span>02</span>
-              <div className="card-line"></div>
+              <div className="card-line" />
             </div>
             <div className="trust-icon">▣</div>
-            <h3>
-              BUILT FOR
-              <br />
-              EVERY SCREEN.
-            </h3>
+            <h3>FLUID RESPONSIVE</h3>
             <p>
-              A smooth experience
-              <br />
-              on any device.
+              Engineered and tested rigorously across smartphones, tablets, high-res monitors, and foldables.
             </p>
           </div>
 
           <div className="trust-card">
             <div className="card-top">
               <span>03</span>
-              <div className="card-line"></div>
+              <div className="card-line" />
             </div>
             <div className="trust-icon">◌</div>
-            <h3>
-              CLEAR
-              <br />
-              COMMUNICATION.
-            </h3>
+            <h3>RAPID DELIVERY</h3>
             <p>
-              A simple & transparent
-              <br />
-              process.
+              Transparent sprint stages with working preview links and direct founder-level communication.
             </p>
           </div>
 
           <div className="trust-card">
             <div className="card-top">
               <span>04</span>
-              <div className="card-line"></div>
+              <div className="card-line" />
             </div>
             <div className="trust-icon">{'</>'}</div>
-            <h3>
-              CLEAN
-              <br />
-              DEVELOPMENT.
-            </h3>
+            <h3>CLEAN STACK</h3>
             <p>
-              Performance, responsiveness
-              <br />
-              & long-term flexibility.
+              Built with React, Vite, and modern CSS for instant loading, top-tier SEO, and low maintenance overhead.
             </p>
           </div>
         </div>
@@ -1211,25 +1175,24 @@ function Home() {
       {/* FAQ SECTION */}
       <section className="faq-section">
         <div className="faq-heading" data-reveal>
-          <p className="section-label">QUESTIONS & ANSWERS</p>
+          <p className="section-label">FREQUENTLY ASKED</p>
           <h2>
-            GOOD TO
+            CLARITY
             <br />
-            <span>KNOW.</span>
+            <span>UP FRONT.</span>
           </h2>
         </div>
 
         <div className="faq-list">
           <details className="faq-item" data-reveal="0">
             <summary>
-              <span>How much does a website cost?</span>
+              <span>How are project budgets determined?</span>
               <b>+</b>
             </summary>
             <div className="faq-answer">
               <div>
                 <p>
-                  Every project is different. The final cost depends on the
-                  website's size, features and requirements.
+                  Every engagement is scoped with fixed, genuine pricing based on page volume, interactive features, and integration needs. You receive a complete scope document before any work begins.
                 </p>
               </div>
             </div>
@@ -1237,15 +1200,13 @@ function Home() {
 
           <details className="faq-item" data-reveal="1">
             <summary>
-              <span>How long does a website take to build?</span>
+              <span>What is the standard turnaround timeline?</span>
               <b>+</b>
             </summary>
             <div className="faq-answer">
               <div>
                 <p>
-                  Smaller websites can be completed within a few business days,
-                  while larger projects may take longer depending on the
-                  features and feedback process.
+                  Focused landing pages and starter websites are delivered within 3–5 business days. Complex multi-page portals and interactive web apps generally deploy within 8–12 business days.
                 </p>
               </div>
             </div>
@@ -1253,15 +1214,13 @@ function Home() {
 
           <details className="faq-item" data-reveal="2">
             <summary>
-              <span>Do I need to buy a domain and hosting?</span>
+              <span>Do I retain full ownership of the codebase?</span>
               <b>+</b>
             </summary>
             <div className="faq-answer">
               <div>
                 <p>
-                  Yes. Domain and hosting costs are separate from website
-                  development. We can guide you through the process and help
-                  with the setup if needed.
+                  Yes, 100%. Upon final project sign-off and balance completion, complete intellectual property, repository access, and production build files are transferred directly to you.
                 </p>
               </div>
             </div>
@@ -1269,56 +1228,40 @@ function Home() {
 
           <details className="faq-item" data-reveal="3">
             <summary>
-              <span>Will my website work on mobile devices?</span>
+              <span>How do domain and hosting arrangements work?</span>
               <b>+</b>
             </summary>
             <div className="faq-answer">
               <div>
                 <p>
-                  Yes. Every website is designed to be responsive and provide
-                  a smooth experience across phones, tablets and desktop
-                  screens.
-                </p>
-              </div>
-            </div>
-          </details>
-
-          <details className="faq-item" data-reveal="4">
-            <summary>
-              <span>Can my website be updated in the future?</span>
-              <b>+</b>
-            </summary>
-            <div className="faq-answer">
-              <div>
-                <p>
-                  Yes. Websites can be expanded with new pages, content and
-                  features as your business grows.
+                  You retain direct ownership of your domain and hosting accounts for long-term independence. We configure the DNS, SSL, and hosting pipelines (such as Cloudflare Pages or Netlify) at no extra complication.
                 </p>
               </div>
             </div>
           </details>
         </div>
       </section>
-          {/* INTERACTIVE SCOPE CALCULATOR */}
-<section className="scope-calculator-section">
-  <ScopeCalculator onApplyConfig={handleApplyScope} />
-</section>
+
+      {/* SCOPE CALCULATOR */}
+      <section className="scope-calculator-section">
+        <ScopeCalculator onApplyConfig={handleApplyScope} />
+      </section>
+
       {/* CONTACT SECTION */}
       <section className="contact-section" id="contact">
         <div className="contact-heading" data-reveal>
           <p className="section-label">
-            LET'S WORK TOGETHER
+            INITIATE ENGAGEMENT
           </p>
 
           <h2>
-            HAVE AN IDEA?
+            HAVE A PROJECT?
             <br />
             <span>LET'S BUILD IT.</span>
           </h2>
 
           <p className="contact-intro">
-            Tell us about your project, business or idea.
-            We'll get back to you as soon as possible.
+            Tell us about your brand goals, target timeline, or desired deliverables. We review every brief and reply within 24 hours.
           </p>
 
           <div className="contact-direct">
@@ -1338,7 +1281,7 @@ function Home() {
         >
           <div className="enquiry-top">
             <span className="enquiry-status">
-              <i /> NEW TRANSMISSION
+              <i /> DIRECT STUDIO INTAKE
             </span>
             <span className="enquiry-code">PRJ—{new Date().getFullYear()}</span>
           </div>
@@ -1368,7 +1311,7 @@ function Home() {
                 id="enquiry-email"
                 type="email"
                 name="email"
-                placeholder="you@example.com"
+                placeholder="you@company.com"
                 autoComplete="email"
                 value={formData.email}
                 onChange={handleChange}
@@ -1378,12 +1321,12 @@ function Home() {
           </div>
 
           <div className="enquiry-field">
-            <label htmlFor="enquiry-company"><b>03</b> COMPANY / BUSINESS <em>optional</em></label>
+            <label htmlFor="enquiry-company"><b>03</b> COMPANY / BRAND <em>optional</em></label>
             <input
               id="enquiry-company"
               type="text"
               name="company"
-              placeholder="Your company or business"
+              placeholder="Your organization or project name"
               autoComplete="organization"
               value={formData.company}
               onChange={handleChange}
@@ -1391,7 +1334,7 @@ function Home() {
           </div>
 
           <div className="enquiry-chips">
-            <p><b>04</b> WHAT DO YOU NEED? <em>optional</em></p>
+            <p><b>04</b> SERVICE DISCIPLINE <em>optional</em></p>
             <div>
               {ENQUIRY_SERVICES.map((s) => (
                 <button
@@ -1408,7 +1351,7 @@ function Home() {
           </div>
 
           <div className="enquiry-chips">
-            <p><b>05</b> PREFERRED PACKAGE <em>optional</em></p>
+            <p><b>05</b> ESTIMATED TIER <em>optional</em></p>
             <div>
               {ENQUIRY_PLANS.map((p) => (
                 <button
@@ -1425,11 +1368,11 @@ function Home() {
           </div>
 
           <div className="enquiry-field">
-            <label htmlFor="enquiry-message"><b>06</b> TELL US ABOUT YOUR PROJECT</label>
+            <label htmlFor="enquiry-message"><b>06</b> PROJECT SUMMARY & GOALS</label>
             <textarea
               id="enquiry-message"
               name="message"
-              placeholder="Describe your project or idea..."
+              placeholder="Briefly describe what you're building, target launch dates, or key features needed..."
               maxLength={600}
               value={formData.message}
               onChange={handleChange}
@@ -1439,15 +1382,15 @@ function Home() {
           </div>
 
           <div className="enquiry-send">
-            <button 
-              type="submit" 
+            <button
+              type="submit"
               className="contact-button"
               disabled={isSubmitting}
               style={isSubmitting ? { opacity: 0.6, cursor: 'not-allowed' } : undefined}
             >
-              {isSubmitting ? 'TRANSMITTING...' : 'SEND ENQUIRY'} <span>↗</span>
+              {isSubmitting ? 'TRANSMITTING BRIEF...' : 'SEND PROJECT BRIEF'} <span>↗</span>
             </button>
-            <p className="enquiry-note">REPLY WITHIN 24 HOURS</p>
+            <p className="enquiry-note">GUARANTEED RESPONSE WITHIN 24 HOURS</p>
           </div>
 
           {formStatus && (
@@ -1464,13 +1407,13 @@ function Home() {
 }
 
 /* =================================
-   BUSINESS WEBSITES PAGE
+   SERVICE PAGES
 ================================= */
 
 function BusinessWebsites() {
   usePageMeta(
     'Business Websites — PROTOTYPE',
-    'Modern, responsive business websites that give your company a strong digital presence and communicate your brand with clarity.'
+    'Modern, responsive business websites that establish market credibility and communicate your services clearly.'
   )
 
   return (
@@ -1479,7 +1422,7 @@ function BusinessWebsites() {
 
       <section className="service-hero">
         <p className="service-eyebrow" data-reveal>
-          01 / 03 — DIGITAL PRESENCE
+          01 / 03 — COMMERCIAL WEB PRESENCE
         </p>
 
         <h1 data-reveal="1">
@@ -1489,70 +1432,47 @@ function BusinessWebsites() {
         </h1>
 
         <p className="service-page-description" data-reveal="2">
-          We design and build modern, responsive websites that help
-          businesses establish a strong digital presence and communicate
-          their brand with clarity.
+          We design and build bespoke, responsive web platforms that help growing businesses stand out, establish authority, and communicate value with crisp visual hierarchy.
         </p>
 
-        <a href="/#contact" className="service-cta" data-reveal="3">
+        <Link to="/#contact" className="service-cta" data-reveal="3">
           Start a project <span>↗</span>
-        </a>
+        </Link>
       </section>
 
       <section className="service-details">
         <div className="details-label">
-          WHAT WE CREATE
+          CORE CAPABILITIES
         </div>
 
         <div className="details-content">
           <h2>
-            A DIGITAL PRESENCE
+            DIGITAL FOUNDATIONS
             <br />
-            BUILT FOR YOUR BUSINESS.
+            ENGINEERED TO CONVERT.
           </h2>
 
           <DetailList
             items={[
               [
-                'Modern Website Design',
-                'Clean, visually engaging website designs created around your brand, audience and business goals.',
+                'Editorial Visual Design',
+                'Clean typography, dark or light luxury palettes, and clear information flow structured around your audience.',
               ],
               [
-                'Responsive Development',
-                'Websites designed to work smoothly across desktops, tablets and mobile devices.',
+                'Responsive Precision',
+                'Pixel-perfect layout behavior across mobile devices, high-DPI tablets, laptops, and ultra-wide screens.',
               ],
               [
-                'Business & Corporate Websites',
-                'Professional digital experiences that clearly communicate your services, values and brand identity.',
+                'Lead Generation Flow',
+                'Strategically positioned call-to-actions, enquiry modules, and interactive quotation calculators.',
               ],
               [
-                'Portfolio Websites',
-                'Modern portfolio websites designed to showcase your work, projects and creative achievements.',
-              ],
-              [
-                'Performance-Focused Frontend',
-                'Fast, clean and responsive frontend experiences built with attention to usability and performance.',
+                'Zero-Bloat Performance',
+                'Static build optimizations, modern asset compression, and clean DOM structures ensuring 95+ PageSpeed scores.',
               ],
             ]}
           />
         </div>
-      </section>
-
-      <section className="service-project-cta">
-        <p className="service-eyebrow" data-reveal>
-          HAVE A PROJECT IN MIND?
-        </p>
-
-        <h2 data-reveal="1">
-          LET'S BUILD
-          <br />
-          <span>SOMETHING GREAT.</span>
-        </h2>
-
-        <p data-reveal="2">
-          Tell us about your idea, business or project and let's create
-          a digital experience that makes an impact.
-        </p>
       </section>
 
       <Footer />
@@ -1560,14 +1480,10 @@ function BusinessWebsites() {
   )
 }
 
-/* =================================
-   LANDING PAGES
-================================= */
-
 function LandingPages() {
   usePageMeta(
     'Landing Pages — PROTOTYPE',
-    'High-impact landing pages that present your product, service or campaign clearly and encourage visitors to take action.'
+    'High-impact landing pages engineered to present offers clearly and turn visitors into active clients.'
   )
 
   return (
@@ -1576,7 +1492,7 @@ function LandingPages() {
 
       <section className="service-hero">
         <p className="service-eyebrow" data-reveal>
-          02 / 03 — FOCUSED EXPERIENCES
+          02 / 03 — FOCUSED CONVERSION
         </p>
 
         <h1 data-reveal="1">
@@ -1586,49 +1502,39 @@ function LandingPages() {
         </h1>
 
         <p className="service-page-description" data-reveal="2">
-          High-impact landing pages designed to communicate your
-          product, service or idea clearly and encourage visitors
-          to take action.
+          Single-purpose, high-converting digital landing pages designed to showcase new product launches, digital services, or targeted marketing campaigns without distraction.
         </p>
 
-        <a href="/#contact" className="service-cta" data-reveal="3">
+        <Link to="/#contact" className="service-cta" data-reveal="3">
           Start a project <span>↗</span>
-        </a>
+        </Link>
       </section>
 
       <section className="service-details">
         <div className="details-label">
-          WHAT WE CREATE
+          WHAT WE DELIVER
         </div>
 
         <div className="details-content">
           <h2>
-            PAGES BUILT TO
+            PAGES CRAFTED TO
             <br />
-            <span>TURN VISITORS INTO ACTION.</span>
+            <span>DRIVE DEFINITIVE ACTION.</span>
           </h2>
 
           <DetailList
             items={[
               [
-                'Product Landing Pages',
-                'Focused pages designed to clearly present your product, highlight its value and encourage visitors to take action.',
+                'Product Launch Pages',
+                'Compelling hero sections, feature grids, interactive benefit toggles, and instant order or demo funnels.',
               ],
               [
-                'Service Landing Pages',
-                'Clear and engaging pages that explain your services and help potential clients understand exactly what you offer.',
+                'Service & Lead Funnels',
+                'Distraction-free layouts that clearly articulate your value proposition and minimize friction in enquiry submissions.',
               ],
               [
-                'Campaign Pages',
-                'High-impact pages created for marketing campaigns, promotions and launches with a strong focus on audience engagement.',
-              ],
-              [
-                'Portfolio Landing Pages',
-                'Visually engaging layouts designed to showcase your work, projects and creative identity in a professional way.',
-              ],
-              [
-                'Conversion-Focused Layouts',
-                'Strategic layouts designed to guide visitors toward meaningful actions such as contacting you, signing up or making an enquiry.',
+                'Ad-Campaign Optimized',
+                'Engineered with rapid sub-second initial load speeds to ensure minimal bounce rates from social and search ads.',
               ],
             ]}
           />
@@ -1640,14 +1546,10 @@ function LandingPages() {
   )
 }
 
-/* =================================
-   FRONTEND DEVELOPMENT
-================================= */
-
 function FrontendDevelopment() {
   usePageMeta(
     'Custom Frontend Development — PROTOTYPE',
-    'Custom React interfaces and responsive frontend experiences built with clean code and attention to every detail.'
+    'Custom React interfaces and responsive frontend applications built with clean code and modern component architecture.'
   )
 
   return (
@@ -1656,7 +1558,7 @@ function FrontendDevelopment() {
 
       <section className="service-hero">
         <p className="service-eyebrow" data-reveal>
-          03 / 03 — MODERN DEVELOPMENT
+          03 / 03 — INTERFACE ENGINEERING
         </p>
 
         <h1 data-reveal="1">
@@ -1666,48 +1568,39 @@ function FrontendDevelopment() {
         </h1>
 
         <p className="service-page-description" data-reveal="2">
-          Modern, responsive and custom frontend interfaces built
-          with clean code and attention to detail.
+          Modular, responsive, and maintainable React web applications crafted with modern build tooling, clean component hierarchies, and micro-interactions.
         </p>
 
-        <a href="/#contact" className="service-cta" data-reveal="3">
+        <Link to="/#contact" className="service-cta" data-reveal="3">
           Start a project <span>↗</span>
-        </a>
+        </Link>
       </section>
 
       <section className="service-details">
         <div className="details-label">
-          WHAT WE CREATE
+          TECHNICAL CAPABILITIES
         </div>
 
         <div className="details-content">
           <h2>
-            CUSTOM INTERFACES.
+            MODERN CODEBASES.
             <br />
-            <span>BUILT FOR THE WEB.</span>
+            <span>BUILT FOR EXTENSIBILITY.</span>
           </h2>
 
           <DetailList
             items={[
               [
-                'React Development',
-                'Modern React-based interfaces built with reusable components, clean structure and smooth user experiences.',
+                'Modern React Architecture',
+                'Engineered using Vite, modular component patterns, hooks, and clean state handling.',
               ],
               [
-                'Responsive Frontend Interfaces',
-                'Interfaces designed to work seamlessly across desktops, tablets and mobile devices.',
+                'Interactive Dashboards',
+                'Data visualization, live timetable matrices, interactive calculators, and attendance tracking consoles.',
               ],
               [
-                'Interactive UI Components',
-                'Engaging interface elements and interactions that make your website feel modern, intuitive and polished.',
-              ],
-              [
-                'Modern Website Development',
-                'Custom frontend experiences developed with modern web technologies and careful attention to visual detail.',
-              ],
-              [
-                'Performance-Focused Frontend',
-                'Clean and efficient frontend development focused on fast loading, smooth performance and a reliable user experience.',
+                'API Integration Ready',
+                'Effortless connection with RESTful APIs, cloud databases, and headless CMS platforms like Sanity or Contentful.',
               ],
             ]}
           />
@@ -1725,8 +1618,8 @@ function FrontendDevelopment() {
 
 function NotFound() {
   usePageMeta(
-    'Page not found — PROTOTYPE',
-    "The page you're looking for doesn't exist or has moved."
+    'Page Not Found — PROTOTYPE',
+    "The requested page does not exist."
   )
 
   return (
@@ -1735,18 +1628,17 @@ function NotFound() {
 
       <section className="service-hero">
         <p className="service-eyebrow" data-reveal>
-          404 — PAGE NOT FOUND
+          404 — ERROR
         </p>
 
         <h1 data-reveal="1">
-          LOST IN
+          PAGE NOT
           <br />
-          <span>SPACE.</span>
+          <span>FOUND.</span>
         </h1>
 
         <p className="service-page-description" data-reveal="2">
-          The page you're looking for doesn't exist or has moved.
-          Let's get you back to somewhere familiar.
+          The requested URL does not exist or has been relocated.
         </p>
 
         <Link to="/" className="service-cta" data-reveal="3">
@@ -1769,11 +1661,11 @@ function ProjectPage() {
 
   usePageMeta(
     project
-      ? `${project.titleTop} ${project.titleBottom.replace('.', '')} — Project | PROTOTYPE`
-      : 'Page not found — PROTOTYPE',
+      ? `${project.titleTop} ${project.titleBottom.replace('.', '')} — Case Study | PROTOTYPE`
+      : 'Page Not Found — PROTOTYPE',
     project
       ? project.pageSummary
-      : "The page you're looking for doesn't exist or has moved."
+      : "The requested project case study could not be found."
   )
 
   if (!project) return <NotFound />
@@ -1784,12 +1676,12 @@ function ProjectPage() {
     <main className="service-page project-page">
       <ServiceNavbar
         to={project.demo ? '/#templates' : '/#work'}
-        label={project.demo ? '← BACK TO TEMPLATES' : '← BACK TO WORK'}
+        label={project.demo ? '← BACK TO TEMPLATES' : '← BACK TO SELECTED WORK'}
       />
 
       <section className="service-hero">
         <p className="service-eyebrow" data-reveal>
-          {String(projects.indexOf(project) + 1).padStart(2, '0')} / {project.demo ? 'DEMO SHOWCASE' : 'SELECTED WORK'}
+          {String(projects.indexOf(project) + 1).padStart(2, '0')} / {project.demo ? 'DEMO SHOWCASE' : 'PRODUCTION RELEASE'}
         </p>
 
         <h1 data-reveal="1">
@@ -1810,14 +1702,14 @@ function ProjectPage() {
             className="service-cta"
             data-reveal="3"
           >
-            View Live Site <span>↗</span>
+            Launch Live Demo <span>↗</span>
           </a>
         )}
       </section>
 
       <section className="service-details">
         <div className="details-label">
-          PROJECT OVERVIEW
+          ARCHITECTURE & HIGHLIGHTS
         </div>
 
         <div className="details-content">
@@ -1838,13 +1730,13 @@ function ProjectPage() {
       <section className="project-showcase">
         <div className="work-heading" data-reveal>
           <p className="section-label">
-            PROJECT SHOWCASE
+            INTERFACE INTERNALS
           </p>
 
           <h2>
-            INSIDE THE
+            SCREENSHOT
             <br />
-            <span>PROJECT.</span>
+            <span>BREAKDOWN.</span>
           </h2>
         </div>
 
@@ -1862,18 +1754,22 @@ function ProjectPage() {
 
       <section className="service-project-cta">
         <p className="service-eyebrow" data-reveal>
-          HAVE A PROJECT IN MIND?
+          COMMISSION SIMILAR WORK
         </p>
 
         <h2 data-reveal="1">
           LET'S BUILD
           <br />
-          <span>SOMETHING GREAT.</span>
+          <span>YOUR PLATFORM.</span>
         </h2>
 
         <p data-reveal="2">
           {project.ctaText}
         </p>
+
+        <Link to="/#contact" className="service-cta" data-reveal="3">
+          Get in touch <span>↗</span>
+        </Link>
       </section>
 
       <Footer />
@@ -1894,14 +1790,14 @@ const TIERS = [
     days: '3–5',
     speed: 92,
     bestFor:
-      'New businesses that need a quick, professional first website.',
+      'Founders and micro-businesses seeking a fast, professional first digital footprint.',
     features: [
-      'One-page site, 4–5 sections: hero, about, offers, gallery, contact',
-      'Loads fast on 4G / 5G phones',
-      'WhatsApp chat, tap-to-call and email buttons',
-      'Basic Google SEO set-up and a Google Maps embed',
+      'High-conversion one-page site (4–5 key sections)',
+      'Sub-second load times optimized for 4G/5G mobile browsers',
+      'Direct WhatsApp, click-to-call, and email buttons',
+      'Essential Google SEO setup and interactive Map integration',
     ],
-    built: 'HTML5, CSS3, light JavaScript',
+    built: 'HTML5, Modern CSS, Lightweight JavaScript',
   },
   {
     key: 'orbit',
@@ -1911,98 +1807,65 @@ const TIERS = [
     days: '5–8',
     speed: 72,
     bestFor:
-      'Established local businesses: hotels, restaurants, studios showing client work.',
+      'Established businesses, hospitality venues, and agencies needing refined brand authority.',
     features: [
-      'Sliding galleries and category filters (e.g. Deluxe vs Executive)',
-      'Tap a photo to view it full-screen',
-      'Customer review slider',
-      'Contact form that checks fields as you type',
-      'Smooth animations, custom colours, mobile menu',
+      'Interactive sliding galleries and category filters',
+      'Fullscreen lightbox media inspection',
+      'Client testimonials and interactive review carousels',
+      'Client-side form field validation with smooth micro-interactions',
+      'Custom theme styling matching your visual identity',
     ],
-    built: 'React.js, Vite, modern CSS / Tailwind',
+    built: 'React.js, Vite, Modern CSS / Tailwind',
     featured: true,
   },
   {
     key: 'deepspace',
     tier: 'Tier 3',
     name: 'DEEP SPACE',
-    title: 'Growth & Smart AI',
+    title: 'Growth & Automation',
     days: '8–12',
     speed: 52,
     bestFor:
-      'Businesses with many enquiries that want them handled automatically.',
+      'High-volume enterprises and clinics that require inquiry management and custom workflows.',
     features: [
-      'Booking requests with dates, guests and preferences',
-      'Enquiries saved and emailed to you instantly',
-      'AI assistant answers customer questions 24/7',
-      'Filterable galleries and pop-up views',
-      'Multi-section site with dynamic views',
+      'Structured reservation/booking flow with date and guest filters',
+      'Instant automated email alerts and database lead storage',
+      'Intelligent 24/7 AI chat concierge for customer inquiries',
+      'Complex multi-section layouts and dynamic dashboard matrices',
     ],
-    built: 'React.js, Flask / Node API, AI assistant',
+    built: 'React.js, FastAPI / Node backend, AI Integration',
   },
 ]
 
 const COMPARE_ROWS = [
-  ['Pricing', 'Genuine, fair quote', 'Genuine, fair quote', 'Genuine, fair quote'],
-  ['Ready in', '3 to 5 business days', '5 to 8 business days', '8 to 12 business days'],
-  ['Best for', 'New launch, first website', 'Established local business', 'Growing, high enquiry volume'],
-  ['Built with', 'HTML5, CSS3, simple JavaScript', 'React.js and Vite', 'React + backend API + AI'],
-  ['Website layout', 'One landing page, 4–5 sections', 'Interactive, multi-section', 'Multi-section with dynamic views'],
-  ['Photo gallery', 'Standard photo grid', 'Slider / carousel', 'Filterable, with pop-up views'],
-  ['How customers reach you', 'WhatsApp and phone buttons', 'Validated contact form', 'Automated booking and lead system'],
-  ['AI assistant', 'Not included', 'Optional extra, priced separately', 'Included, answers 24/7'],
+  ['Pricing', 'Fixed project quotation', 'Fixed project quotation', 'Fixed project quotation'],
+  ['Delivery Timeline', '3 to 5 business days', '5 to 8 business days', '8 to 12 business days'],
+  ['Best For', 'New launches & single services', 'Established businesses & studios', 'High-volume lead operations'],
+  ['Technology Stack', 'HTML5, Modern CSS, Light JS', 'React.js + Vite', 'React + Backend API + AI'],
+  ['Site Architecture', 'Focused single page (4-5 sections)', 'Multi-section interactive experience', 'Dynamic multi-view web application'],
+  ['Media Presentation', 'Responsive image grid', 'Interactive carousel & lightbox', 'Filterable galleries with modal detail'],
+  ['Lead Capture', 'Direct WhatsApp & tap-to-call', 'Validated instant contact form', 'Automated database lead system'],
+  ['AI Concierge', 'Not included', 'Optional add-on', 'Included 24/7 assistant'],
 ]
 
 const INCLUDED = [
-  ['Hero & promise', 'A strong top banner that shows who you are, with clear buttons for customers to act.'],
-  ['Photo gallery', 'Rooms, facilities, menus or finished work, shown beautifully.'],
-  ['Services & prices', 'Service tiers, room types, amenities and rates that are easy to scan.'],
-  ['Trust & reviews', 'Testimonials, guest reviews and badges that build confidence fast.'],
-  ['Contact & map', 'Contact form, WhatsApp and phone buttons, and an embedded Google Map.'],
-  ['Built to a standard', 'Every site meets strict standards for phone-friendliness, typography and speed.'],
-]
-
-const PROCESS = [
-  ['Discovery', 'DAYS 1–2', 'We collect your brand colours, photos, service details and how you want customers to contact you.'],
-  ['Layout preview', 'DAYS 3–4', 'We plan the layout and send you a private preview link so you can see it and give feedback.'],
-  ['Build', 'DAYS 5–8', 'We code your site in HTML/CSS or React, adding the backend and AI if your package includes them.'],
-  ['Test and handoff', 'FINAL DAYS', 'We test on many devices and hand over the complete code and files.'],
-]
-
-const NEEDS = [
-  ['Brand look', 'Your logo and brand colours, if you have them.'],
-  ['Photos', 'Pictures of rooms, food, premises or finished work.'],
-  ['Service details', 'What you offer, plus your prices or rate cards.'],
-  ['Contact preferences', 'WhatsApp, phone, email: how customers should reach you.'],
-]
-
-const PROMISES = [
-  ['You own everything', 'All source code, assets and settings are yours once the project is signed off.'],
-  ['You approve first', 'You review a private preview and approve it before the final handoff.'],
-  ['Room to grow', 'Clean, modular code means new pages and features can be added later.'],
+  ['Hero & Brand Positioning', 'High-impact above-the-fold statement with clear primary calls to action.'],
+  ['Portfolio & Showcase', 'Visual grids or sliders engineered to highlight facilities, dishes, or project work.'],
+  ['Service Breakdowns', 'Transparent rate cards, service packages, and value propositions easy to scan.'],
+  ['Trust Proofpoints', 'Customer testimonials, accreditation badges, and client satisfaction signals.'],
+  ['Direct Inbound Channels', 'One-tap communication hooks (WhatsApp, phone, validated lead forms).'],
+  ['Rigorous Standards', 'Tested across multiple viewports for zero layout shifts and high Lighthouse metrics.'],
 ]
 
 const NOT_INCLUDED = [
-  ['Domain name and hosting', 'Bought and paid for by you, directly. This includes hosting for the Deep Space booking system.'],
-  ['Domain and hosting set-up', 'Optional extra. We can do it for an additional fee.'],
-  ['AI assistant on Orbit', 'Optional extra, priced separately. Included in Deep Space.'],
-]
-
-const GLOSSARY = [
-  ['Responsive', 'Your site automatically fits phones, tablets and laptops.'],
-  ['SEO', 'Small technical touches that help people find your business on Google.'],
-  ['Landing page', 'One scrolling page that tells your whole story.'],
-  ['Carousel', 'A gallery that slides sideways to show more photos.'],
-  ['Lightbox', 'Tap a photo and it opens large, full-screen.'],
-  ['Backend', 'The hidden part of a site that stores enquiries and emails you alerts. Used in the Deep Space package.'],
-  ['AI assistant', 'A chat box that answers common customer questions by itself, day or night.'],
-  ['Domain and hosting', 'Your domain is your web address (like yourbusiness.com). Hosting is the online space where your site lives. You pay for both directly. Setting them up for you is an optional extra.'],
+  ['Domain & Cloud Hosting', 'Purchased directly by you to ensure complete client ownership and autonomy.'],
+  ['Third-Party API Fees', 'Paid directly to respective providers (e.g., custom SMS gateways or AI model tokens).'],
 ]
 
 function Pricing() {
   usePageMeta(
-    'Pricing — PROTOTYPE',
-    'Three website packages for hotels, restaurants, local services and creative studios. Genuine pricing, lightning-fast delivery.'
+    'Transparent Pricing Packages — PROTOTYPE',
+    'Clear, fixed website packages for businesses, studios, and founders. Lightning-fast turnaround and genuine pricing.'
   )
 
   return (
@@ -2011,47 +1874,45 @@ function Pricing() {
 
       <section className="service-hero">
         <p className="service-eyebrow" data-reveal>
-          WEBSITE PACKAGES — FY 2026-27
+          PACKAGES & DELIVERABLES — 2026
         </p>
 
         <h1 data-reveal="1">
-          PICK A
+          PREDICTABLE
           <br />
-          <span>PACKAGE.</span>
+          <span>PACKAGES.</span>
         </h1>
 
         <p className="service-page-description" data-reveal="2">
-          Three clear website packages for hotels, restaurants, local
-          services and creative studios. Genuine pricing, lightning-fast
-          timelines, and a simple process from first hello to launch day.
+          Three clearly defined website tiers designed around specific stages of business growth. Fixed scopes, transparent timelines, and zero surprise fees.
         </p>
 
         <div className="pricing-stats" data-reveal="3">
-          <div><strong>3</strong><span>PACKAGES TO CHOOSE FROM</span></div>
-          <div><strong>100%</strong><span>GENUINE PRICING</span></div>
+          <div><strong>3</strong><span>STRUCTURED TIERS</span></div>
+          <div><strong>100%</strong><span>FIXED QUOTES</span></div>
           <div><strong>3 – 12</strong><span>DAYS TO LAUNCH</span></div>
         </div>
 
-        <a href="/#contact" className="service-cta" data-reveal="3">
+        <Link to="/#contact" className="service-cta" data-reveal="3">
           Get your genuine quote <span>↗</span>
-        </a>
+        </Link>
       </section>
 
       <section className="pricing-section" id="packages">
         <div className="work-heading" data-reveal>
-          <p className="section-label">01 / PACKAGES</p>
+          <p className="section-label">01 / CHOOSE YOUR TIER</p>
           <h2>
-            THREE WAYS
+            CHOOSE YOUR
             <br />
-            <span>TO START.</span>
+            <span>STARTING POINT.</span>
           </h2>
           <p className="work-intro">
-            Your website is a 24/7 storefront. It builds trust quickly and
-            turns visitors into enquiries. Choose the stage your business
-            is at, and we build to match.
+            Select the tier that fits your operational needs today. Every package is written cleanly so you can easily extend functionality tomorrow.
           </p>
         </div>
-          <InteractivePricingEstimator />
+
+        <InteractivePricingEstimator />
+
         <div className="tier-grid">
           {TIERS.map((t, i) => (
             <article
@@ -2059,7 +1920,7 @@ function Pricing() {
               className={`tier-card ${t.featured ? 'is-featured' : ''}`}
               data-reveal={i}
             >
-              {t.featured && <span className="tier-badge">MOST POPULAR</span>}
+              {t.featured && <span className="tier-badge">RECOMMENDED</span>}
 
               <p className="tier-label">{t.tier}</p>
               <h3 className="tier-name">{t.name}</h3>
@@ -2067,8 +1928,8 @@ function Pricing() {
 
               <div className="tier-launch">
                 <div className="launch-top">
-                  <span>LAUNCH COUNTDOWN</span>
-                  <strong>T-MINUS {t.days} DAYS</strong>
+                  <span>ESTIMATED DELIVERY</span>
+                  <strong>{t.days} BUSINESS DAYS</strong>
                 </div>
                 <div className="launch-track">
                   <span style={{ '--fill': `${t.speed}%` }} />
@@ -2082,7 +1943,7 @@ function Pricing() {
                 </div>
               </dl>
 
-              <p className="tier-label">YOU GET</p>
+              <p className="tier-label">INCLUDED CAPABILITIES</p>
               <ul className="tier-features">
                 {t.features.map((f) => (
                   <li key={f}>{f}</li>
@@ -2090,43 +1951,25 @@ function Pricing() {
               </ul>
 
               <p className="tier-built">
-                <span>BUILT WITH</span> {t.built}
+                <span>TECH STACK:</span> {t.built}
               </p>
 
-              <a href="/#contact" className="tier-cta">
-                Choose {t.name} <span>↗</span>
-              </a>
+              <Link to="/#contact" className="tier-cta">
+                Select {t.name} <span>↗</span>
+              </Link>
             </article>
           ))}
-        </div>
-
-        <p className="pricing-note" data-reveal>
-          A domain name and hosting are not part of the package. You buy
-          these directly. Optional set-up help is available.
-        </p>
-
-        <div className="pricing-helper" data-reveal>
-          <p className="section-label">NOT SURE WHICH ONE FITS?</p>
-          <div className="helper-grid">
-            <div><span>I’m just starting out</span><strong>Choose LIFTOFF</strong></div>
-            <div><span>I’m established and want a polished, interactive site</span><strong>Choose ORBIT</strong></div>
-            <div><span>I get many enquiries and want automation</span><strong>Choose DEEP SPACE</strong></div>
-          </div>
         </div>
       </section>
 
       <section className="pricing-section" id="compare">
         <div className="work-heading" data-reveal>
-          <p className="section-label">02 / COMPARE</p>
+          <p className="section-label">02 / COMPARISON</p>
           <h2>
-            SIDE
+            SPECIFICATION
             <br />
-            <span>BY SIDE.</span>
+            <span>BREAKDOWN.</span>
           </h2>
-          <p className="work-intro">
-            The same information in one table. Look across a row to see
-            what changes as you move up.
-          </p>
         </div>
 
         <div className="compare-scroll" data-reveal>
@@ -2134,9 +1977,9 @@ function Pricing() {
             <thead>
               <tr>
                 <th />
-                <th>LIFTOFF<small>Essential Starter</small></th>
-                <th>ORBIT<small>Dynamic Interactive</small></th>
-                <th>DEEP SPACE<small>Growth & Smart AI</small></th>
+                <th>LIFTOFF<small>Starter Tier</small></th>
+                <th>ORBIT<small>Interactive Tier</small></th>
+                <th>DEEP SPACE<small>Advanced Tier</small></th>
               </tr>
             </thead>
             <tbody>
@@ -2154,7 +1997,7 @@ function Pricing() {
 
         <div className="pricing-two-col">
           <div data-reveal>
-            <p className="section-label">INCLUDED IN EVERY PACKAGE</p>
+            <p className="section-label">INCLUDED AS STANDARD</p>
             <div className="details-list pricing-list">
               {INCLUDED.map(([title, text]) => (
                 <div className="detail-item" key={title}>
@@ -2166,7 +2009,7 @@ function Pricing() {
           </div>
 
           <div data-reveal="1">
-            <p className="section-label">NOT INCLUDED IN THE PRICE</p>
+            <p className="section-label">TRANSPARENT BOUNDARIES</p>
             <div className="details-list pricing-list">
               {NOT_INCLUDED.map(([title, text]) => (
                 <div className="detail-item" key={title}>
@@ -2179,118 +2022,19 @@ function Pricing() {
         </div>
       </section>
 
-      <section className="pricing-section" id="process">
-        <div className="work-heading" data-reveal>
-          <p className="section-label">03 / PROCESS</p>
-          <h2>
-            FROM HELLO
-            <br />
-            <span>TO DONE.</span>
-          </h2>
-          <p className="work-intro">
-            Four simple steps. You always know what is happening, and you
-            approve the site before it is handed over.
-          </p>
-        </div>
-
-        <div className="process-grid">
-          {PROCESS.map(([title, days, text], i) => (
-            <div className="process-step" key={title} data-reveal={i}>
-              <span className="process-num">{i + 1}</span>
-              <p className="process-days">{days}</p>
-              <h3>{title}</h3>
-              <p>{text}</p>
-            </div>
-          ))}
-        </div>
-
-        <p className="pricing-note" data-reveal>
-          These day numbers show a larger build. Smaller packages finish
-          sooner; each package’s delivery time is shown above.
-        </p>
-
-        <div className="pricing-two-col">
-          <div data-reveal>
-            <p className="section-label">WHAT WE NEED FROM YOU</p>
-            <div className="details-list pricing-list">
-              {NEEDS.map(([title, text], i) => (
-                <div className="detail-item" key={title}>
-                  <h3>0{i + 1} — {title}</h3>
-                  <p>{text}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          <div data-reveal="1">
-            <p className="section-label">HOW PAYMENT WORKS</p>
-            <div className="payment-split">
-              <div>
-                <strong>50%</strong>
-                <span>Advance, to start the project</span>
-              </div>
-              <div>
-                <strong>50%</strong>
-                <span>Balance, after you approve the preview</span>
-              </div>
-            </div>
-            <p className="pricing-note pricing-note-left">
-              You pay the balance after you have seen and approved the final
-              preview, and before we hand over the finished site.
-            </p>
-
-            <p className="section-label" style={{ marginTop: 50 }}>
-              OUR PROMISES
-            </p>
-            <div className="details-list pricing-list">
-              {PROMISES.map(([title, text]) => (
-                <div className="detail-item" key={title}>
-                  <h3>{title}</h3>
-                  <p>{text}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section className="pricing-section" id="good-to-know">
-        <div className="work-heading" data-reveal>
-          <p className="section-label">04 / GOOD TO KNOW</p>
-          <h2>
-            PLAIN-ENGLISH
-            <br />
-            <span>GUIDE.</span>
-          </h2>
-          <p className="work-intro">
-            A few web terms you may hear from us, explained simply.
-          </p>
-        </div>
-
-        <div className="glossary-grid">
-          {GLOSSARY.map(([term, text], i) => (
-            <div className="glossary-item" key={term} data-reveal={i % 2}>
-              <h3>{term}</h3>
-              <p>{text}</p>
-            </div>
-          ))}
-        </div>
-      </section>
-
       <section className="service-project-cta">
         <p className="service-eyebrow" data-reveal>
-          READY WHEN YOU ARE
+          READY TO MOVE FORWARD?
         </p>
 
         <h2 data-reveal="1">
-          LET’S SCOPE
+          LET'S SCOPE
           <br />
           <span>YOUR PROJECT.</span>
         </h2>
 
         <p data-reveal="2">
-          Schedule a short project scoping discussion. Tell us about your
-          business and we will recommend the package that fits.
+          Tell us about your venture and current goals. We will provide an exact, itemized scope breakdown.
         </p>
 
         <div className="contact-actions" data-reveal="3">
@@ -2309,75 +2053,8 @@ function Pricing() {
 }
 
 /* =================================
-   PLAY PAGE
+   HELPER UTILITIES & ROOT
 ================================= */
-
-function Play() {
-  usePageMeta(
-    'Take a Break — PROTOTYPE',
-    'A tiny space game from PROTOTYPE. Dodge the asteroids and beat your best score.'
-  )
-
-  return (
-    <main className="service-page">
-      <ServiceNavbar />
-
-      <section className="service-hero game-hero">
-        <p className="service-eyebrow" data-reveal>
-          TAKE A BREAK
-        </p>
-
-        <h1 data-reveal="1">
-          ASTEROID
-          <br />
-          <span>DODGE.</span>
-        </h1>
-
-        <p className="service-page-description" data-reveal="2">
-          A tiny game built with the same care as our websites. How long
-          can you survive?
-        </p>
-
-        <SpaceDodge />
-      </section>
-
-      <Footer />
-    </main>
-  )
-}
-
-/* =================================
-   FLOATING GAME BUTTON
-================================= */
-
-function GameLauncher() {
-  const { pathname } = useLocation()
-
-  if (pathname === '/play') return null
-
-  return (
-    <Link
-      to="/play"
-      className="game-launcher"
-      title="Play a game"
-      aria-label="Play a mini game"
-    >
-      <svg viewBox="0 0 64 40" width="30" height="19" aria-hidden="true">
-        <path
-          d="M16 4 H48 C57 4 62 14 62 26 C62 33 58 37 53 37 C48 37 46 33 43 30 H21 C18 33 16 37 11 37 C6 37 2 33 2 26 C2 14 7 4 16 4 Z"
-          fill="#f2f2f2"
-          stroke="#9c9c9c"
-          strokeWidth="1.5"
-        />
-        <rect x="12" y="15" width="12" height="4" rx="1" fill="#0a0a0a" />
-        <rect x="16" y="11" width="4" height="12" rx="1" fill="#0a0a0a" />
-        <circle cx="45" cy="13" r="2.8" fill="#0a0a0a" />
-        <circle cx="52" cy="19" r="2.8" fill="#0a0a0a" />
-        <circle className="game-led" cx="32" cy="14" r="2" fill="#4ade80" />
-      </svg>
-    </Link>
-  )
-}
 
 function ScrollToTop() {
   const { pathname, hash } = useLocation()
@@ -2398,10 +2075,6 @@ function ScrollToTop() {
   return null
 }
 
-/* =================================
-   APP MAIN
-================================= */
-
 function App() {
   const { pathname } = useLocation()
 
@@ -2413,33 +2086,15 @@ function App() {
       <ScrollProgress />
       <ScrollToTop />
       <ChatWidget />
-      <GameLauncher />
 
       <div className="page-fade" key={pathname}>
         <Routes>
           <Route path="/" element={<Home />} />
-
-          <Route
-            path="/services/business-websites"
-            element={<BusinessWebsites />}
-          />
-
-          <Route
-            path="/services/landing-pages"
-            element={<LandingPages />}
-          />
-
-          <Route
-            path="/services/frontend-development"
-            element={<FrontendDevelopment />}
-          />
-
-          <Route
-            path="/projects/:slug"
-            element={<ProjectPage />}
-          />
+          <Route path="/services/business-websites" element={<BusinessWebsites />} />
+          <Route path="/services/landing-pages" element={<LandingPages />} />
+          <Route path="/services/frontend-development" element={<FrontendDevelopment />} />
+          <Route path="/projects/:slug" element={<ProjectPage />} />
           <Route path="/pricing" element={<Pricing />} />
-          <Route path="/play" element={<Play />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </div>
