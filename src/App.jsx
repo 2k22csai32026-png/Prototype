@@ -1239,7 +1239,7 @@ function Home() {
               </div>
             </div>
           </details>
-        </div>
+      </div>
       </section>
 
       {/* SCOPE CALCULATOR */}

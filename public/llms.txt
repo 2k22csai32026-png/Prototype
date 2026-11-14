@@ -1,0 +1,24 @@
+# PROTOTYPE
+
+> PROTOTYPE is an independent digital studio that builds modern, responsive business websites, landing pages and custom React frontends, from idea to interface.
+
+## Services
+
+- [Business Websites](https://prototype-f42.pages.dev/services/business-websites): Responsive, high-performance websites for growing businesses.
+- [Landing Pages](https://prototype-f42.pages.dev/services/landing-pages): Focused single-page experiences built to convert visitors into leads.
+- [Custom Frontend Development](https://prototype-f42.pages.dev/services/frontend-development): React and Vite web applications and dashboards.
+
+## Pricing
+
+- [Packages](https://prototype-f42.pages.dev/pricing): Three fixed-scope tiers (Liftoff, Orbit, Deep Space) with delivery timelines.
+
+## Work
+
+- [PCP Media](https://prototype-f42.pages.dev/projects/pcp-media): Digital marketing agency website, live at pcpmedia.in.
+- [The Landmark](https://prototype-f42.pages.dev/projects/landmark): Demo concept for fine dining and wellness.
+- [Apex Academy](https://prototype-f42.pages.dev/projects/apex-academy): Demo concept for coaching institutes.
+- [ABC Portal](https://prototype-f42.pages.dev/projects/abc-portal): Demo concept for a campus ERP dashboard.
+
+## Contact
+
+- Email: prototype.tech.webdev@gmail.com

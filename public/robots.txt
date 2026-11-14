@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://prototype-f42.pages.dev/sitemap.xml
