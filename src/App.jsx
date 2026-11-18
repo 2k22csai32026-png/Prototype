@@ -601,7 +601,7 @@ function Navbar({ onLogoClick }) {
 }
 
 /* =================================
-   FOOTER (PURE COMMERCIAL STUDIO)
+   FOOTER
 ================================= */
 
 function Footer() {
@@ -640,7 +640,7 @@ function Footer() {
       <div className="footer-divider" />
 
       <div className="footer-bottom">
-        <p>© 2026 PROTOTYPE STUDIO. ALL RIGHTS RESERVED.</p>
+        <p>© 2027 PROTOTYPE STUDIO. ALL RIGHTS RESERVED.</p>
         <p className="footer-credit">
           DESIGNED & DEVELOPED BY <span>GAURAV</span>
         </p>
@@ -680,7 +680,15 @@ function Home() {
     'PROTOTYPE creates modern, responsive websites, landing pages and bespoke frontend experiences with exceptional speed and precision.'
   )
 
-  const [showIntro, setShowIntro] = useState(false)
+  // Item 2: Initialize intro state safely from sessionStorage to prevent re-triggering & remove text flashing delay
+  const [showIntro, setShowIntro] = useState(() => {
+    try {
+      return !sessionStorage.getItem('prototypeIntroShown');
+    } catch {
+      return true;
+    }
+  });
+
   const [introRun, setIntroRun] = useState(0)
   const introTimer = useRef(null)
 
@@ -693,6 +701,13 @@ function Home() {
     }))
   }
 
+  const handleSkipIntro = () => {
+    setShowIntro(false)
+    try {
+      sessionStorage.setItem('prototypeIntroShown', 'true')
+    } catch {}
+  }
+
   const runIntro = () => {
     clearTimeout(introTimer.current)
     setIntroRun((n) => n + 1)
@@ -702,9 +717,7 @@ function Home() {
       setShowIntro(false)
       try {
         sessionStorage.setItem('prototypeIntroShown', 'true')
-      } catch {
-        /* storage unavailable */
-      }
+      } catch {}
     }, 3900)
   }
 
@@ -714,12 +727,17 @@ function Home() {
   }
 
   useEffect(() => {
+    // Check for prefers-reduced-motion to auto-skip intro
+    const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)')
+    if (mediaQuery.matches && showIntro) {
+      handleSkipIntro()
+      return
+    }
+
     let introAlreadyShown = false
     try {
       introAlreadyShown = sessionStorage.getItem('prototypeIntroShown')
-    } catch {
-      /* ignore */
-    }
+    } catch {}
 
     if (!introAlreadyShown) runIntro()
 
@@ -758,6 +776,14 @@ function Home() {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
+
+    // 1. Honeypot spam check: if the hidden field is filled, silently ignore or block
+    const botcheckField = e.target.elements.botcheck?.value;
+    if (botcheckField) {
+      setFormStatus('Enquiry transmitted successfully. We will respond within 24 hours.');
+      return;
+    }
+
     sound.playTransmission()
     setIsSubmitting(true)
     setFormStatus('Transmitting enquiry...')
@@ -770,15 +796,16 @@ function Home() {
           Accept: 'application/json',
         },
         body: JSON.stringify({
-          access_key: '0720abdd-5fb9-4159-8184-7b610ce7109f',
-          subject: `New Project Enquiry from ${formData.name}`,
+          access_key: import.meta.env.VITE_WEB3FORMS_KEY,
+          subject: `New Project Enquiry from ${formData.name.trim()}`,
           from_name: 'PROTOTYPE Studio',
-          name: formData.name,
-          email: formData.email,
-          company: formData.company || 'Not provided',
+          name: formData.name.trim(),
+          email: formData.email.trim(),
+          phone: formData.phone ? formData.phone.trim() : 'Not provided', // Added phone field
+          company: formData.company.trim() || 'Not provided',
           service: formData.service || 'Not selected',
           plan: formData.plan || 'Not selected',
-          message: formData.message,
+          message: formData.message.trim(),
         }),
       })
 
@@ -806,7 +833,7 @@ function Home() {
 
   return (
     <main className="prototype-app">
-      {/* INTRO SCREEN */}
+      {/* INTRO SCREEN with active skip button */}
       {showIntro && (
         <div className="intro-screen" key={introRun}>
           <div className="space-particles">
@@ -837,6 +864,10 @@ function Home() {
           <div className="intro-caption">
             FROM IDEA TO INTERFACE
           </div>
+
+          <button className="intro-skip-btn" onClick={handleSkipIntro}>
+            SKIP INTRO ↗
+          </button>
         </div>
       )}
 
@@ -847,7 +878,7 @@ function Home() {
         <div className="hero-content">
           <p className="availability">
             <span className="availability-dot" />
-            ACCEPTING NEW CLIENT COMMISSIONS — Q1 2026
+            ACCEPTING NEW CLIENT COMMISSIONS — Q1 2027
           </p>
 
           <p className="eyebrow">
@@ -867,6 +898,16 @@ function Home() {
           <a href="#contact" className="hero-button">
             Start a project <span>↗</span>
           </a>
+
+          {/* Item 5 fix: hero side note placed inside hero-screen container */}
+          {/* <div className="hero-side-note">
+            <span>OUR PHILOSOPHY</span>
+            <h2>
+              SPEED. PRECISION.
+              <br />
+              DISTINCTION.
+            </h2>
+          </div> */}
         </div>
 
         <div className="hero-footer">
@@ -934,16 +975,6 @@ function Home() {
           </TiltCard>
         </div>
       </section>
-
-      {/* PHILOSOPHY STATEMENT */}
-      <div className="hero-side-note">
-        <span>OUR PHILOSOPHY</span>
-        <h2>
-          SPEED. PRECISION.
-          <br />
-          DISTINCTION.
-        </h2>
-      </div>
 
       {/* WORK SECTION */}
       <section className="work-section" id="work">
@@ -1287,6 +1318,8 @@ function Home() {
           onSubmit={handleSubmit}
           data-reveal="1"
         >
+          <input type="checkbox" name="botcheck" className="hidden" style={{ display: 'none' }} tabIndex="-1" autoComplete="off" />
+
           <div className="enquiry-top">
             <span className="enquiry-status">
               <i /> DIRECT STUDIO INTAKE
@@ -1295,7 +1328,7 @@ function Home() {
           </div>
 
           <div className="enquiry-progress" aria-hidden="true">
-            <span style={{ transform: `scaleX(${requiredFilled / 3})` }} />
+            <span style={{ transform: `scaleX(${requiredFilled / 4})` }} />
           </div>
 
           <div className="enquiry-row">
@@ -1328,21 +1361,36 @@ function Home() {
             </div>
           </div>
 
-          <div className="enquiry-field">
-            <label htmlFor="enquiry-company"><b>03</b> COMPANY / BRAND <em>optional</em></label>
-            <input
-              id="enquiry-company"
-              type="text"
-              name="company"
-              placeholder="Your organization or project name"
-              autoComplete="organization"
-              value={formData.company}
-              onChange={handleChange}
-            />
+          <div className="enquiry-row">
+            <div className="enquiry-field">
+              <label htmlFor="enquiry-phone"><b>03</b> PHONE NUMBER <em>optional</em></label>
+              <input
+                id="enquiry-phone"
+                type="tel"
+                name="phone"
+                placeholder="+91 98765 43210"
+                autoComplete="tel"
+                value={formData.phone || ''}
+                onChange={handleChange}
+              />
+            </div>
+
+            <div className="enquiry-field">
+              <label htmlFor="enquiry-company"><b>04</b> COMPANY / BRAND <em>optional</em></label>
+              <input
+                id="enquiry-company"
+                type="text"
+                name="company"
+                placeholder="Your organization or project name"
+                autoComplete="organization"
+                value={formData.company}
+                onChange={handleChange}
+              />
+            </div>
           </div>
 
           <div className="enquiry-chips">
-            <p><b>04</b> SERVICE DISCIPLINE <em>optional</em></p>
+            <p><b>05</b> SERVICE DISCIPLINE <em>optional</em></p>
             <div>
               {ENQUIRY_SERVICES.map((s) => (
                 <button
@@ -1359,7 +1407,7 @@ function Home() {
           </div>
 
           <div className="enquiry-chips">
-            <p><b>05</b> ESTIMATED TIER <em>optional</em></p>
+            <p><b>06</b> ESTIMATED TIER <em>optional</em></p>
             <div>
               {ENQUIRY_PLANS.map((p) => (
                 <button
@@ -1376,7 +1424,7 @@ function Home() {
           </div>
 
           <div className="enquiry-field">
-            <label htmlFor="enquiry-message"><b>06</b> PROJECT SUMMARY & GOALS</label>
+            <label htmlFor="enquiry-message"><b>07</b> PROJECT SUMMARY & GOALS</label>
             <textarea
               id="enquiry-message"
               name="message"
@@ -1415,378 +1463,7 @@ function Home() {
 }
 
 /* =================================
-   SERVICE PAGES
-================================= */
-
-function BusinessWebsites() {
-  usePageMeta(
-    'Business Websites — PROTOTYPE',
-    'Modern, responsive business websites that establish market credibility and communicate your services clearly.'
-  )
-
-  return (
-    <main className="service-page">
-      <ServiceNavbar />
-
-      <section className="service-hero">
-        <p className="service-eyebrow" data-reveal>
-          01 / 03 — COMMERCIAL WEB PRESENCE
-        </p>
-
-        <h1 data-reveal="1">
-          BUSINESS
-          <br />
-          <span>WEBSITES.</span>
-        </h1>
-
-        <p className="service-page-description" data-reveal="2">
-          We design and build bespoke, responsive web platforms that help growing businesses stand out, establish authority, and communicate value with crisp visual hierarchy.
-        </p>
-
-        <Link to="/#contact" className="service-cta" data-reveal="3">
-          Start a project <span>↗</span>
-        </Link>
-      </section>
-
-      <section className="service-details">
-        <div className="details-label">
-          CORE CAPABILITIES
-        </div>
-
-        <div className="details-content">
-          <h2>
-            DIGITAL FOUNDATIONS
-            <br />
-            ENGINEERED TO CONVERT.
-          </h2>
-
-          <DetailList
-            items={[
-              [
-                'Editorial Visual Design',
-                'Clean typography, dark or light luxury palettes, and clear information flow structured around your audience.',
-              ],
-              [
-                'Responsive Precision',
-                'Pixel-perfect layout behavior across mobile devices, high-DPI tablets, laptops, and ultra-wide screens.',
-              ],
-              [
-                'Lead Generation Flow',
-                'Strategically positioned call-to-actions, enquiry modules, and interactive quotation calculators.',
-              ],
-              [
-                'Zero-Bloat Performance',
-                'Static build optimizations, modern asset compression, and clean DOM structures ensuring 95+ PageSpeed scores.',
-              ],
-            ]}
-          />
-        </div>
-      </section>
-
-      <Footer />
-    </main>
-  )
-}
-
-function LandingPages() {
-  usePageMeta(
-    'Landing Pages — PROTOTYPE',
-    'High-impact landing pages engineered to present offers clearly and turn visitors into active clients.'
-  )
-
-  return (
-    <main className="service-page">
-      <ServiceNavbar />
-
-      <section className="service-hero">
-        <p className="service-eyebrow" data-reveal>
-          02 / 03 — FOCUSED CONVERSION
-        </p>
-
-        <h1 data-reveal="1">
-          LANDING
-          <br />
-          <span>PAGES.</span>
-        </h1>
-
-        <p className="service-page-description" data-reveal="2">
-          Single-purpose, high-converting digital landing pages designed to showcase new product launches, digital services, or targeted marketing campaigns without distraction.
-        </p>
-
-        <Link to="/#contact" className="service-cta" data-reveal="3">
-          Start a project <span>↗</span>
-        </Link>
-      </section>
-
-      <section className="service-details">
-        <div className="details-label">
-          WHAT WE DELIVER
-        </div>
-
-        <div className="details-content">
-          <h2>
-            PAGES CRAFTED TO
-            <br />
-            <span>DRIVE DEFINITIVE ACTION.</span>
-          </h2>
-
-          <DetailList
-            items={[
-              [
-                'Product Launch Pages',
-                'Compelling hero sections, feature grids, interactive benefit toggles, and instant order or demo funnels.',
-              ],
-              [
-                'Service & Lead Funnels',
-                'Distraction-free layouts that clearly articulate your value proposition and minimize friction in enquiry submissions.',
-              ],
-              [
-                'Ad-Campaign Optimized',
-                'Engineered with rapid sub-second initial load speeds to ensure minimal bounce rates from social and search ads.',
-              ],
-            ]}
-          />
-        </div>
-      </section>
-
-      <Footer />
-    </main>
-  )
-}
-
-function FrontendDevelopment() {
-  usePageMeta(
-    'Custom Frontend Development — PROTOTYPE',
-    'Custom React interfaces and responsive frontend applications built with clean code and modern component architecture.'
-  )
-
-  return (
-    <main className="service-page">
-      <ServiceNavbar />
-
-      <section className="service-hero">
-        <p className="service-eyebrow" data-reveal>
-          03 / 03 — INTERFACE ENGINEERING
-        </p>
-
-        <h1 data-reveal="1">
-          FRONTEND
-          <br />
-          <span>DEVELOPMENT.</span>
-        </h1>
-
-        <p className="service-page-description" data-reveal="2">
-          Modular, responsive, and maintainable React web applications crafted with modern build tooling, clean component hierarchies, and micro-interactions.
-        </p>
-
-        <Link to="/#contact" className="service-cta" data-reveal="3">
-          Start a project <span>↗</span>
-        </Link>
-      </section>
-
-      <section className="service-details">
-        <div className="details-label">
-          TECHNICAL CAPABILITIES
-        </div>
-
-        <div className="details-content">
-          <h2>
-            MODERN CODEBASES.
-            <br />
-            <span>BUILT FOR EXTENSIBILITY.</span>
-          </h2>
-
-          <DetailList
-            items={[
-              [
-                'Modern React Architecture',
-                'Engineered using Vite, modular component patterns, hooks, and clean state handling.',
-              ],
-              [
-                'Interactive Dashboards',
-                'Data visualization, live timetable matrices, interactive calculators, and attendance tracking consoles.',
-              ],
-              [
-                'API Integration Ready',
-                'Effortless connection with RESTful APIs, cloud databases, and headless CMS platforms like Sanity or Contentful.',
-              ],
-            ]}
-          />
-        </div>
-      </section>
-
-      <Footer />
-    </main>
-  )
-}
-
-/* =================================
-   404 PAGE
-================================= */
-
-function NotFound() {
-  usePageMeta(
-    'Page Not Found — PROTOTYPE',
-    "The requested page does not exist."
-  )
-
-  return (
-    <main className="service-page">
-      <ServiceNavbar />
-
-      <section className="service-hero">
-        <p className="service-eyebrow" data-reveal>
-          404 — ERROR
-        </p>
-
-        <h1 data-reveal="1">
-          PAGE NOT
-          <br />
-          <span>FOUND.</span>
-        </h1>
-
-        <p className="service-page-description" data-reveal="2">
-          The requested URL does not exist or has been relocated.
-        </p>
-
-        <Link to="/" className="service-cta" data-reveal="3">
-          Back to home <span>↗</span>
-        </Link>
-      </section>
-
-      <Footer />
-    </main>
-  )
-}
-
-/* =================================
-   PROJECT DETAIL PAGE
-================================= */
-
-function ProjectPage() {
-  const { slug } = useParams()
-  const project = projects.find((p) => p.slug === slug)
-
-  usePageMeta(
-    project
-      ? `${project.titleTop} ${project.titleBottom.replace('.', '')} — Case Study | PROTOTYPE`
-      : 'Page Not Found — PROTOTYPE',
-    project
-      ? project.pageSummary
-      : "The requested project case study could not be found."
-  )
-
-  if (!project) return <NotFound />
-
-  const showcaseImages = [project.cover, ...project.gallery]
-
-  return (
-    <main className="service-page project-page">
-      <ServiceNavbar
-        to={project.demo ? '/#templates' : '/#work'}
-        label={project.demo ? '← BACK TO TEMPLATES' : '← BACK TO SELECTED WORK'}
-      />
-
-      <section className="service-hero">
-        <p className="service-eyebrow" data-reveal>
-          {String(projects.indexOf(project) + 1).padStart(2, '0')} / {project.demo ? 'DEMO SHOWCASE' : 'PRODUCTION RELEASE'}
-        </p>
-
-        <h1 data-reveal="1">
-          {project.titleTop}
-          <br />
-          <span>{project.titleBottom}</span>
-        </h1>
-
-        <p className="service-page-description" data-reveal="2">
-          {project.pageSummary}
-        </p>
-
-        {project.liveUrl && (
-          <a
-            href={project.liveUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="service-cta"
-            data-reveal="3"
-          >
-            Launch Live Demo <span>↗</span>
-          </a>
-        )}
-      </section>
-
-      <section className="service-details">
-        <div className="details-label">
-          ARCHITECTURE & HIGHLIGHTS
-        </div>
-
-        <div className="details-content">
-          <h2>
-            {project.overviewTop}
-            <br />
-            <span>{project.overviewBottom}</span>
-          </h2>
-
-          <div className="details-list">
-            {project.highlights.map((item) => (
-              <span key={item}>{item}</span>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="project-showcase">
-        <div className="work-heading" data-reveal>
-          <p className="section-label">
-            INTERFACE INTERNALS
-          </p>
-
-          <h2>
-            SCREENSHOT
-            <br />
-            <span>BREAKDOWN.</span>
-          </h2>
-        </div>
-
-        <div className="project-showcase-grid">
-          {showcaseImages.map((image, i) => (
-            <ProjectImage
-              key={image.src}
-              src={image.src}
-              alt={image.alt}
-              data-reveal={i % 2}
-            />
-          ))}
-        </div>
-      </section>
-
-      <section className="service-project-cta">
-        <p className="service-eyebrow" data-reveal>
-          COMMISSION SIMILAR WORK
-        </p>
-
-        <h2 data-reveal="1">
-          LET'S BUILD
-          <br />
-          <span>YOUR PLATFORM.</span>
-        </h2>
-
-        <p data-reveal="2">
-          {project.ctaText}
-        </p>
-
-        <Link to="/#contact" className="service-cta" data-reveal="3">
-          Get in touch <span>↗</span>
-        </Link>
-      </section>
-
-      <Footer />
-    </main>
-  )
-}
-
-/* =================================
-   PRICING PAGE
+   PRICING PAGE (Truth & Tier Name Fixed)
 ================================= */
 
 const TIERS = [
@@ -1801,7 +1478,7 @@ const TIERS = [
       'Founders and micro-businesses seeking a fast, professional first digital footprint.',
     features: [
       'High-conversion one-page site (4–5 key sections)',
-      'Sub-second load times optimized for 4G/5G mobile browsers',
+      'Sub-second load times optimized for mobile browsers',
       'Direct WhatsApp, click-to-call, and email buttons',
       'Essential Google SEO setup and interactive Map integration',
     ],
@@ -1823,37 +1500,36 @@ const TIERS = [
       'Client-side form field validation with smooth micro-interactions',
       'Custom theme styling matching your visual identity',
     ],
-    built: 'React.js, Vite, Modern CSS / Tailwind',
+    built: 'React.js, Vite, Modern CSS',
     featured: true,
   },
   {
     key: 'deepspace',
     tier: 'Tier 3',
     name: 'DEEP SPACE',
-    title: 'Growth & Automation',
+    title: 'Advanced Features', // Standardized to match proposal PDF
     days: '8–12',
     speed: 52,
     bestFor:
-      'High-volume enterprises and clinics that require inquiry management and custom workflows.',
+      'High-volume enterprises and businesses requiring larger multi-page architecture and custom tools.',
     features: [
-      'Structured reservation/booking flow with date and guest filters',
-      'Instant automated email alerts and database lead storage',
-      'Intelligent 24/7 AI chat concierge for customer inquiries',
-      'Complex multi-section layouts and dynamic dashboard matrices',
+      'Larger multi-page website architecture',
+      'Custom interactive calculators and specialized tools',
+      'Enquiry and request forms with instant email alerts',
+      'Full client ownership guidance for domain and hosting setup',
     ],
-    built: 'React.js, FastAPI / Node backend, AI Integration',
+    built: 'React.js, Vite, Modern Component Architecture',
   },
 ]
 
 const COMPARE_ROWS = [
   ['Pricing', 'Fixed project quotation', 'Fixed project quotation', 'Fixed project quotation'],
   ['Delivery Timeline', '3 to 5 business days', '5 to 8 business days', '8 to 12 business days'],
-  ['Best For', 'New launches & single services', 'Established businesses & studios', 'High-volume lead operations'],
-  ['Technology Stack', 'HTML5, Modern CSS, Light JS', 'React.js + Vite', 'React + Backend API + AI'],
-  ['Site Architecture', 'Focused single page (4-5 sections)', 'Multi-section interactive experience', 'Dynamic multi-view web application'],
+  ['Best For', 'New launches & single services', 'Established businesses & studios', 'Multi-page architecture & tools'],
+  ['Technology Stack', 'HTML5, Modern CSS, Light JS', 'React.js + Vite', 'React.js + Vite (Advanced)'],
+  ['Site Architecture', 'Focused single page (4-5 sections)', 'Multi-section interactive experience', 'Larger multi-page website'],
   ['Media Presentation', 'Responsive image grid', 'Interactive carousel & lightbox', 'Filterable galleries with modal detail'],
-  ['Lead Capture', 'Direct WhatsApp & tap-to-call', 'Validated instant contact form', 'Automated database lead system'],
-  ['AI Concierge', 'Not included', 'Optional add-on', 'Included 24/7 assistant'],
+  ['Lead Capture', 'Direct WhatsApp & tap-to-call', 'Validated instant contact form', 'Forms with instant email alerts'],
 ]
 
 const INCLUDED = [
@@ -1867,7 +1543,7 @@ const INCLUDED = [
 
 const NOT_INCLUDED = [
   ['Domain & Cloud Hosting', 'Purchased directly by you to ensure complete client ownership and autonomy.'],
-  ['Third-Party API Fees', 'Paid directly to respective providers (e.g., custom SMS gateways or AI model tokens).'],
+  ['Third-Party API Fees', 'Paid directly to respective providers (e.g., custom SMS gateways or external tooling).'],
 ]
 
 function Pricing() {
@@ -1882,7 +1558,7 @@ function Pricing() {
 
       <section className="service-hero">
         <p className="service-eyebrow" data-reveal>
-          PACKAGES & DELIVERABLES — 2026
+          PACKAGES & DELIVERABLES — 2027
         </p>
 
         <h1 data-reveal="1">
@@ -2061,31 +1737,200 @@ function Pricing() {
 }
 
 /* =================================
-   HELPER UTILITIES & ROOT
+   SERVICE PAGES
 ================================= */
+
+function BusinessWebsites() {
+  usePageMeta(
+    'Business Websites — PROTOTYPE',
+    'Modern, responsive business websites that establish market credibility and communicate your services clearly.'
+  )
+  return (
+    <main className="service-page">
+      <ServiceNavbar />
+      <section className="service-hero">
+        <p className="service-eyebrow" data-reveal>01 / 03 — COMMERCIAL WEB PRESENCE</p>
+        <h1 data-reveal="1">BUSINESS<br /><span>WEBSITES.</span></h1>
+        <p className="service-page-description" data-reveal="2">
+          We design and build bespoke, responsive web platforms that help growing businesses stand out, establish authority, and communicate value with crisp visual hierarchy.
+        </p>
+        <Link to="/#contact" className="service-cta" data-reveal="3">Start a project <span>↗</span></Link>
+      </section>
+      <section className="service-details">
+        <div className="details-label">CORE CAPABILITIES</div>
+        <div className="details-content">
+          <h2>DIGITAL FOUNDATIONS<br /><span>ENGINEERED TO CONVERT.</span></h2>
+          <DetailList items={[
+            ['Editorial Visual Design', 'Clean typography, dark or light luxury palettes, and clear information flow structured around your audience.'],
+            ['Responsive Precision', 'Pixel-perfect layout behavior across mobile devices, high-DPI tablets, laptops, and ultra-wide screens.'],
+            ['Lead Generation Flow', 'Strategically positioned call-to-actions, enquiry modules, and interactive quotation calculators.'],
+            ['Zero-Bloat Performance', 'Static build optimizations, modern asset compression, and clean DOM structures ensuring 95+ PageSpeed scores.'],
+          ]} />
+        </div>
+      </section>
+      <Footer />
+    </main>
+  )
+}
+
+function LandingPages() {
+  usePageMeta(
+    'Landing Pages — PROTOTYPE',
+    'High-impact landing pages engineered to present offers clearly and turn visitors into active clients.'
+  )
+  return (
+    <main className="service-page">
+      <ServiceNavbar />
+      <section className="service-hero">
+        <p className="service-eyebrow" data-reveal>02 / 03 — FOCUSED CONVERSION</p>
+        <h1 data-reveal="1">LANDING<br /><span>PAGES.</span></h1>
+        <p className="service-page-description" data-reveal="2">
+          Single-purpose, high-converting digital landing pages designed to showcase new product launches, digital services, or targeted marketing campaigns without distraction.
+        </p>
+        <Link to="/#contact" className="service-cta" data-reveal="3">Start a project <span>↗</span></Link>
+      </section>
+      <section className="service-details">
+        <div className="details-label">WHAT WE DELIVER</div>
+        <div className="details-content">
+          <h2>PAGES CRAFTED TO<br /><span>DRIVE DEFINITIVE ACTION.</span></h2>
+          <DetailList items={[
+            ['Product Launch Pages', 'Compelling hero sections, feature grids, interactive benefit toggles, and instant order or demo funnels.'],
+            ['Service & Lead Funnels', 'Distraction-free layouts that clearly articulate your value proposition and minimize friction in enquiry submissions.'],
+            ['Ad-Campaign Optimized', 'Engineered with rapid sub-second initial load speeds to ensure minimal bounce rates from social and search ads.'],
+          ]} />
+        </div>
+      </section>
+      <Footer />
+    </main>
+  )
+}
+
+function FrontendDevelopment() {
+  usePageMeta(
+    'Custom Frontend Development — PROTOTYPE',
+    'Custom React interfaces and responsive frontend applications built with clean code and modern component architecture.'
+  )
+  return (
+    <main className="service-page">
+      <ServiceNavbar />
+      <section className="service-hero">
+        <p className="service-eyebrow" data-reveal>03 / 03 — INTERFACE ENGINEERING</p>
+        <h1 data-reveal="1">FRONTEND<br /><span>DEVELOPMENT.</span></h1>
+        <p className="service-page-description" data-reveal="2">
+          Modular, responsive, and maintainable React web applications crafted with modern build tooling, clean component hierarchies, and micro-interactions.
+        </p>
+        <Link to="/#contact" className="service-cta" data-reveal="3">Start a project <span>↗</span></Link>
+      </section>
+      <section className="service-details">
+        <div className="details-label">TECHNICAL CAPABILITIES</div>
+        <div className="details-content">
+          <h2>MODERN CODEBASES.<br /><span>BUILT FOR EXTENSIBILITY.</span></h2>
+          <DetailList items={[
+            ['Modern React Architecture', 'Engineered using Vite, modular component patterns, hooks, and clean state handling.'],
+            ['Interactive Dashboards', 'Data visualization, live timetable matrices, interactive calculators, and attendance tracking consoles.'],
+            ['API Integration Ready', 'Effortless connection with RESTful APIs, cloud databases, and headless CMS platforms like Sanity or Contentful.'],
+          ]} />
+        </div>
+      </section>
+      <Footer />
+    </main>
+  )
+}
+
+function NotFound() {
+  usePageMeta('Page Not Found — PROTOTYPE', "The requested page does not exist.")
+  return (
+    <main className="service-page">
+      <ServiceNavbar />
+      <section className="service-hero">
+        <p className="service-eyebrow" data-reveal>404 — ERROR</p>
+        <h1 data-reveal="1">PAGE NOT<br /><span>FOUND.</span></h1>
+        <p className="service-page-description" data-reveal="2">The requested URL does not exist or has been relocated.</p>
+        <Link to="/" className="service-cta" data-reveal="3">Back to home <span>↗</span></Link>
+      </section>
+      <Footer />
+    </main>
+  )
+}
+
+function ProjectPage() {
+  const { slug } = useParams()
+  const project = projects.find((p) => p.slug === slug)
+
+  usePageMeta(
+    project ? `${project.titleTop} ${project.titleBottom.replace('.', '')} — Case Study | PROTOTYPE` : 'Page Not Found — PROTOTYPE',
+    project ? project.pageSummary : "The requested project case study could not be found."
+  )
+
+  if (!project) return <NotFound />
+  const showcaseImages = [project.cover, ...project.gallery]
+
+  return (
+    <main className="service-page project-page">
+      <ServiceNavbar
+        to={project.demo ? '/#templates' : '/#work'}
+        label={project.demo ? '← BACK TO TEMPLATES' : '← BACK TO SELECTED WORK'}
+      />
+      <section className="service-hero">
+        <p className="service-eyebrow" data-reveal>
+          {String(projects.indexOf(project) + 1).padStart(2, '0')} / {project.demo ? 'DEMO SHOWCASE' : 'PRODUCTION RELEASE'}
+        </p>
+        <h1 data-reveal="1">{project.titleTop}<br /><span>{project.titleBottom}</span></h1>
+        <p className="service-page-description" data-reveal="2">{project.pageSummary}</p>
+        {project.liveUrl && (
+          <a href={project.liveUrl} target="_blank" rel="noopener noreferrer" className="service-cta" data-reveal="3">
+            Launch Live Demo <span>↗</span>
+          </a>
+        )}
+      </section>
+      <section className="service-details">
+        <div className="details-label">ARCHITECTURE & HIGHLIGHTS</div>
+        <div className="details-content">
+          <h2>{project.overviewTop}<br /><span>{project.overviewBottom}</span></h2>
+          <div className="details-list">
+            {project.highlights.map((item) => (<span key={item}>{item}</span>))}
+          </div>
+        </div>
+      </section>
+      <section className="project-showcase">
+        <div className="work-heading" data-reveal>
+          <p className="section-label">INTERFACE INTERNALS</p>
+          <h2>SCREENSHOT<br /><span>BREAKDOWN.</span></h2>
+        </div>
+        <div className="project-showcase-grid">
+          {showcaseImages.map((image, i) => (
+            <ProjectImage key={image.src} src={image.src} alt={image.alt} data-reveal={i % 2} />
+          ))}
+        </div>
+      </section>
+      <section className="service-project-cta">
+        <p className="service-eyebrow" data-reveal>COMMISSION SIMILAR WORK</p>
+        <h2 data-reveal="1">LET'S BUILD<br /><span>YOUR PLATFORM.</span></h2>
+        <p data-reveal="2">{project.ctaText}</p>
+        <Link to="/#contact" className="service-cta" data-reveal="3">Get in touch <span>↗</span></Link>
+      </section>
+      <Footer />
+    </main>
+  )
+}
 
 function ScrollToTop() {
   const { pathname, hash } = useLocation()
-
   useEffect(() => {
     if (hash) {
       const target = document.getElementById(hash.slice(1))
-
       if (target) {
         requestAnimationFrame(() => target.scrollIntoView())
         return
       }
     }
-
     window.scrollTo({ top: 0, left: 0, behavior: 'instant' })
   }, [pathname, hash])
-
   return null
 }
 
 function App() {
   const { pathname } = useLocation()
-
   useScrollReveal()
   useCursorEffects()
 
@@ -2094,7 +1939,6 @@ function App() {
       <ScrollProgress />
       <ScrollToTop />
       <ChatWidget />
-
       <div className="page-fade" key={pathname}>
         <Routes>
           <Route path="/" element={<Home />} />
@@ -2103,10 +1947,6 @@ function App() {
           <Route path="/services/frontend-development" element={<FrontendDevelopment />} />
           <Route path="/projects/:slug" element={<ProjectPage />} />
           <Route path="/pricing" element={<Pricing />} />
-          
-          {/* Add your new generator route here */}
-          <Route path="/tools/prototype-generator" element={<InstantPrototypeGenerator />} />
-          
           <Route path="*" element={<NotFound />} />
         </Routes>
       </div>
