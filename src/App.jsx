@@ -747,6 +747,7 @@ function Home() {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
+    phone: '', 
     company: '',
     service: '',
     plan: '',
@@ -777,18 +778,16 @@ function Home() {
   const handleSubmit = async (e) => {
     e.preventDefault()
 
-    // 1. Honeypot spam check
+    // Honeypot spam check
     const botcheckField = e.target.elements.botcheck?.value;
     if (botcheckField) {
       setFormStatus('Enquiry transmitted successfully. We will respond within 24 hours.');
       return;
     }
 
-    sound.playTransmission()
     setIsSubmitting(true)
     setFormStatus('Transmitting enquiry...')
 
-    // 2. Build FormData directly from the form and append required keys
     const data = new FormData(e.target);
     data.append("access_key", "0720abdd-5fb9-4159-8184-7b610ce7109f");
     data.append("subject", `New Project Enquiry from ${formData.name.trim()}`);
