@@ -775,57 +775,51 @@ function Home() {
     }))
   }
 
-  const handleSubmit = async (e) => {
-    e.preventDefault()
+const handleSubmit = async (e) => {
+  e.preventDefault()
 
-    // Honeypot spam check
-    const botcheckField = e.target.elements.botcheck?.value;
-    if (botcheckField) {
-      setFormStatus('Enquiry transmitted successfully. We will respond within 24 hours.');
-      return;
-    }
-
-    setIsSubmitting(true)
-    setFormStatus('Transmitting enquiry...')
-
-    const data = new FormData(e.target);
-    data.append("access_key", "0720abdd-5fb9-4159-8184-7b610ce7109f");
-    data.append("subject", `New Project Enquiry from ${formData.name.trim()}`);
-    data.append("from_name", "PROTOTYPE Studio");
-    data.append("phone", formData.phone ? formData.phone.trim() : "Not provided");
-    data.append("company", formData.company.trim() || "Not provided");
-    data.append("service", formData.service || "Not selected");
-    data.append("plan", formData.plan || "Not selected");
-
-    try {
-      const response = await fetch("https://api.web3forms.com/submit", {
-        method: "POST",
-        body: data
-      });
-
-      const result = await response.json();
-
-      if (result.success) {
-        setFormStatus('Enquiry transmitted successfully. We will respond within 24 hours.');
-        setFormData({
-          name: '',
-          email: '',
-          company: '',
-          phone: '',
-          service: '',
-          plan: '',
-          message: '',
-        });
-        e.target.reset();
-      } else {
-        setFormStatus(result.message || 'Something went wrong. Please try again.');
-      }
-    } catch (error) {
-      setFormStatus('Unable to connect. You can reach us directly at prototype.tech.webdev@gmail.com');
-    } finally {
-      setIsSubmitting(false);
-    }
+  // Honeypot: a checkbox's .value is always "on", so test .checked
+  if (e.target.elements.botcheck?.checked) {
+    setFormStatus('Enquiry transmitted successfully. We will respond within 24 hours.')
+    return
   }
+
+  setIsSubmitting(true)
+  setFormStatus('Transmitting enquiry...')
+
+  const data = new FormData(e.target)
+  // .set (not .append) so phone/company aren't sent twice
+  data.set('access_key', '0720abdd-5fb9-4159-8184-7b610ce7109f')
+  data.set('subject', `New Project Enquiry from ${formData.name.trim()}`)
+  data.set('from_name', 'PROTOTYPE Studio')
+  data.set('name', formData.name.trim())
+  data.set('email', formData.email.trim())
+  data.set('phone', formData.phone.trim() || 'Not provided')
+  data.set('company', formData.company.trim() || 'Not provided')
+  data.set('service', formData.service || 'Not selected')
+  data.set('plan', formData.plan || 'Not selected')
+  data.set('message', formData.message.trim())
+
+  try {
+    const response = await fetch('https://api.web3forms.com/submit', {
+      method: 'POST',
+      body: data,
+    })
+    const result = await response.json()
+
+    if (result.success) {
+      setFormStatus('Enquiry transmitted successfully. We will respond within 24 hours.')
+      setFormData({ name: '', email: '', phone: '', company: '', service: '', plan: '', message: '' })
+      e.target.reset()
+    } else {
+      setFormStatus(result.message || 'Something went wrong. Please try again.')
+    }
+  } catch (error) {
+    setFormStatus('Unable to connect. You can reach us directly at prototype.tech.webdev@gmail.com')
+  } finally {
+    setIsSubmitting(false)
+  }
+}
 
   return (
     <main className="prototype-app">
@@ -1324,7 +1318,7 @@ function Home() {
           </div>
 
           <div className="enquiry-progress" aria-hidden="true">
-            <span style={{ transform: `scaleX(${requiredFilled / 4})` }} />
+            <span style={{ transform: `scaleX(${requiredFilled / 3})` }} />
           </div>
 
           <div className="enquiry-row">
