@@ -777,7 +777,7 @@ function Home() {
   const handleSubmit = async (e) => {
     e.preventDefault()
 
-    // 1. Honeypot spam check: if the hidden field is filled, silently ignore or block
+    // 1. Honeypot spam check
     const botcheckField = e.target.elements.botcheck?.value;
     if (botcheckField) {
       setFormStatus('Enquiry transmitted successfully. We will respond within 24 hours.');
@@ -788,46 +788,43 @@ function Home() {
     setIsSubmitting(true)
     setFormStatus('Transmitting enquiry...')
 
-    try {
-      const response = await fetch('https://api.web3forms.com/submit', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          Accept: 'application/json',
-        },
-        body: JSON.stringify({
-          access_key: import.meta.env.VITE_WEB3FORMS_KEY,
-          subject: `New Project Enquiry from ${formData.name.trim()}`,
-          from_name: 'PROTOTYPE Studio',
-          name: formData.name.trim(),
-          email: formData.email.trim(),
-          phone: formData.phone ? formData.phone.trim() : 'Not provided', // Added phone field
-          company: formData.company.trim() || 'Not provided',
-          service: formData.service || 'Not selected',
-          plan: formData.plan || 'Not selected',
-          message: formData.message.trim(),
-        }),
-      })
+    // 2. Build FormData directly from the form and append required keys
+    const data = new FormData(e.target);
+    data.append("access_key", "0720abdd-5fb9-4159-8184-7b610ce7109f");
+    data.append("subject", `New Project Enquiry from ${formData.name.trim()}`);
+    data.append("from_name", "PROTOTYPE Studio");
+    data.append("phone", formData.phone ? formData.phone.trim() : "Not provided");
+    data.append("company", formData.company.trim() || "Not provided");
+    data.append("service", formData.service || "Not selected");
+    data.append("plan", formData.plan || "Not selected");
 
-      const result = await response.json()
+    try {
+      const response = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        body: data
+      });
+
+      const result = await response.json();
 
       if (result.success) {
-        setFormStatus('Enquiry transmitted successfully. We will respond within 24 hours.')
+        setFormStatus('Enquiry transmitted successfully. We will respond within 24 hours.');
         setFormData({
           name: '',
           email: '',
           company: '',
+          phone: '',
           service: '',
           plan: '',
           message: '',
-        })
+        });
+        e.target.reset();
       } else {
-        setFormStatus(result.message || 'Something went wrong. Please try again.')
+        setFormStatus(result.message || 'Something went wrong. Please try again.');
       }
     } catch (error) {
-      setFormStatus('Unable to connect. You can reach us directly at prototype.tech.webdev@gmail.com')
+      setFormStatus('Unable to connect. You can reach us directly at prototype.tech.webdev@gmail.com');
     } finally {
-      setIsSubmitting(false)
+      setIsSubmitting(false);
     }
   }
 
