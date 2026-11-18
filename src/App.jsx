@@ -19,6 +19,7 @@ import ScopeCalculator from './components/ScopeCalculator'
 import PerformanceBadge from './components/PerformanceBadge'
 import { useTilt } from './hooks/useTilt'
 import InteractivePricingEstimator from './components/InteractivePricingEstimator'
+import InstantPrototypeGenerator from './components/InstantPrototypeGenerator';
 
 /* =================================
    PORTFOLIO DATA
@@ -1247,6 +1248,13 @@ function Home() {
         <ScopeCalculator onApplyConfig={handleApplyScope} />
       </section>
 
+      {/* INSTANT PROTOTYPE GENERATOR SECTION */}
+      <section className="py-16 px-4 bg-[#06080c] border-t border-[#172033]">
+        <div className="max-w-6xl mx-auto">
+          <InstantPrototypeGenerator />
+        </div>
+      </section>
+
       {/* CONTACT SECTION */}
       <section className="contact-section" id="contact">
         <div className="contact-heading" data-reveal>
@@ -2095,11 +2103,14 @@ function App() {
           <Route path="/services/frontend-development" element={<FrontendDevelopment />} />
           <Route path="/projects/:slug" element={<ProjectPage />} />
           <Route path="/pricing" element={<Pricing />} />
+          
+          {/* Add your new generator route here */}
+          <Route path="/tools/prototype-generator" element={<InstantPrototypeGenerator />} />
+          
           <Route path="*" element={<NotFound />} />
         </Routes>
       </div>
     </>
   )
 }
-
 export default App
